@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Auric Assistant — Event AI</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --ink: #2C2418; --earth: #7A6A52; --stone: #EDE9E0;
+      --cream: #FAF8F4; --bark: #B5A48A;
+      --gold: #C9A84C; --gold-l: #FBF5E6; --gold-d: #7A5C14;
+      --sage: #7B9E87; --sage-l: #EDF3EF; --sage-d: #2A5A36;
+    }
+    html, body { height: 100%; }
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--cream);
+      color: var(--ink);
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+    nav {
+      background: rgba(250,248,244,0.95);
+      backdrop-filter: blur(8px);
+      border-bottom: 0.5px solid var(--stone);
+      padding: 0 24px;
+      height: 52px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-shrink: 0;
+    }
+    .logo { font-family: 'Cormorant Garamond', serif; font-size: 20px; font-weight: 600; color: var(--ink); text-decoration: none; }
+    .logo span { color: var(--gold); }
+    .nav-links { display: flex; gap: 20px; align-items: center; }
+    .nav-links a { font-size: 13px; color: var(--earth); text-decoration: none; }
+    .nav-links a:hover { color: var(--ink); }
+    .nav-links a.active { color: var(--ink); font-weight: 500; }
+    .page-wrap {
+      flex: 1;
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      max-width: 1100px;
+      margin: 0 auto;
+      width: 100%;
+      padding: 24px;
+      gap: 20px;
+    }
+    /* SIDEBAR */
+    .sidebar { display: flex; flex-direction: column; gap: 14px; }
+    .sidebar-card {
+      background: white;
+      border: 0.5px solid var(--stone);
+      border-radius: 12px;
+      padding: 16px;
+    }
+    .sidebar-title { font-size: 11px; font-weight: 500; color: var(--earth); text-transform: uppercase; letter-spacing: .06em; margin-bottom: 12px; }
+    .quick-btn {
+      width: 100%;
+      background: var(--cream);
+      border: 0.5px solid var(--stone);
+      border-radius: 8px;
+      padding: 10px 12px;
+      font-size: 12px;
+      color: var(--ink);
+      text-align: left;
+      cursor: pointer;
+      font-family: 'DM Sans', sans-serif;
+      margin-bottom: 7px;
+      line-height: 1.4;
+      transition: all .15s;
+    }
+    .quick-btn:last-child { margin-bottom: 0; }
+    .quick-btn:hover { background: var(--stone); }
+    .quick-btn .qb-label { font-size: 10px; color: var(--gold-d); font-weight: 500; display: block; margin-bottom: 2px; }
+    .tip-card {
+      background: var(--sage-l);
+      border: 0.5px solid #B5D4BB;
+      border-radius: 10px;
+      padding: 13px 14px;
+      font-size: 12px;
+      color: var(--sage-d);
+      line-height: 1.6;
+    }
+    .tip-card strong { font-weight: 500; display: block; margin-bottom: 4px; }
+    /* CHAT */
+    .chat-wrap {
+      display: flex;
+      flex-direction: column;
+      background: white;
+      border: 0.5px solid var(--stone);
+      border-radius: 14px;
+      overflow: hidden;
+      height: calc(100vh - 52px - 48px);
+      min-height: 500px;
+    }
+    .chat-header {
+      padding: 14px 18px;
+      border-bottom: 0.5px solid var(--stone);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--cream);
+      flex-shrink: 0;
+    }
+    .assistant-avatar {
+      width: 34px; height: 34px; border-radius: 50%;
+      background: var(--gold-l); border: 1px solid #E8D080;
+      display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+    }
+    .assistant-name { font-size: 14px; font-weight: 500; }
+    .assistant-status { font-size: 11px; color: var(--sage-d); display: flex; align-items: center; gap: 4px; margin-top: 1px; }
+    .status-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--sage); }
+    .chat-messages {
+      flex: 1;
+      overflow-y: auto;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      background: var(--cream);
+    }
+    .msg { display: flex; gap: 10px; align-items: flex-start; max-width: 88%; }
+    .msg.user { flex-direction: row-reverse; align-self: flex-end; }
+    .msg-av {
+      width: 30px; height: 30px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 11px; font-weight: 500; flex-shrink: 0; margin-top: 2px;
+    }
+    .msg-bubble {
+      border-radius: 0 12px 12px 12px;
+      padding: 12px 15px;
+      font-size: 13px;
+      line-height: 1.7;
+      background: white;
+      border: 0.5px solid var(--stone);
+      color: var(--ink);
+      white-space: pre-wrap;
+    }
+    .msg.user .msg-bubble {
+      background: var(--sage-l);
+      border-color: #B5D4BB;
+      border-radius: 12px 0 12px 12px;
+      color: var(--sage-d);
+    }
+    .msg-bubble.typing { opacity: .6; font-style: italic; color: var(--earth); }
+    .suggestions {
+      display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px;
+    }
+    .suggestion-chip {
+      background: var(--gold-l);
+      border: 1px solid #E8D080;
+      border-radius: 20px;
+      padding: 4px 12px;
+      font-size: 11px;
+      color: var(--gold-d);
+      cursor: pointer;
+      font-family: 'DM Sans', sans-serif;
+      transition: all .15s;
+    }
+    .suggestion-chip:hover { background: #F0E4B0; }
+    .chat-input-area {
+      padding: 14px 16px;
+      border-top: 0.5px solid var(--stone);
+      background: white;
+      flex-shrink: 0;
+    }
+    .chat-input-row { display: flex; gap: 8px; align-items: flex-end; }
+    .chat-input {
+      flex: 1;
+      min-height: 44px;
+      max-height: 120px;
+      border: 0.5px solid var(--stone);
+      border-radius: 10px;
+      padding: 11px 14px;
+      font-size: 13px;
+      font-family: 'DM Sans', sans-serif;
+      background: var(--cream);
+      color: var(--ink);
+      outline: none;
+      resize: none;
+      line-height: 1.5;
+    }
+    .chat-input:focus { border-color: var(--gold); }
+    .chat-input::placeholder { color: var(--bark); }
+    .send-btn {
+      background: var(--ink);
+      color: white;
+      border: none;
+      border-radius: 10px;
+      width: 44px;
+      height: 44px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      flex-shrink: 0;
+      transition: opacity .15s;
+    }
+    .send-btn:hover { opacity: .88; }
+    .send-btn:disabled { opacity: .35; cursor: not-allowed; }
+    .privacy-note {
+      font-size: 11px;
+      color: var(--bark);
+      margin-top: 8px;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+    .privacy-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--sage); flex-shrink: 0; }
+    @media (max-width: 700px) {
+      .page-wrap { grid-template-columns: 1fr; padding: 12px; gap: 12px; }
+      .sidebar { display: none; }
+      .chat-wrap { height: calc(100vh - 52px - 24px); }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="logo">auric<span>.</span>os</a>
+  <div class="nav-links">
+    <a href="index.html">Home</a>
+    <a href="listings.html">Venues</a>
+    <a href="assistant.html" class="active">AI Assistant</a>
+    <a href="gems.html">Gems</a>
+  </div>
+</nav>
+
+<div class="page-wrap">
+
+  <div class="sidebar">
+    <div class="sidebar-card">
+      <div class="sidebar-title">Quick start</div>
+      <button class="quick-btn" onclick="quickSend('I want to host a Pilates pop-up for 25 people in Brooklyn next month. Budget around $300.')">
+        <span class="qb-label">Pilates pop-up</span>
+        Brooklyn · 25 people · $300
+      </button>
+      <button class="quick-btn" onclick="quickSend('I run sound healing sessions and need a space for 15 people in Manhattan. Open to free venues.')">
+        <span class="qb-label">Sound healing</span>
+        Manhattan · 15 people · free
+      </button>
+      <button class="quick-btn" onclick="quickSend('I want to find a wellness brand to sponsor my yoga event in NYC. About 40 attendees.')">
+        <span class="qb-label">Sponsor search</span>
+        Yoga event · 40 people
+      </button>
+      <button class="quick-btn" onclick="quickSend('I need a venue for a breathwork ceremony for 20 people in Tribeca. Budget is flexible but prefer under $200.')">
+        <span class="qb-label">Breathwork ceremony</span>
+        Tribeca · 20 people · under $200
+      </button>
+      <button class="quick-btn" onclick="quickSend('What are the best free spaces in NYC for a small wellness event of 10 people?')">
+        <span class="qb-label">Free spaces</span>
+        NYC · 10 people · $0 budget
+      </button>
+    </div>
+
+    <div class="tip-card">
+      <strong>Get better suggestions</strong>
+      Tell the assistant: your event type, how many people, which neighborhood, your budget, and your date. The more detail, the better the match.
+    </div>
+
+    <div class="sidebar-card">
+      <div class="sidebar-title">What I can help with</div>
+      <div style="display:flex;flex-direction:column;gap:7px;font-size:12px;color:var(--earth)">
+        <div style="display:flex;gap:7px"><div style="width:5px;height:5px;border-radius:50%;background:var(--sage);flex-shrink:0;margin-top:4px"></div>Venue matching by vibe, size, budget</div>
+        <div style="display:flex;gap:7px"><div style="width:5px;height:5px;border-radius:50%;background:var(--sage);flex-shrink:0;margin-top:4px"></div>Sponsor brand suggestions</div>
+        <div style="display:flex;gap:7px"><div style="width:5px;height:5px;border-radius:50%;background:var(--sage);flex-shrink:0;margin-top:4px"></div>Free and civic space recommendations</div>
+        <div style="display:flex;gap:7px"><div style="width:5px;height:5px;border-radius:50%;background:var(--sage);flex-shrink:0;margin-top:4px"></div>Outreach email drafts</div>
+        <div style="display:flex;gap:7px"><div style="width:5px;height:5px;border-radius:50%;background:var(--sage);flex-shrink:0;margin-top:4px"></div>Event planning best practices</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="chat-wrap">
+    <div class="chat-header">
+      <div class="assistant-avatar">
+        <svg width="18" height="18" viewBox="0 0 20 20" fill="none">
+          <circle cx="10" cy="7" r="3.5" fill="#C9A84C"/>
+          <path d="M3 19c0-3.9 3.1-7 7-7s7 3.1 7 7" stroke="#C9A84C" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+        </svg>
+      </div>
+      <div>
+        <div class="assistant-name">Auric Event Assistant</div>
+        <div class="assistant-status"><div class="status-dot"></div>Online · Private · NYC specialist</div>
+      </div>
+    </div>
+
+    <div class="chat-messages" id="messages">
+      <div class="msg">
+        <div class="msg-av" style="background:var(--gold-l);border:1px solid #E8D080">
+          <svg width="14" height="14" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="7" r="3.5" fill="#C9A84C"/><path d="M3 19c0-3.9 3.1-7 7-7s7 3.1 7 7" stroke="#C9A84C" stroke-width="1.5" stroke-linecap="round" fill="none"/></svg>
+        </div>
+        <div class="msg-bubble">
+          Hi! I'm your Auric event assistant — I help wellness creators in NYC find the right venues and sponsors for their events.
+
+Tell me about what you're planning: the type of event, how many people, which neighborhood, and your budget. The more you share, the better I can match you.
+
+Or tap one of the quick starts on the left to jump right in.
+          <div class="suggestions">
+            <span class="suggestion-chip" onclick="quickSend('I want to host a Pilates pop-up for 25 people in Brooklyn next month. Budget around $300.')">Pilates pop-up</span>
+            <span class="suggestion-chip" onclick="quickSend('I run sound healing sessions and need a space for 15 people in Manhattan. Open to free venues.')">Sound healing</span>
+            <span class="suggestion-chip" onclick="quickSend('I want to find a wellness brand to sponsor my yoga event in NYC. About 40 attendees.')">Find a sponsor</span>
+            <span class="suggestion-chip" onclick="quickSend('What are the best free spaces in NYC for a small wellness event of 10 people?')">Free spaces only</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="chat-input-area">
+      <div class="chat-input-row">
+        <textarea
+          id="user-input"
+          class="chat-input"
+          placeholder="Describe your event — type, size, neighborhood, budget..."
+          rows="1"
+          onkeydown="handleKey(event)"
+          oninput="autoResize(this)"
+        ></textarea>
+        <button class="send-btn" id="send-btn" onclick="sendMessage()">
+          <svg width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 10l14-7-7 14V10H3z"/>
+          </svg>
+        </button>
+      </div>
+      <div class="privacy-note">
+        <div class="privacy-dot"></div>
+        Your conversations are private. Patterns are anonymized to improve suggestions for the community.
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+const SYSTEM = `You are the Auric Event Assistant, a warm, knowledgeable, and specific private AI advisor for wellness event creators in New York City.
+
+Your job: help creators find the right venues and sponsors for their events.
+
+When someone describes their event:
+1. Ask 1 clarifying question if budget OR capacity is missing — never ask more than one question at a time
+2. Suggest 3-5 specific venue types ranked by fit with a brief explanation of why each works
+3. Suggest 1-2 sponsor brand categories that align with the event
+4. End with one clear, specific, actionable next step they can take today
+
+Venue types you know well:
+- Yoga and pilates studios (sprung floors, mirrors, community events, $50-200/hr)
+- NYPL library branch rooms (free to $50, needs application 2 weeks ahead, nypl.org/spacerental)
+- Church halls (incredible acoustics for sound healing, $50-150/hr, very underrated)
+- Central Park permit zones (free with Parks permit, great for outdoor yoga and meditation)
+- Brooklyn community gardens (free to $30, intimate, beautiful for small groups)
+- Art galleries (after-hours hire, white walls, great light, $100-400/hr)
+- Boutique hotel event spaces (rooftops, ballrooms, wellness facilities)
+- Aerial and dance studios (empty mornings, sprung floors, mirrors, affordable)
+- Sauna and float centers (lounge spaces, recovery events, intimate groups)
+- Botanical gardens and green spaces (permits required, stunning setting)
+- Community centers and rec centers (city-permitted, ADA, affordable)
+- Historic buildings and civic spaces (courthouses, libraries, unique aesthetic)
+- Rooftop gardens (seasonal, city views, permits needed)
+- Yacht and boat decks (coastal events, sunrise sessions, premium)
+
+Sponsor brand categories for wellness events:
+- Hydration brands (Liquid IV, LMNT, Nuun — actively sponsor events)
+- Activewear (Vuori, Alo, Lululemon — community events)
+- Supplements and adaptogens (Athletic Greens, Moon Juice)
+- Wellness apps and platforms
+- Healthy food and snack brands
+- Beauty and self-care (Beautycounter, clean beauty brands)
+
+Budget guidance:
+- Under $100: parks permits, community gardens, NYPL branches, church halls
+- $100-300: dance studios, community centers, small galleries, some church halls
+- $300-600: yoga studios, boutique galleries, some hotel spaces
+- $600+: boutique hotels, rooftops, historic venues, full buyouts
+
+Rules:
+- Always be specific — name real venue TYPES with real price ranges, not vague suggestions
+- If budget is very low (under $200), lead with free and civic spaces — libraries, parks, community centers, church halls
+- Never be generic or preachy
+- Treat creators as professionals who know their audience
+- End every response with ONE concrete next step
+- Keep responses focused and scannable — use short paragraphs, not walls of text
+- If they ask for an outreach email, write a complete personalized one`;
+
+const history = [];
+let isTyping = false;
+
+function autoResize(el) {
+  el.style.height = 'auto';
+  el.style.height = Math.min(el.scrollHeight, 120) + 'px';
+}
+
+function handleKey(e) {
+  if (e.key === 'Enter' && !e.shiftKey) {
+    e.preventDefault();
+    sendMessage();
+  }
+}
+
+function quickSend(text) {
+  document.getElementById('user-input').value = text;
+  sendMessage();
+}
+
+function addMessage(role, text, extraClass) {
+  const messages = document.getElementById('messages');
+  const wrap = document.createElement('div');
+  wrap.className = 'msg' + (role === 'user' ? ' user' : '');
+
+  if (role === 'assistant') {
+    wrap.innerHTML = `
+      <div class="msg-av" style="background:var(--gold-l);border:1px solid #E8D080">
+        <svg width="14" height="14" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="7" r="3.5" fill="#C9A84C"/><path d="M3 19c0-3.9 3.1-7 7-7s7 3.1 7 7" stroke="#C9A84C" stroke-width="1.5" stroke-linecap="round" fill="none"/></svg>
+      </div>
+      <div class="msg-bubble${extraClass ? ' ' + extraClass : ''}">${text.replace(/\n/g, '<br>')}</div>`;
+  } else {
+    wrap.innerHTML = `
+      <div class="msg-av" style="background:var(--sage-l);border:1px solid #B5D4BB;color:var(--sage-d);font-size:10px;font-weight:500">You</div>
+      <div class="msg-bubble" style="background:var(--sage-l);border-color:#B5D4BB;border-radius:12px 0 12px 12px;color:var(--sage-d)">${text.replace(/\n/g, '<br>')}</div>`;
+  }
+
+  messages.appendChild(wrap);
+  messages.scrollTop = messages.scrollHeight;
+  return wrap;
+}
+
+async function sendMessage() {
+  if (isTyping) return;
+  const input = document.getElementById('user-input');
+  const text = input.value.trim();
+  if (!text) return;
+
+  input.value = '';
+  input.style.height = 'auto';
+  document.getElementById('send-btn').disabled = true;
+  isTyping = true;
+
+  addMessage('user', text);
+  history.push({ role: 'user', content: text });
+
+  const typingEl = addMessage('assistant', 'Thinking...', 'typing');
+
+  try {
+    const response = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-20250514',
+        max_tokens: 1000,
+        system: SYSTEM,
+        messages: history
+      })
+    });
+
+    const data = await response.json();
+    const reply = data?.content?.[0]?.text || "I'm having trouble connecting right now. Please try again in a moment.";
+
+    typingEl.remove();
+    addMessage('assistant', reply);
+    history.push({ role: 'assistant', content: reply });
+
+  } catch (err) {
+    typingEl.remove();
+    addMessage('assistant', "I couldn't connect right now. If you're testing locally, you'll need to set up a Cloudflare Worker to proxy the API key securely. Reach out to hello@auricmovement.com and we'll help you get set up.");
+  }
+
+  isTyping = false;
+  document.getElementById('send-btn').disabled = false;
+  input.focus();
+}
+</script>
+
+</body>
+</html>

@@ -1,3 +1,716 @@
 <!DOCTYPE html>
-<html><head><title>Auric OS</title></head>
-<body><h1>Coming soon</h1></body></html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Auric OS — Wellness Event Platform</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --ink: #2C2418;
+      --earth: #7A6A52;
+      --stone: #EDE9E0;
+      --cream: #FAF8F4;
+      --bark: #B5A48A;
+      --gold: #C9A84C;
+      --gold-l: #FBF5E6;
+      --gold-d: #7A5C14;
+      --sage: #7B9E87;
+      --sage-l: #EDF3EF;
+      --sage-d: #2A5A36;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--cream);
+      color: var(--ink);
+      line-height: 1.6;
+    }
+
+    /* NAV */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(250,248,244,0.92);
+      backdrop-filter: blur(8px);
+      border-bottom: 0.5px solid var(--stone);
+      padding: 0 32px;
+      height: 56px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 22px;
+      font-weight: 600;
+      color: var(--ink);
+      text-decoration: none;
+    }
+    .logo span { color: var(--gold); }
+    .nav-badge {
+      background: var(--gold-l);
+      border: 1px solid #E8D080;
+      border-radius: 20px;
+      padding: 4px 14px;
+      font-size: 12px;
+      color: var(--gold-d);
+      font-weight: 500;
+    }
+    .nav-cta {
+      background: var(--ink);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      padding: 8px 20px;
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      font-family: 'DM Sans', sans-serif;
+      text-decoration: none;
+    }
+
+    /* HERO */
+    .hero {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 96px 24px 80px;
+      text-align: center;
+    }
+    .hero-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--sage-l);
+      border: 1px solid #B5D4BB;
+      border-radius: 20px;
+      padding: 5px 16px;
+      font-size: 12px;
+      color: var(--sage-d);
+      font-weight: 500;
+      margin-bottom: 28px;
+    }
+    .hero-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--sage);
+    }
+    h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(48px, 8vw, 76px);
+      font-weight: 500;
+      line-height: 1.05;
+      color: var(--ink);
+      margin-bottom: 10px;
+    }
+    h1 em { font-style: italic; color: var(--gold); }
+    .hero-sub {
+      font-size: 17px;
+      color: var(--earth);
+      line-height: 1.75;
+      max-width: 520px;
+      margin: 0 auto 40px;
+    }
+    .hero-actions {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: 48px;
+    }
+    .btn-primary {
+      background: var(--ink);
+      color: white;
+      border: none;
+      border-radius: 10px;
+      padding: 14px 32px;
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      font-family: 'DM Sans', sans-serif;
+      text-decoration: none;
+      transition: opacity .15s;
+    }
+    .btn-primary:hover { opacity: .88; }
+    .btn-secondary {
+      background: transparent;
+      color: var(--earth);
+      border: 1px solid var(--stone);
+      border-radius: 10px;
+      padding: 14px 32px;
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      font-family: 'DM Sans', sans-serif;
+      text-decoration: none;
+      transition: background .15s;
+    }
+    .btn-secondary:hover { background: var(--stone); }
+    .hero-note {
+      font-size: 12px;
+      color: var(--bark);
+    }
+
+    /* STATS */
+    .stats {
+      border-top: 0.5px solid var(--stone);
+      border-bottom: 0.5px solid var(--stone);
+      background: white;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      max-width: 680px;
+      margin: 0 auto 96px;
+    }
+    .stat-item {
+      padding: 28px 24px;
+      text-align: center;
+      border-right: 0.5px solid var(--stone);
+    }
+    .stat-item:last-child { border-right: none; }
+    .stat-n {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 36px;
+      font-weight: 500;
+      color: var(--ink);
+      margin-bottom: 4px;
+    }
+    .stat-n span { color: var(--gold); }
+    .stat-label {
+      font-size: 12px;
+      color: var(--earth);
+    }
+
+    /* SECTION */
+    section {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 24px 96px;
+    }
+    .section-label {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--gold-d);
+      margin-bottom: 12px;
+    }
+    h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(32px, 5vw, 48px);
+      font-weight: 500;
+      line-height: 1.1;
+      margin-bottom: 16px;
+    }
+    .section-sub {
+      font-size: 15px;
+      color: var(--earth);
+      line-height: 1.7;
+      max-width: 540px;
+      margin-bottom: 48px;
+    }
+
+    /* HOW IT WORKS */
+    .steps-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 16px;
+    }
+    .step-card {
+      background: white;
+      border: 0.5px solid var(--stone);
+      border-radius: 12px;
+      padding: 24px;
+    }
+    .step-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 40px;
+      font-weight: 500;
+      color: var(--gold);
+      margin-bottom: 14px;
+      line-height: 1;
+    }
+    .step-title {
+      font-size: 15px;
+      font-weight: 500;
+      margin-bottom: 8px;
+    }
+    .step-body {
+      font-size: 13px;
+      color: var(--earth);
+      line-height: 1.65;
+    }
+
+    /* FEATURES */
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 16px;
+    }
+    .feature-card {
+      background: white;
+      border: 0.5px solid var(--stone);
+      border-radius: 12px;
+      padding: 24px;
+    }
+    .feature-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .feature-title {
+      font-size: 14px;
+      font-weight: 500;
+      margin-bottom: 6px;
+    }
+    .feature-body {
+      font-size: 12px;
+      color: var(--earth);
+      line-height: 1.65;
+    }
+
+    /* SPACES */
+    .spaces-scroll {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+    .space-chip {
+      background: white;
+      border: 0.5px solid var(--stone);
+      border-radius: 10px;
+      padding: 14px 16px;
+      font-size: 13px;
+      color: var(--ink);
+      font-weight: 400;
+    }
+    .space-chip .space-tag {
+      display: inline-block;
+      background: var(--sage-l);
+      color: var(--sage-d);
+      border-radius: 20px;
+      padding: 2px 8px;
+      font-size: 10px;
+      font-weight: 500;
+      margin-bottom: 4px;
+    }
+    .space-chip.gem {
+      background: var(--gold-l);
+      border-color: #E8D080;
+    }
+    .space-chip.gem .space-tag {
+      background: #E8D080;
+      color: var(--gold-d);
+    }
+
+    /* AI ASSISTANT PREVIEW */
+    .assistant-preview {
+      background: white;
+      border: 0.5px solid var(--stone);
+      border-radius: 14px;
+      overflow: hidden;
+    }
+    .assistant-header {
+      padding: 14px 18px;
+      border-bottom: 0.5px solid var(--stone);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--cream);
+    }
+    .assistant-avatar {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: var(--gold-l);
+      border: 1px solid #E8D080;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .assistant-name { font-size: 13px; font-weight: 500; }
+    .assistant-status {
+      font-size: 11px;
+      color: var(--sage-d);
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .status-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--sage);
+    }
+    .chat-area {
+      padding: 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      background: var(--cream);
+      min-height: 180px;
+    }
+    .msg {
+      display: flex;
+      gap: 8px;
+      align-items: flex-start;
+      max-width: 85%;
+    }
+    .msg.user {
+      flex-direction: row-reverse;
+      align-self: flex-end;
+    }
+    .msg-avatar {
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 10px;
+      font-weight: 500;
+      margin-top: 2px;
+    }
+    .msg-bubble {
+      border-radius: 0 10px 10px 10px;
+      padding: 10px 13px;
+      font-size: 13px;
+      line-height: 1.6;
+      background: white;
+      border: 0.5px solid var(--stone);
+    }
+    .msg.user .msg-bubble {
+      background: var(--sage-l);
+      border-color: #B5D4BB;
+      border-radius: 10px 0 10px 10px;
+      color: var(--sage-d);
+    }
+
+    /* CTA SECTION */
+    .cta-section {
+      background: var(--ink);
+      border-radius: 20px;
+      padding: 64px 48px;
+      text-align: center;
+      margin: 0 24px 96px;
+      max-width: 852px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .cta-section h2 {
+      color: white;
+      margin-bottom: 14px;
+    }
+    .cta-section p {
+      color: var(--bark);
+      font-size: 15px;
+      line-height: 1.7;
+      max-width: 440px;
+      margin: 0 auto 36px;
+    }
+    .cta-input-row {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+      flex-wrap: wrap;
+      max-width: 440px;
+      margin: 0 auto;
+    }
+    .cta-input {
+      flex: 1;
+      min-width: 200px;
+      height: 44px;
+      border: 0.5px solid #4A3C2C;
+      border-radius: 8px;
+      background: rgba(255,255,255,.07);
+      color: white;
+      padding: 0 14px;
+      font-size: 13px;
+      font-family: 'DM Sans', sans-serif;
+      outline: none;
+    }
+    .cta-input::placeholder { color: var(--bark); }
+    .cta-input:focus { border-color: var(--gold); }
+    .btn-gold {
+      background: var(--gold);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      height: 44px;
+      padding: 0 24px;
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      font-family: 'DM Sans', sans-serif;
+      transition: opacity .15s;
+      white-space: nowrap;
+    }
+    .btn-gold:hover { opacity: .9; }
+    .cta-note {
+      font-size: 11px;
+      color: #6A5A48;
+      margin-top: 14px;
+    }
+
+    /* FOOTER */
+    footer {
+      border-top: 0.5px solid var(--stone);
+      padding: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    .footer-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 18px;
+      font-weight: 500;
+      color: var(--ink);
+      text-decoration: none;
+    }
+    .footer-logo span { color: var(--gold); }
+    .footer-note {
+      font-size: 12px;
+      color: var(--bark);
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 600px) {
+      nav { padding: 0 16px; }
+      .hero { padding: 64px 16px 56px; }
+      .stats { grid-template-columns: 1fr; }
+      .stat-item { border-right: none; border-bottom: 0.5px solid var(--stone); }
+      .stat-item:last-child { border-bottom: none; }
+      .cta-section { padding: 48px 24px; margin: 0 16px 64px; }
+      footer { padding: 24px 16px; flex-direction: column; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="#" class="logo">auric<span>.</span>os</a>
+    <span class="nav-badge">Beta · NYC</span>
+    <a href="#join" class="nav-cta">Get early access</a>
+  </nav>
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-eyebrow">
+      <div class="hero-dot"></div>
+      Now in beta · New York City
+    </div>
+    <h1>The wellness event<br>platform built for <em>creators</em></h1>
+    <p class="hero-sub">Find hidden venues, connect with aligned sponsors, and let AI handle the outreach — so you can focus on the experience.</p>
+    <div class="hero-actions">
+      <a href="#join" class="btn-primary">Request early access</a>
+      <a href="#how" class="btn-secondary">See how it works</a>
+    </div>
+    <p class="hero-note">Free to join · No payment required · NYC creators only for now</p>
+  </div>
+
+  <!-- STATS -->
+  <div class="stats">
+    <div class="stat-item">
+      <div class="stat-n">50<span>+</span></div>
+      <div class="stat-label">Venues in NYC</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-n">0<span>%</span></div>
+      <div class="stat-label">Commission at launch</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-n">AI</div>
+      <div class="stat-label">Powered outreach engine</div>
+    </div>
+  </div>
+
+  <!-- HOW IT WORKS -->
+  <section id="how">
+    <div class="section-label">How it works</div>
+    <h2>From idea to booked in minutes</h2>
+    <p class="section-sub">Tell the AI about your event. Get matched spaces and sponsors. Send personalized outreach in one click.</p>
+    <div class="steps-grid">
+      <div class="step-card">
+        <div class="step-num">01</div>
+        <div class="step-title">Describe your event</div>
+        <div class="step-body">Tell the AI your event type, how many people, your neighborhood, and budget. It asks the right questions.</div>
+      </div>
+      <div class="step-card">
+        <div class="step-num">02</div>
+        <div class="step-title">Get matched spaces</div>
+        <div class="step-body">AI surfaces venues ranked by fit — studios, libraries, church halls, rooftops, civic spaces most creators never find.</div>
+      </div>
+      <div class="step-card">
+        <div class="step-num">03</div>
+        <div class="step-title">Send perfect outreach</div>
+        <div class="step-body">AI drafts a personalized email for each venue and sponsor. You review, approve, and send — or edit the tone.</div>
+      </div>
+      <div class="step-card">
+        <div class="step-num">04</div>
+        <div class="step-title">Track everything</div>
+        <div class="step-body">See who replied, who needs a follow-up, and what's converting. Your entire outreach pipeline in one view.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURES -->
+  <section>
+    <div class="section-label">What makes it different</div>
+    <h2>Not a marketplace. An intelligence layer.</h2>
+    <p class="section-sub">Peerspace shows you what's listed. Auric surfaces what's possible — including spaces that don't advertise anywhere.</p>
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-icon" style="background:var(--sage-l)">
+          <svg width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="#7B9E87" stroke-width="1.5" stroke-linecap="round"><circle cx="10" cy="10" r="8"/><path d="M10 6v4l3 2"/></svg>
+        </div>
+        <div class="feature-title">AI fit scoring</div>
+        <div class="feature-body">Every venue is scored against your specific event — audience alignment, vibe, accessibility, price range. Not a generic list.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon" style="background:var(--gold-l)">
+          <svg width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="#C9A84C" stroke-width="1.5" stroke-linecap="round"><path d="M10 2l2.4 5 5.6.8-4 3.9.9 5.5L10 14.5l-4.9 2.7.9-5.5-4-3.9 5.6-.8z"/></svg>
+        </div>
+        <div class="feature-title">Community hidden gems</div>
+        <div class="feature-body">Creators share unlisted spaces — rooftops, church halls, library rooms, civic buildings — that no platform has catalogued.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon" style="background:var(--sky-l)">
+          <svg width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="#6B9AB8" stroke-width="1.5" stroke-linecap="round"><rect x="2" y="3" width="16" height="12" rx="2"/><path d="M2 7l8 5 8-5"/></svg>
+        </div>
+        <div class="feature-title">Personalized outreach AI</div>
+        <div class="feature-body">Writes venue booking requests and sponsor pitches in your voice. Four tones: community, luxury, high-energy, minimal.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon" style="background:var(--plum-l, #F2EEF8)">
+          <svg width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="#8A6FAA" stroke-width="1.5" stroke-linecap="round"><path d="M10 2C5.6 2 2 5.6 2 10s3.6 8 8 8 8-3.6 8-8-3.6-8-8-8zM10 7v3l2 2"/></svg>
+        </div>
+        <div class="feature-title">Live listing monitoring</div>
+        <div class="feature-body">AI checks every listing in real time — if a business closes or stops responding, creators are notified before they waste outreach.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon" style="background:var(--rose-l)">
+          <svg width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="#C47D7D" stroke-width="1.5" stroke-linecap="round"><path d="M17 10a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3M10 13h.01"/></svg>
+        </div>
+        <div class="feature-title">Responsiveness scores</div>
+        <div class="feature-body">Know before you email — how fast a venue typically replies, what percentage of inquiries they respond to, last active date.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon" style="background:var(--sage-l)">
+          <svg width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="#7B9E87" stroke-width="1.5" stroke-linecap="round"><path d="M3 6l7 5 7-5M3 6v10h14V6"/></svg>
+        </div>
+        <div class="feature-title">Free civic spaces</div>
+        <div class="feature-body">Libraries, parks, community centers, historic buildings — free or near-free spaces most creators don't know are bookable. No commission ever.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SPACES PREVIEW -->
+  <section>
+    <div class="section-label">Space types</div>
+    <h2>Every kind of space. One platform.</h2>
+    <p class="section-sub">From yoga studios and boutique hotels to rooftop gardens and NYPL branches — including hidden gems no other platform lists.</p>
+    <div class="spaces-scroll">
+      <div class="space-chip"><div class="space-tag">Studio</div><br>Yoga + pilates</div>
+      <div class="space-chip"><div class="space-tag">Hotel</div><br>Boutique event spaces</div>
+      <div class="space-chip gem"><div class="space-tag">Free gem</div><br>NYPL branches</div>
+      <div class="space-chip"><div class="space-tag">Outdoor</div><br>Rooftop gardens</div>
+      <div class="space-chip gem"><div class="space-tag">Free gem</div><br>Church halls</div>
+      <div class="space-chip"><div class="space-tag">Nature</div><br>Farms + vineyards</div>
+      <div class="space-chip gem"><div class="space-tag">Free gem</div><br>Park permit zones</div>
+      <div class="space-chip"><div class="space-tag">Wellness</div><br>Sauna + float studios</div>
+      <div class="space-chip"><div class="space-tag">Cultural</div><br>Art galleries</div>
+      <div class="space-chip gem"><div class="space-tag">Civic</div><br>Community centers</div>
+      <div class="space-chip"><div class="space-tag">Maritime</div><br>Boat decks</div>
+      <div class="space-chip"><div class="space-tag">Retreat</div><br>Hotel packages</div>
+    </div>
+    <p style="font-size:12px;color:var(--bark)">Free gem spaces have zero commission — ever. Auric lists them because creators deserve to know they exist.</p>
+  </section>
+
+  <!-- AI ASSISTANT PREVIEW -->
+  <section>
+    <div class="section-label">AI event assistant</div>
+    <h2>Your private wellness event brain</h2>
+    <p class="section-sub">A 1-on-1 AI that knows NYC's wellness scene. Describe your event — it suggests the right spaces and sponsors, instantly.</p>
+    <div class="assistant-preview">
+      <div class="assistant-header">
+        <div class="assistant-avatar">
+          <svg width="16" height="16" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="7" r="3" fill="#C9A84C"/><path d="M3 18c0-3.9 3.1-7 7-7s7 3.1 7 7" stroke="#C9A84C" stroke-width="1.5" stroke-linecap="round" fill="none"/></svg>
+        </div>
+        <div>
+          <div class="assistant-name">Auric Assistant</div>
+          <div class="assistant-status"><div class="status-dot"></div>Online · learns from 200+ NYC creator patterns</div>
+        </div>
+      </div>
+      <div class="chat-area">
+        <div class="msg">
+          <div class="msg-avatar" style="background:var(--gold-l);border:1px solid #E8D080">
+            <svg width="12" height="12" viewBox="0 0 20 20" fill="#C9A84C"><circle cx="10" cy="7" r="3"/><path d="M3 18c0-3.9 3.1-7 7-7s7 3.1 7 7" stroke="#C9A84C" stroke-width="1.5" fill="none"/></svg>
+          </div>
+          <div class="msg-bubble">Hi! Tell me about your next event — type, how many people, neighborhood, and budget — and I'll suggest matched venues and sponsors from across NYC.</div>
+        </div>
+        <div class="msg user">
+          <div class="msg-avatar" style="background:var(--sage-l);border:1px solid #B5D4BB;color:var(--sage-d);font-size:10px">You</div>
+          <div class="msg-bubble">Pilates pop-up for 25 people in Brooklyn, budget around $300</div>
+        </div>
+        <div class="msg">
+          <div class="msg-avatar" style="background:var(--gold-l);border:1px solid #E8D080">
+            <svg width="12" height="12" viewBox="0 0 20 20" fill="#C9A84C"><circle cx="10" cy="7" r="3"/><path d="M3 18c0-3.9 3.1-7 7-7s7 3.1 7 7" stroke="#C9A84C" stroke-width="1.5" fill="none"/></svg>
+          </div>
+          <div class="msg-bubble">Great fit for Brooklyn. For $300 I'd start with: <strong>Greenhouse Studio BK</strong> (sprung floors, perfect for Pilates, ~$100/hr), a <strong>Brooklyn Public Library branch room</strong> (free, great natural light), or an <strong>aerial dance studio</strong> in Williamsburg (empty mornings, affordable). Want me to draft outreach emails for all three?</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- JOIN CTA -->
+  <div class="cta-section" id="join">
+    <h2 style="color:white">Join the NYC beta</h2>
+    <p>Free for early creators. Be the first to access hidden gems, AI outreach, and the community that's changing how wellness events get made.</p>
+    <div class="cta-input-row">
+      <input class="cta-input" type="email" placeholder="your@email.com" id="email-input">
+      <button class="btn-gold" onclick="handleSignup()">Get early access</button>
+    </div>
+    <p class="cta-note" id="signup-note">No credit card · No commitment · NYC creators first</p>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <a href="#" class="footer-logo">auric<span>.</span>os</a>
+    <span class="footer-note">Built by a wellness creator, for wellness creators · NYC 2025</span>
+    <span class="footer-note">hello@auricmovement.com</span>
+  </footer>
+
+  <script>
+    function handleSignup() {
+      const email = document.getElementById('email-input').value.trim();
+      if (!email || !email.includes('@')) {
+        document.getElementById('signup-note').textContent = 'Please enter a valid email address.';
+        document.getElementById('signup-note').style.color = '#C47D7D';
+        return;
+      }
+      window.location.href = 'mailto:hello@auricmovement.com?subject=Early access request&body=Hi! I want early access to Auric OS. My email: ' + email;
+      document.getElementById('signup-note').textContent = 'Opening your email app — send it and you\'re on the list!';
+      document.getElementById('signup-note').style.color = '#7B9E87';
+    }
+    document.getElementById('email-input').addEventListener('keydown', function(e) {
+      if (e.key === 'Enter') handleSignup();
+    });
+  </script>
+
+</body>
+</html>

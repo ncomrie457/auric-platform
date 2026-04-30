@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Hidden Gems — Auric OS</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --ink: #2C2418; --earth: #7A6A52; --stone: #EDE9E0;
+      --cream: #FAF8F4; --bark: #B5A48A;
+      --gold: #C9A84C; --gold-l: #FBF5E6; --gold-d: #7A5C14;
+      --sage: #7B9E87; --sage-l: #EDF3EF; --sage-d: #2A5A36;
+      --sky: #6B9AB8; --sky-l: #EAF2F8; --sky-d: #2A5A78;
+      --plum: #8A6FAA; --plum-l: #F2EEF8; --plum-d: #4A2A7A;
+    }
+    body { font-family: 'DM Sans', sans-serif; background: var(--cream); color: var(--ink); }
+    nav {
+      background: rgba(250,248,244,0.95); backdrop-filter: blur(8px);
+      border-bottom: 0.5px solid var(--stone); padding: 0 24px;
+      height: 52px; display: flex; align-items: center; justify-content: space-between;
+      position: sticky; top: 0; z-index: 100;
+    }
+    .logo { font-family: 'Cormorant Garamond', serif; font-size: 20px; font-weight: 600; color: var(--ink); text-decoration: none; }
+    .logo span { color: var(--gold); }
+    .nav-links { display: flex; gap: 20px; align-items: center; }
+    .nav-links a { font-size: 13px; color: var(--earth); text-decoration: none; }
+    .nav-links a:hover { color: var(--ink); }
+    .nav-links a.active { color: var(--ink); font-weight: 500; }
+    .hero {
+      max-width: 900px; margin: 0 auto; padding: 44px 24px 32px;
+      display: grid; grid-template-columns: 1fr auto; gap: 24px; align-items: start;
+    }
+    .hero h1 { font-family: 'Cormorant Garamond', serif; font-size: 40px; font-weight: 500; margin-bottom: 8px; }
+    .hero p { font-size: 14px; color: var(--earth); line-height: 1.65; max-width: 500px; }
+    .submit-btn {
+      background: var(--ink); color: white; border: none; border-radius: 10px;
+      padding: 12px 22px; font-size: 13px; font-weight: 500; cursor: pointer;
+      font-family: 'DM Sans', sans-serif; white-space: nowrap; transition: opacity .15s;
+    }
+    .submit-btn:hover { opacity: .88; }
+    .content { max-width: 900px; margin: 0 auto; padding: 0 24px 64px; display: grid; grid-template-columns: 1fr 340px; gap: 20px; align-items: start; }
+    .gems-list { display: flex; flex-direction: column; gap: 12px; }
+    .gem-card {
+      background: white; border: 0.5px solid var(--stone); border-radius: 12px; padding: 18px;
+    }
+    .gem-header { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 10px; }
+    .gem-avatar {
+      width: 36px; height: 36px; border-radius: 50%; flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 12px; font-weight: 500;
+    }
+    .gem-meta { flex: 1; }
+    .gem-author { font-size: 13px; font-weight: 500; }
+    .gem-info { font-size: 11px; color: var(--earth); margin-top: 2px; display: flex; gap: 8px; flex-wrap: wrap; }
+    .saves {
+      display: flex; align-items: center; gap: 4px; font-size: 12px;
+      color: var(--earth); cursor: pointer; transition: color .15s;
+    }
+    .saves:hover { color: var(--gold-d); }
+    .gem-title { font-family: 'Cormorant Garamond', serif; font-size: 17px; font-weight: 600; margin-bottom: 6px; color: var(--ink); }
+    .gem-body { font-size: 13px; color: var(--ink); line-height: 1.7; margin-bottom: 10px; }
+    .gem-tags { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 10px; }
+    .tag { font-size: 10px; font-weight: 500; padding: 3px 9px; border-radius: 20px; }
+    .tag-free { background: #E8F5E8; color: #1A5A1A; border: 1px solid #B5D4B5; }
+    .tag-green { background: var(--sage-l); color: var(--sage-d); }
+    .tag-gold { background: var(--gold-l); color: var(--gold-d); }
+    .tag-sky { background: var(--sky-l); color: var(--sky-d); }
+    .tag-stone { background: var(--stone); color: var(--earth); }
+    .tag-plum { background: var(--plum-l); color: var(--plum-d); }
+    .how-to {
+      background: var(--cream); border-radius: 8px; padding: 11px 13px;
+      font-size: 12px; color: var(--earth); line-height: 1.6;
+    }
+    .how-to strong { color: var(--ink); font-weight: 500; display: block; margin-bottom: 3px; }
+    .gem-actions { display: flex; gap: 7px; margin-top: 10px; }
+    .btn-sm {
+      padding: 7px 14px; border-radius: 7px; font-size: 12px; font-weight: 500;
+      cursor: pointer; font-family: 'DM Sans', sans-serif; transition: all .15s;
+    }
+    .btn-dark { background: var(--ink); color: white; border: none; }
+    .btn-dark:hover { opacity: .88; }
+    .btn-light { background: transparent; color: var(--earth); border: 0.5px solid var(--stone); }
+    .btn-light:hover { background: var(--stone); }
+    /* SIDEBAR */
+    .sidebar { display: flex; flex-direction: column; gap: 14px; position: sticky; top: 72px; }
+    .sidebar-card { background: white; border: 0.5px solid var(--stone); border-radius: 12px; overflow: hidden; }
+    .sidebar-hd { padding: 13px 16px; border-bottom: 0.5px solid var(--stone); font-size: 13px; font-weight: 500; background: var(--cream); }
+    .sidebar-bd { padding: 16px; }
+    .form-field { margin-bottom: 12px; }
+    .form-label { font-size: 11px; font-weight: 500; color: var(--earth); text-transform: uppercase; letter-spacing: .04em; display: block; margin-bottom: 5px; }
+    .form-input, .form-select, .form-textarea {
+      width: 100%; background: var(--cream); border: 0.5px solid var(--stone);
+      border-radius: 7px; padding: 8px 11px; font-size: 13px; color: var(--ink);
+      font-family: 'DM Sans', sans-serif; outline: none;
+    }
+    .form-input:focus, .form-select:focus, .form-textarea:focus { border-color: var(--gold); }
+    .form-textarea { resize: vertical; min-height: 80px; line-height: 1.5; }
+    .form-submit {
+      width: 100%; background: var(--gold); color: white; border: none;
+      border-radius: 8px; padding: 10px; font-size: 13px; font-weight: 500;
+      cursor: pointer; font-family: 'DM Sans', sans-serif; transition: opacity .15s;
+    }
+    .form-submit:hover { opacity: .9; }
+    .stats-row { display: grid; grid-template-columns: repeat(3,1fr); text-align: center; }
+    .stat-item { padding: 14px 8px; border-right: 0.5px solid var(--stone); }
+    .stat-item:last-child { border-right: none; }
+    .stat-n { font-family: 'Cormorant Garamond', serif; font-size: 24px; font-weight: 500; color: var(--ink); }
+    .stat-n span { color: var(--gold); }
+    .stat-l { font-size: 10px; color: var(--earth); margin-top: 2px; }
+    .success-msg { background: var(--sage-l); border: 1px solid #B5D4BB; border-radius: 8px; padding: 12px 14px; font-size: 13px; color: var(--sage-d); display: none; margin-top: 10px; }
+    @media (max-width: 700px) {
+      .content { grid-template-columns: 1fr; }
+      .hero { grid-template-columns: 1fr; }
+      .sidebar { position: static; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="logo">auric<span>.</span>os</a>
+  <div class="nav-links">
+    <a href="index.html">Home</a>
+    <a href="listings.html">Venues</a>
+    <a href="assistant.html">AI Assistant</a>
+    <a href="gems.html" class="active">Gems</a>
+  </div>
+</nav>
+
+<div class="hero">
+  <div>
+    <h1>Hidden Gems</h1>
+    <p>Spaces shared by our creator community — free, unusual, and unknown spaces that no platform lists. Every gem is a real discovery from a real creator.</p>
+  </div>
+  <button class="submit-btn" onclick="document.getElementById('gem-name').focus();document.getElementById('submit-form').scrollIntoView({behavior:'smooth'})">Share a gem</button>
+</div>
+
+<div class="content">
+  <div class="gems-list" id="gems-list"></div>
+
+  <div class="sidebar">
+    <div class="sidebar-card">
+      <div class="stats-row">
+        <div class="stat-item"><div class="stat-n">12<span>+</span></div><div class="stat-l">Gems listed</div></div>
+        <div class="stat-item"><div class="stat-n">6</div><div class="stat-l">Free spaces</div></div>
+        <div class="stat-item"><div class="stat-n">NYC</div><div class="stat-l">Focus city</div></div>
+      </div>
+    </div>
+
+    <div class="sidebar-card" id="submit-form">
+      <div class="sidebar-hd">Share a hidden gem</div>
+      <div class="sidebar-bd">
+        <div style="font-size:12px;color:var(--earth);margin-bottom:14px;line-height:1.6">Found a space worth sharing? Help other creators discover it.</div>
+        <div class="form-field">
+          <label class="form-label" for="gem-name">Space name</label>
+          <input class="form-input" id="gem-name" type="text" placeholder="e.g. Brooklyn Central Library Rooftop">
+        </div>
+        <div class="form-field">
+          <label class="form-label" for="gem-type">Type</label>
+          <select class="form-select" id="gem-type">
+            <option>Library</option>
+            <option>Church / sanctuary</option>
+            <option>Civic / government</option>
+            <option>Park / outdoor</option>
+            <option>Community center</option>
+            <option>Historic building</option>
+            <option>Unusual / unexpected</option>
+            <option>Other</option>
+          </select>
+        </div>
+        <div class="form-field">
+          <label class="form-label" for="gem-cost">Approximate cost</label>
+          <select class="form-select" id="gem-cost">
+            <option>Free</option>
+            <option>Under $50</option>
+            <option>$50–$150</option>
+            <option>$150–$500</option>
+            <option>Unknown</option>
+          </select>
+        </div>
+        <div class="form-field">
+          <label class="form-label" for="gem-desc">What makes it special?</label>
+          <textarea class="form-textarea" id="gem-desc" placeholder="Describe the vibe, acoustics, how you found it, what events work best..."></textarea>
+        </div>
+        <div class="form-field">
+          <label class="form-label" for="gem-how">How to book it</label>
+          <input class="form-input" id="gem-how" type="text" placeholder="Website, email, or walk-in">
+        </div>
+        <button class="form-submit" onclick="submitGem()">Submit gem</button>
+        <div class="success-msg" id="success-msg">Thank you! Your gem has been submitted for review. If approved it will appear in the feed within 24 hours.</div>
+      </div>
+    </div>
+
+    <div style="background:var(--gold-l);border:1px solid #E8D080;border-radius:12px;padding:14px 16px;font-size:12px;color:var(--gold-d);line-height:1.7">
+      <strong style="font-weight:500;display:block;margin-bottom:4px">What makes a good gem?</strong>
+      Spaces that are free or cheap, not widely known, genuinely usable for wellness events, and where you have personal experience booking or visiting. First-hand knowledge only.
+    </div>
+  </div>
+</div>
+
+<script>
+const gems = [
+  {
+    author: "Jade S.", initials: "JS", avatarBg: "#EDF3EF", avatarColor: "#2A5A36",
+    verified: true, city: "Washington DC", timeAgo: "3 days ago", saves: 47,
+    title: "DC Superior Court grand rotunda — $35 and it's yours",
+    body: "I held a small breathwork ceremony here last month. The marble rotunda has incredible natural acoustics and the afternoon light through the dome is absolutely magical. You apply online through the DC Courts website — approval took 3 days. Bring your own mats and speaker, nothing else needed.",
+    tags: [
+      { text: "~$35 fee", cls: "tag-free" },
+      { text: "Breathwork · Ceremony", cls: "tag-plum" },
+      { text: "Up to 30 guests", cls: "tag-stone" },
+      { text: "Washington DC", cls: "tag-sky" }
+    ],
+    how: "Apply at dccourts.gov · 3-day approval"
+  },
+  {
+    author: "Maya K.", initials: "MK", avatarBg: "#F2EEF8", avatarColor: "#4A2A7A",
+    verified: true, badge: "Top contributor", city: "Brooklyn NY", timeAgo: "1 week ago", saves: 83,
+    title: "Green-Wood Cemetery north chapel — free, haunting, perfect for sound healing",
+    body: "I know it sounds unusual but Green-Wood actively wants wellness programming. The north chapel has incredible stone acoustics and they have a whole events team. Email events@green-wood.com. They respond fast and the space is completely free for community wellness events under 25 people.",
+    tags: [
+      { text: "Free", cls: "tag-free" },
+      { text: "Sound healing · Meditation", cls: "tag-green" },
+      { text: "Up to 25 guests", cls: "tag-stone" },
+      { text: "Brooklyn NY", cls: "tag-sky" }
+    ],
+    how: "Email events@green-wood.com · responds within 48 hrs"
+  },
+  {
+    author: "Theo R.", initials: "TR", avatarBg: "#EAF2F8", avatarColor: "#2A5A78",
+    verified: true, city: "Chicago IL", timeAgo: "2 weeks ago", saves: 124,
+    title: "Harold Washington Library rooftop garden — $0, no one knows about it",
+    body: "The rooftop of the Harold Washington Library in the Loop has a full garden — real grass, planters, open sky. I hosted a 15-person sunrise yoga there last month and it was zero cost through the library's community events program. You just need to submit a simple form 2 weeks in advance.",
+    tags: [
+      { text: "Free", cls: "tag-free" },
+      { text: "Outdoor · Rooftop garden", cls: "tag-green" },
+      { text: "Up to 20 guests", cls: "tag-stone" },
+      { text: "Chicago IL", cls: "tag-sky" }
+    ],
+    how: "chipublib.org/locations/35 · community events form"
+  },
+  {
+    author: "Serena M.", initials: "SM", avatarBg: "#FBF5E6", avatarColor: "#7A5C14",
+    verified: true, city: "Manhattan NY", timeAgo: "3 weeks ago", saves: 61,
+    title: "New York Society Library reading room — private, stunning, $75/hr",
+    body: "This private membership library on East 79th St rents their reading room for select community programming. It's one of the most beautiful rooms in NYC — dark wood, high ceilings, complete silence. Email events@nysoclib.org. They're selective but wellness events aligned with community well-being get approved regularly.",
+    tags: [
+      { text: "$75/hr", cls: "tag-gold" },
+      { text: "Meditation · Breathwork", cls: "tag-plum" },
+      { text: "Up to 20 guests", cls: "tag-stone" },
+      { text: "Upper East Side", cls: "tag-sky" }
+    ],
+    how: "Email events@nysoclib.org · 2 week notice"
+  },
+  {
+    author: "Priya L.", initials: "PL", avatarBg: "#EDF3EF", avatarColor: "#2A5A36",
+    verified: true, city: "Brooklyn NY", timeAgo: "1 month ago", saves: 38,
+    title: "Prospect Park Boathouse lawn — free permit, magical setting",
+    body: "The lawn in front of the Boathouse in Prospect Park is permit-able for small groups. I've run three outdoor yoga sessions here — sunrise, golden hour, all free. Apply through the Parks Department online portal. Gets approved in 5-7 days for groups under 20.",
+    tags: [
+      { text: "Free permit", cls: "tag-free" },
+      { text: "Yoga · Outdoor", cls: "tag-green" },
+      { text: "Up to 20 guests", cls: "tag-stone" },
+      { text: "Prospect Park", cls: "tag-sky" }
+    ],
+    how: "nycgovparks.org/permits · 5-7 day approval"
+  }
+];
+
+function renderGems() {
+  const list = document.getElementById('gems-list');
+  list.innerHTML = '';
+  gems.forEach((g, i) => {
+    const card = document.createElement('div');
+    card.className = 'gem-card';
+    card.innerHTML = `
+      <div class="gem-header">
+        <div class="gem-avatar" style="background:${g.avatarBg};color:${g.avatarColor}">${g.initials}</div>
+        <div class="gem-meta">
+          <div class="gem-author">${g.author} ${g.badge ? `<span style="background:var(--gold-l);border:1px solid #E8D080;border-radius:20px;padding:2px 8px;font-size:10px;font-weight:500;color:var(--gold-d);margin-left:4px">${g.badge}</span>` : ''} ${g.verified ? '<span style="background:var(--sage-l);border-radius:20px;padding:2px 8px;font-size:10px;font-weight:500;color:var(--sage-d)">Verified creator</span>' : ''}</div>
+          <div class="gem-info"><span>${g.timeAgo}</span><span>·</span><span>${g.city}</span></div>
+        </div>
+        <div class="saves" onclick="this.querySelector('span').textContent = parseInt(this.querySelector('span').textContent)+1">
+          <svg width="14" height="14" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 5a2 2 0 012-2h6a2 2 0 012 2v13l-5-3-5 3V5z"/></svg>
+          <span>${g.saves}</span>
+        </div>
+      </div>
+      <div class="gem-title">${g.title}</div>
+      <div class="gem-body">${g.body}</div>
+      <div class="gem-tags">${g.tags.map(t => `<span class="tag ${t.cls}">${t.text}</span>`).join('')}</div>
+      <div class="how-to"><strong>How to book</strong>${g.how}</div>
+      <div class="gem-actions">
+        <button class="btn-sm btn-dark" onclick="draftEmail('${g.title}', '${g.how}')">Draft booking request</button>
+        <button class="btn-sm btn-light" onclick="askAI('${g.title}')">Ask AI about this</button>
+      </div>
+    `;
+    list.appendChild(card);
+  });
+}
+
+function draftEmail(title, how) {
+  const subject = encodeURIComponent(`Wellness event booking inquiry`);
+  const body = encodeURIComponent(`Hi,\n\nI found your space through the Auric OS community and I'd love to inquire about booking for a small wellness event.\n\nOur event: [describe your event, date, number of guests]\n\nWould you be available for a quick call or email exchange about availability?\n\nWarm regards,\n[Your name]`);
+  window.open(`mailto:?subject=${subject}&body=${body}`);
+}
+
+function askAI(title) {
+  sessionStorage.setItem('assistantPrompt', `Tell me more about "${title}" as a venue for a wellness event — what should I know, what events work best there, and how should I approach booking it?`);
+  window.location.href = 'assistant.html';
+}
+
+function submitGem() {
+  const name = document.getElementById('gem-name').value.trim();
+  const desc = document.getElementById('gem-desc').value.trim();
+  if (!name || !desc) {
+    alert('Please fill in the space name and description at minimum.');
+    return;
+  }
+  document.getElementById('gem-name').value = '';
+  document.getElementById('gem-desc').value = '';
+  document.getElementById('gem-how').value = '';
+  document.getElementById('success-msg').style.display = 'block';
+  setTimeout(() => document.getElementById('success-msg').style.display = 'none', 5000);
+}
+
+renderGems();
+</script>
+
+</body>
+</html>

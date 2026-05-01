@@ -53,15 +53,9 @@
       text-decoration: none;
     }
     .logo span { color: var(--gold); }
-    .nav-badge {
-      background: var(--gold-l);
-      border: 1px solid #E8D080;
-      border-radius: 20px;
-      padding: 4px 14px;
-      font-size: 12px;
-      color: var(--gold-d);
-      font-weight: 500;
-    }
+    .nav-links { display: flex; gap: 24px; align-items: center; }
+    .nav-links a { font-size: 13px; color: var(--earth); text-decoration: none; }
+    .nav-links a:hover { color: var(--ink); }
     .nav-cta {
       background: var(--ink);
       color: white;
@@ -503,9 +497,13 @@
 <body>
 
   <nav>
-    <a href="#" class="logo">auric<span>.</span>os</a>
-    <span class="nav-badge">Beta · NYC</span>
-    <a href="#join" class="nav-cta">Get early access</a>
+    <a href="index.html" class="logo">auric<span>.</span>os</a>
+    <div class="nav-links">
+      <a href="listings.html">Venues</a>
+      <a href="assistant.html">AI Assistant</a>
+      <a href="gems.html">Gems</a>
+    </div>
+    <a href="mailto:hello@auricmovement.com" class="nav-cta">Get early access</a>
   </nav>
 
   <!-- HERO -->
@@ -692,7 +690,7 @@
   <footer>
     <a href="#" class="footer-logo">auric<span>.</span>os</a>
     <span class="footer-note">Built by a wellness creator, for wellness creators · NYC 2025</span>
-    <span class="footer-note">auricmovement@outlook.com</span>
+    <span class="footer-note">hello@auricmovement.com</span>
   </footer>
 
   <script>
@@ -703,7 +701,7 @@
         document.getElementById('signup-note').style.color = '#C47D7D';
         return;
       }
-      window.location.href = 'mailto:auricmovement@outlook.com?subject=Early access request&body=Hi! I want early access to Auric OS. My email: ' + email;
+      window.location.href = 'mailto:hello@auricmovement.com?subject=Early access request&body=Hi! I want early access to Auric OS. My email: ' + email;
       document.getElementById('signup-note').textContent = 'Opening your email app — send it and you\'re on the list!';
       document.getElementById('signup-note').style.color = '#7B9E87';
     }

@@ -443,7 +443,7 @@ async function sendMessage() {
   const typingEl = addMessage('assistant', 'Thinking...', 'typing');
 
   try {
-    const response = await fetch('https://api.anthropic.com/v1/messages', {
+    const response = await fetch('https://auric-proxy.YOUR-USERNAME.workers.dev', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({

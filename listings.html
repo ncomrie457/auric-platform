@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Venues — Auric OS</title>
@@ -15,6 +14,8 @@
       --sage: #7B9E87; --sage-l: #EDF3EF; --sage-d: #2A5A36;
       --sky: #6B9AB8; --sky-l: #EAF2F8; --sky-d: #2A5A78;
       --rose: #C47D7D; --rose-l: #FAEAEA; --rose-d: #7A3A3A;
+      --amber: #C9943A; --amber-l: #FDF0DC; --amber-d: #7A4A10;
+      --plum: #8A6FAA; --plum-l: #F2EEF8; --plum-d: #4A2A7A;
     }
     body { font-family: 'DM Sans', sans-serif; background: var(--cream); color: var(--ink); }
     nav {
@@ -29,12 +30,10 @@
     .nav-links a { font-size: 13px; color: var(--earth); text-decoration: none; }
     .nav-links a:hover { color: var(--ink); }
     .nav-links a.active { color: var(--ink); font-weight: 500; }
-    .page-header { max-width: 900px; margin: 0 auto; padding: 40px 24px 28px; }
+    .page-header { max-width: 960px; margin: 0 auto; padding: 40px 24px 24px; }
     .page-header h1 { font-family: 'Cormorant Garamond', serif; font-size: 40px; font-weight: 500; margin-bottom: 6px; }
-    .page-header p { font-size: 14px; color: var(--earth); line-height: 1.6; margin-bottom: 24px; }
-    .filters {
-      display: flex; gap: 8px; flex-wrap: wrap;
-    }
+    .page-header p { font-size: 14px; color: var(--earth); line-height: 1.6; margin-bottom: 20px; max-width: 580px; }
+    .filters { display: flex; gap: 8px; flex-wrap: wrap; }
     .filter-btn {
       background: white; border: 0.5px solid var(--stone); border-radius: 20px;
       padding: 6px 16px; font-size: 12px; color: var(--earth); cursor: pointer;
@@ -43,50 +42,68 @@
     .filter-btn.active { background: var(--ink); color: white; border-color: var(--ink); }
     .filter-btn:hover:not(.active) { background: var(--stone); }
     .listings-grid {
-      max-width: 900px; margin: 0 auto; padding: 0 24px 64px;
-      display: grid; grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+      max-width: 960px; margin: 0 auto; padding: 20px 24px 64px;
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(420px, 1fr));
       gap: 14px;
     }
     .venue-card {
-      background: white; border: 0.5px solid var(--stone); border-radius: 12px;
-      padding: 18px; transition: border-color .15s;
+      background: white; border: 0.5px solid var(--stone); border-radius: 14px;
+      overflow: hidden; transition: border-color .15s;
     }
     .venue-card:hover { border-color: var(--bark); }
     .venue-card.free { border-color: #B5D4BB; }
-    .card-top { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 12px; }
-    .venue-name { font-family: 'Cormorant Garamond', serif; font-size: 18px; font-weight: 600; color: var(--ink); margin-bottom: 2px; }
-    .venue-sub { font-size: 11px; color: var(--earth); }
+    .card-top { padding: 16px 18px 14px; border-bottom: 0.5px solid var(--stone); }
+    .card-title-row { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; margin-bottom: 4px; }
+    .venue-name { font-family: 'Cormorant Garamond', serif; font-size: 19px; font-weight: 600; color: var(--ink); line-height: 1.2; }
+    .venue-sub { font-size: 11px; color: var(--earth); margin-bottom: 10px; }
     .score-badge {
       display: flex; flex-direction: column; align-items: center;
-      border-radius: 8px; padding: 6px 10px; min-width: 50px; text-align: center;
+      border-radius: 8px; padding: 6px 10px; min-width: 48px; text-align: center; flex-shrink: 0;
     }
     .score-n { font-family: 'Cormorant Garamond', serif; font-size: 22px; font-weight: 500; line-height: 1; }
     .score-l { font-size: 9px; text-transform: uppercase; letter-spacing: .05em; margin-top: 1px; }
+    .price-row { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; flex-wrap: wrap; }
+    .price-main { font-size: 15px; font-weight: 500; color: var(--ink); }
+    .price-note { font-size: 11px; color: var(--earth); }
+    .price-free { font-size: 15px; font-weight: 500; color: #1A5A1A; }
     .bars { display: flex; flex-direction: column; gap: 5px; margin-bottom: 12px; }
     .bar-row { display: flex; align-items: center; gap: 8px; }
-    .bar-label { font-size: 11px; color: var(--earth); width: 90px; flex-shrink: 0; }
+    .bar-label { font-size: 11px; color: var(--earth); width: 86px; flex-shrink: 0; }
     .bar-track { flex: 1; height: 4px; background: var(--stone); border-radius: 2px; overflow: hidden; }
     .bar-fill { height: 100%; border-radius: 2px; }
-    .tags { display: flex; gap: 5px; flex-wrap: wrap; margin-bottom: 12px; }
-    .tag {
-      font-size: 10px; font-weight: 500; padding: 3px 8px; border-radius: 20px;
-    }
+    .tags { display: flex; gap: 5px; flex-wrap: wrap; margin-bottom: 0; }
+    .tag { font-size: 10px; font-weight: 500; padding: 3px 8px; border-radius: 20px; }
     .tag-green { background: var(--sage-l); color: var(--sage-d); }
     .tag-gold { background: var(--gold-l); color: var(--gold-d); }
     .tag-sky { background: var(--sky-l); color: var(--sky-d); }
     .tag-stone { background: var(--stone); color: var(--earth); }
     .tag-free { background: #E8F5E8; color: #1A5A1A; border: 1px solid #B5D4B5; }
-    .access-section { border-top: 0.5px solid var(--stone); padding-top: 10px; margin-bottom: 12px; }
-    .access-title { font-size: 10px; font-weight: 500; color: var(--earth); text-transform: uppercase; letter-spacing: .05em; margin-bottom: 7px; }
-    .access-row { display: flex; align-items: flex-start; gap: 7px; font-size: 11px; color: var(--earth); margin-bottom: 4px; }
+    .tag-rose { background: var(--rose-l); color: var(--rose-d); }
+    .tag-amber { background: var(--amber-l); color: var(--amber-d); }
+    .tag-plum { background: var(--plum-l); color: var(--plum-d); }
+    .card-section { padding: 12px 18px; border-bottom: 0.5px solid var(--stone); }
+    .section-title { font-size: 10px; font-weight: 500; color: var(--earth); text-transform: uppercase; letter-spacing: .06em; margin-bottom: 8px; }
+    .req-row { display: flex; align-items: flex-start; gap: 8px; font-size: 12px; color: var(--ink); margin-bottom: 5px; line-height: 1.5; }
+    .req-row:last-child { margin-bottom: 0; }
+    .req-dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; margin-top: 3px; }
+    .req-required { background: var(--rose); }
+    .req-recommended { background: var(--amber); }
+    .req-none { background: var(--sage); }
+    .access-row { display: flex; align-items: flex-start; gap: 7px; font-size: 12px; color: var(--earth); margin-bottom: 4px; }
+    .access-row:last-child { margin-bottom: 0; }
     .access-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; margin-top: 3px; }
-    .card-actions { display: flex; gap: 7px; }
-    .btn-outreach {
-      flex: 1; background: var(--ink); color: white; border: none;
+    .card-actions { padding: 12px 18px; display: flex; gap: 7px; flex-wrap: wrap; }
+    .btn-book {
+      background: var(--sage); color: white; border: none;
       border-radius: 8px; padding: 9px 14px; font-size: 12px; font-weight: 500;
-      cursor: pointer; font-family: 'DM Sans', sans-serif; text-align: center;
-      text-decoration: none; display: flex; align-items: center; justify-content: center;
-      transition: opacity .15s;
+      cursor: pointer; font-family: 'DM Sans', sans-serif; text-decoration: none;
+      display: inline-flex; align-items: center; gap: 5px; transition: opacity .15s;
+    }
+    .btn-book:hover { opacity: .88; }
+    .btn-outreach {
+      background: var(--ink); color: white; border: none;
+      border-radius: 8px; padding: 9px 14px; font-size: 12px; font-weight: 500;
+      cursor: pointer; font-family: 'DM Sans', sans-serif; transition: opacity .15s;
     }
     .btn-outreach:hover { opacity: .88; }
     .btn-outline {
@@ -96,48 +113,17 @@
     }
     .btn-outline:hover { background: var(--cream); }
     .free-banner {
-      background: #E8F5E8; border: 1px solid #B5D4B5; border-radius: 7px;
-      padding: 7px 10px; font-size: 11px; color: #1A5A1A; margin-bottom: 10px;
-      font-weight: 500;
+      background: #E8F5E8; border-bottom: 0.5px solid #B5D4B5;
+      padding: 7px 18px; font-size: 11px; color: #1A5A1A; font-weight: 500;
+      display: flex; align-items: center; gap: 6px;
     }
-    @media (max-width: 600px) {
-      .listings-grid { grid-template-columns: 1fr; }
-    }
+    .req-legend { display: flex; gap: 12px; flex-wrap: wrap; font-size: 11px; color: var(--earth); padding: 0 24px 16px; max-width: 960px; margin: 0 auto; }
+    .legend-item { display: flex; align-items: center; gap: 5px; }
+    .legend-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+    @media (max-width: 640px) { .listings-grid { grid-template-columns: 1fr; } }
   </style>
 </head>
-<body><script>
-(function(){
-  var pw='wellnessflex';
-  var key='auric_access';
-  if(sessionStorage.getItem(key)==='true') return;
-  document.addEventListener('DOMContentLoaded', function(){
-    var o = document.createElement('div');
-    o.id = 'ag';
-    o.style.cssText = 'position:fixed;top:0;left:0;right:0;bottom:0;background:#FAF8F4;display:flex;align-items:center;justify-content:center;z-index:99999';
-    o.innerHTML = '<div style="text-align:center;padding:48px 32px;max-width:360px;width:100%;font-family:DM Sans,sans-serif">'
-      + '<div style="font-family:Cormorant Garamond,serif;font-size:42px;font-weight:500;color:#2C2418;line-height:1;margin-bottom:8px">auric<span style="color:#C9A84C">.</span>os</div>'
-      + '<p style="font-size:12px;color:#B5A48A;margin-bottom:28px">Private beta &middot; Enter your password</p>'
-      + '<input id="agpw" type="password" placeholder="Access password" style="width:100%;height:46px;border:1px solid #EDE9E0;border-radius:10px;padding:0 16px;font-size:14px;background:white;color:#2C2418;outline:none;margin-bottom:10px;box-sizing:border-box">'
-      + '<button onclick="aggo()" style="width:100%;height:46px;background:#2C2418;color:white;border:none;border-radius:10px;font-size:14px;cursor:pointer;margin-bottom:10px">Enter</button>'
-      + '<div id="agerr" style="font-size:12px;color:#C47D7D;min-height:18px"></div>'
-      + '<p style="font-size:11px;color:#B5A48A;margin-top:20px">No password? <a href="mailto:auricmovement@outlook.com" style="color:#C9A84C">Request access</a></p>'
-      + '</div>';
-    document.body.appendChild(o);
-    document.getElementById('agpw').addEventListener('keydown', function(e){ if(e.key==='Enter') aggo(); });
-    document.getElementById('agpw').focus();
-  });
-  window.aggo = function(){
-    var v = document.getElementById('agpw').value.trim();
-    if(v === pw){
-      sessionStorage.setItem(key,'true');
-      document.getElementById('ag').remove();
-    } else {
-      document.getElementById('agerr').textContent = 'Incorrect password. Try again.';
-      document.getElementById('agpw').value = '';
-    }
-  };
-})();
-</script>
+<body>
 
 <nav>
   <a href="index.html" class="logo">auric<span>.</span>os</a>
@@ -151,7 +137,7 @@
 
 <div class="page-header">
   <h1>NYC Venues</h1>
-  <p>Verified spaces for wellness events — studios, civic spaces, hotels, and hidden gems. All scored for fit, accessibility, and responsiveness.</p>
+  <p>Verified spaces for wellness events — with clear pricing, certification requirements, insurance needs, and direct booking links where available.</p>
   <div class="filters">
     <button class="filter-btn active" onclick="filter('all',this)">All spaces</button>
     <button class="filter-btn" onclick="filter('studio',this)">Studios</button>
@@ -159,7 +145,14 @@
     <button class="filter-btn" onclick="filter('hotel',this)">Hotels</button>
     <button class="filter-btn" onclick="filter('outdoor',this)">Outdoor</button>
     <button class="filter-btn" onclick="filter('unique',this)">Unique</button>
+    <button class="filter-btn" onclick="filter('no-cert',this)">No cert needed</button>
   </div>
+</div>
+
+<div class="req-legend">
+  <div class="legend-item"><div class="legend-dot" style="background:var(--rose)"></div>Required</div>
+  <div class="legend-item"><div class="legend-dot" style="background:var(--amber)"></div>Recommended</div>
+  <div class="legend-item"><div class="legend-dot" style="background:var(--sage)"></div>Not required</div>
 </div>
 
 <div class="listings-grid" id="grid"></div>
@@ -169,247 +162,338 @@ const venues = [
   {
     name: "Modo Yoga Tribeca",
     sub: "Yoga Studio · Tribeca · Up to 40 guests",
-    type: "studio",
+    type: "studio", free: false,
     score: 92, scoreColor: "#EDF3EF", scoreText: "#2A5A36",
+    price: "$150–$200/hr",
+    priceNote: "2hr minimum · deposit required",
+    bookingUrl: "https://modoyoga.com/tribeca",
+    bookingLabel: "Book on Modo Yoga",
     bars: [
-      { label: "Audience fit", pct: 95, color: "#7B9E87" },
-      { label: "Aesthetic", pct: 90, color: "#7B9E87" },
-      { label: "Value", pct: 75, color: "#C9A84C" },
-      { label: "Accessibility", pct: 92, color: "#6B9AB8" }
+      {label:"Audience fit",pct:95,color:"#7B9E87"},
+      {label:"Aesthetic",pct:90,color:"#7B9E87"},
+      {label:"Value",pct:75,color:"#C9A84C"},
+      {label:"Accessibility",pct:92,color:"#6B9AB8"}
     ],
-    tags: [
-      { text: "Community events", cls: "tag-green" },
-      { text: "Subway: A/C/E · 2 min", cls: "tag-sky" },
-      { text: "$150–200/hr", cls: "tag-stone" }
+    tags:[{t:"Sprung floors",c:"tag-green"},{t:"Subway: A/C/E · 2 min",c:"tag-sky"},{t:"ADA accessible",c:"tag-green"}],
+    requirements:[
+      {dot:"req-required",text:"Liability insurance required — minimum $1M general liability. Certificate of Insurance naming Modo Yoga as additional insured."},
+      {dot:"req-required",text:"Yoga instructor certification required (RYT-200 minimum) if leading movement classes."},
+      {dot:"req-recommended",text:"CPR/First Aid certification recommended for all movement events."}
     ],
-    access: [
-      { color: "#7B9E87", text: "A/C/E at Canal St · 2 min walk" },
-      { color: "#7B9E87", text: "ADA accessible · step-free entry" },
-      { color: "#C9A84C", text: "Street parking · free after 7pm" }
+    access:[
+      {color:"#7B9E87",text:"A/C/E at Canal St · 2 min walk"},
+      {color:"#7B9E87",text:"ADA accessible · step-free entry"},
+      {color:"#C9A84C",text:"Street parking · free after 7pm"}
     ],
-    outreach: "I'd love to explore hosting a wellness event in your studio space at Modo Yoga Tribeca. We run curated Pilates and movement experiences for 20–40 people and your space feels perfectly aligned with our community.",
-    free: false
+    outreach:"Hi Modo Yoga Tribeca team, I'm reaching out about renting your studio for a community wellness event. We run curated Pilates and movement experiences for 20–40 people and your space feels perfectly aligned with our community. Could you share your rental rates and availability?"
   },
   {
-    name: "NYPL — Brooklyn Central",
-    sub: "Public Library · Brooklyn · Up to 60 guests",
-    type: "free",
+    name: "NYPL — Brooklyn Central Library",
+    sub: "Public Library · Grand Army Plaza · Up to 60 guests",
+    type: "free", free: true,
     score: 88, scoreColor: "#E8F5E8", scoreText: "#1A5A1A",
+    price: "Free",
+    priceNote: "Community events · application required",
+    bookingUrl: "https://bklynlibrary.org/roomreservations",
+    bookingLabel: "Apply to book",
     bars: [
-      { label: "Audience fit", pct: 85, color: "#7B9E87" },
-      { label: "Aesthetic", pct: 80, color: "#7B9E87" },
-      { label: "Value", pct: 100, color: "#7B9E87" },
-      { label: "Accessibility", pct: 95, color: "#6B9AB8" }
+      {label:"Audience fit",pct:85,color:"#7B9E87"},
+      {label:"Aesthetic",pct:80,color:"#7B9E87"},
+      {label:"Value",pct:100,color:"#7B9E87"},
+      {label:"Accessibility",pct:95,color:"#6B9AB8"}
     ],
-    tags: [
-      { text: "Free", cls: "tag-free" },
-      { text: "Community room", cls: "tag-green" },
-      { text: "ADA · Elevator", cls: "tag-sky" }
+    tags:[{t:"Free",c:"tag-free"},{t:"ADA · Elevator",c:"tag-sky"},{t:"No cert needed",c:"tag-green"}],
+    requirements:[
+      {dot:"req-none",text:"No certification required for wellness workshops, meditation, or breathwork."},
+      {dot:"req-none",text:"No liability insurance required for standard community events."},
+      {dot:"req-recommended",text:"CPR certification recommended if hosting physical movement classes."}
     ],
-    access: [
-      { color: "#7B9E87", text: "2/3 at Grand Army Plaza · 1 min" },
-      { color: "#7B9E87", text: "Fully ADA accessible" },
-      { color: "#7B9E87", text: "Free street parking nearby" }
+    access:[
+      {color:"#7B9E87",text:"2/3 at Grand Army Plaza · 1 min walk"},
+      {color:"#7B9E87",text:"Fully ADA accessible throughout"},
+      {color:"#7B9E87",text:"Free street parking nearby"}
     ],
-    freeNote: "Free to book · Apply at bklynlibrary.org · 2 weeks notice",
-    outreach: "Hi, I'd like to inquire about booking a community room at Brooklyn Central Library for a small wellness event for approximately 30 people. We run mindful movement and meditation sessions and would love to bring this programming to your space.",
-    free: true
+    outreach:"Hi Brooklyn Public Library events team, I'd like to apply to book a community room for a wellness workshop for approximately 30 people. We focus on mindful movement and breathwork and would love to bring this programming to your space."
   },
   {
-    name: "St. Paul's Community Church",
-    sub: "Historic Church Hall · Park Slope · Up to 80 guests",
-    type: "unique",
-    score: 85, scoreColor: "#F2EEF8", scoreText: "#4A2A7A",
+    name: "Body by Simone — Flatiron",
+    sub: "Dance Fitness Studio · Flatiron · Up to 35 guests",
+    type: "studio", free: false,
+    score: 86, scoreColor: "#EDF3EF", scoreText: "#2A5A36",
+    price: "$125–$175/hr",
+    priceNote: "3hr minimum on weekends",
+    bookingUrl: "https://bodybysimone.com/studio-rental",
+    bookingLabel: "Studio rental info",
     bars: [
-      { label: "Audience fit", pct: 82, color: "#7B9E87" },
-      { label: "Aesthetic", pct: 95, color: "#7B9E87" },
-      { label: "Value", pct: 90, color: "#7B9E87" },
-      { label: "Accessibility", pct: 78, color: "#C9A84C" }
+      {label:"Audience fit",pct:88,color:"#7B9E87"},
+      {label:"Aesthetic",pct:85,color:"#7B9E87"},
+      {label:"Value",pct:78,color:"#C9A84C"},
+      {label:"Accessibility",pct:82,color:"#6B9AB8"}
     ],
-    tags: [
-      { text: "Sound healing ideal", cls: "tag-green" },
-      { text: "$75–120/hr", cls: "tag-stone" },
-      { text: "High ceilings", cls: "tag-gold" }
+    tags:[{t:"Sprung floors · Mirrors",c:"tag-green"},{t:"N/R/W · 4 min",c:"tag-sky"},{t:"Sound system",c:"tag-stone"}],
+    requirements:[
+      {dot:"req-required",text:"Liability insurance required — $1M minimum. COI required before confirmation."},
+      {dot:"req-required",text:"Personal trainer or fitness instructor certification required (ACE, NASM, or equivalent)."},
+      {dot:"req-recommended",text:"Pilates certification (PMA or equivalent) required if leading reformer or mat Pilates."}
     ],
-    access: [
-      { color: "#7B9E87", text: "B/Q at 7th Ave · 4 min walk" },
-      { color: "#C9A84C", text: "Street parking available" },
-      { color: "#C47D7D", text: "3 steps at entry · no elevator" }
+    access:[
+      {color:"#7B9E87",text:"N/R/W at 23rd St · 4 min walk"},
+      {color:"#C9A84C",text:"Paid parking nearby · no free street"},
+      {color:"#7B9E87",text:"Elevator access · ADA compliant"}
     ],
-    outreach: "Hi, I'm reaching out about renting your hall for a small wellness event. We host sound healing and breathwork sessions for 20–40 people and your space's acoustics and architecture would be a beautiful setting. Would you be open to discussing availability?",
-    free: false
-  },
-  {
-    name: "The Well NYC",
-    sub: "Wellness Club · Flatiron · Up to 35 guests",
-    type: "studio",
-    score: 87, scoreColor: "#EDF3EF", scoreText: "#2A5A36",
-    bars: [
-      { label: "Audience fit", pct: 90, color: "#7B9E87" },
-      { label: "Aesthetic", pct: 92, color: "#7B9E87" },
-      { label: "Value", pct: 58, color: "#C47D7D" },
-      { label: "Accessibility", pct: 80, color: "#6B9AB8" }
-    ],
-    tags: [
-      { text: "Luxury tier", cls: "tag-gold" },
-      { text: "Subway: N/R/W · 4 min", cls: "tag-sky" },
-      { text: "Spa + studio", cls: "tag-green" }
-    ],
-    access: [
-      { color: "#7B9E87", text: "N/R/W at 23rd St · 4 min" },
-      { color: "#C47D7D", text: "Paid garage only · no free street" },
-      { color: "#C9A84C", text: "Elevator · 3 steps at rooftop entry" }
-    ],
-    outreach: "Hi, I run a curated wellness event series called Auric Movement and I'm looking for a premium space for an intimate evening session of 20–30 guests. The Well NYC's aesthetic and community positioning feel perfectly aligned with our brand.",
-    free: false
+    outreach:"Hi Body by Simone team, I'm interested in renting your Flatiron studio for a wellness event for 25–35 guests. I'm a certified instructor and would love to discuss availability and your rental requirements including insurance specifications."
   },
   {
     name: "Central Park — Rumsey Playfield",
     sub: "Outdoor Permit Zone · Midtown · Up to 100 guests",
-    type: "outdoor",
-    score: 82, scoreColor: "#E8F5E8", scoreText: "#1A5A1A",
+    type: "outdoor", free: true,
+    score: 84, scoreColor: "#E8F5E8", scoreText: "#1A5A1A",
+    price: "Free – $50 permit fee",
+    priceNote: "Depends on group size and date",
+    bookingUrl: "https://nycgovparks.org/permits",
+    bookingLabel: "Apply for permit",
     bars: [
-      { label: "Audience fit", pct: 88, color: "#7B9E87" },
-      { label: "Aesthetic", pct: 95, color: "#7B9E87" },
-      { label: "Value", pct: 95, color: "#7B9E87" },
-      { label: "Accessibility", pct: 85, color: "#6B9AB8" }
+      {label:"Audience fit",pct:88,color:"#7B9E87"},
+      {label:"Aesthetic",pct:95,color:"#7B9E87"},
+      {label:"Value",pct:98,color:"#7B9E87"},
+      {label:"Accessibility",pct:85,color:"#6B9AB8"}
     ],
-    tags: [
-      { text: "Free–$50 permit", cls: "tag-free" },
-      { text: "Outdoor · Seasonal", cls: "tag-green" },
-      { text: "Sunrise events", cls: "tag-gold" }
+    tags:[{t:"Free–$50",c:"tag-free"},{t:"Outdoor · Seasonal",c:"tag-green"},{t:"No cert needed",c:"tag-green"}],
+    requirements:[
+      {dot:"req-none",text:"No instructor certification required for outdoor yoga or meditation events."},
+      {dot:"req-recommended",text:"Liability insurance recommended for groups over 20 — some permit applications ask for it."},
+      {dot:"req-none",text:"No insurance required for informal gatherings under 20 people."}
     ],
-    access: [
-      { color: "#7B9E87", text: "Multiple subway lines · 5 min walk" },
-      { color: "#C9A84C", text: "No on-site parking · rideshare recommended" },
-      { color: "#7B9E87", text: "Fully accessible pathways" }
+    access:[
+      {color:"#7B9E87",text:"Multiple subway lines · 5 min walk"},
+      {color:"#C9A84C",text:"No on-site parking · rideshare recommended"},
+      {color:"#7B9E87",text:"Accessible pathways throughout park"}
     ],
-    freeNote: "Permit required · Apply at nycgovparks.org · Free for small groups",
-    outreach: "Hi NYC Parks Events Team, I'd like to apply for a permit to host a small outdoor wellness event (yoga/meditation) at Rumsey Playfield in Central Park for approximately 25 people. Please let me know the best process for applying.",
-    free: true,
-    type2: "outdoor"
+    outreach:"Hi NYC Parks Events Team, I'd like to apply for a permit to host a small outdoor wellness event (yoga/meditation) at Rumsey Playfield for approximately 25 people. Please let me know the best process for applying and any requirements."
+  },
+  {
+    name: "The Well NYC",
+    sub: "Wellness Club · Flatiron · Up to 35 guests",
+    type: "studio", free: false,
+    score: 87, scoreColor: "#EDF3EF", scoreText: "#2A5A36",
+    price: "$200–$350/hr",
+    priceNote: "Premium pricing · full buyout available",
+    bookingUrl: "https://thewellnyc.com/private-events",
+    bookingLabel: "Private events page",
+    bars: [
+      {label:"Audience fit",pct:90,color:"#7B9E87"},
+      {label:"Aesthetic",pct:95,color:"#7B9E87"},
+      {label:"Value",pct:55,color:"#C47D7D"},
+      {label:"Accessibility",pct:80,color:"#6B9AB8"}
+    ],
+    tags:[{t:"Luxury tier",c:"tag-gold"},{t:"Spa + studio",c:"tag-green"},{t:"N/R/W · 4 min",c:"tag-sky"}],
+    requirements:[
+      {dot:"req-required",text:"Liability insurance required — $2M minimum for private events. The Well has specific COI requirements — request their template."},
+      {dot:"req-required",text:"Yoga or Pilates certification required (RYT-200 or PMA minimum). The Well vets instructors."},
+      {dot:"req-required",text:"Background check may be required for instructors leading events at their facility."}
+    ],
+    access:[
+      {color:"#7B9E87",text:"N/R/W at 23rd St · 4 min walk"},
+      {color:"#C47D7D",text:"Paid garage only · $35–45/visit"},
+      {color:"#C9A84C",text:"Elevator · 3 steps at rooftop entry"}
+    ],
+    outreach:"Hi The Well NYC events team, I run Auric Movement, a curated wellness event series. I'm interested in exploring a private event hire at your Flatiron location for 20–30 guests. Could you share your rental rates, insurance requirements, and instructor certification specs?"
   },
   {
     name: "Green-Wood Cemetery Chapel",
-    sub: "Historic Garden Cemetery · Brooklyn · Up to 30 guests",
-    type: "unique",
-    score: 84, scoreColor: "#F2EEF8", scoreText: "#4A2A7A",
+    sub: "Historic Cemetery · Park Slope · Up to 30 guests",
+    type: "unique", free: true,
+    score: 85, scoreColor: "#F2EEF8", scoreText: "#4A2A7A",
+    price: "Free for wellness events",
+    priceNote: "Community programming · email to apply",
+    bookingUrl: "mailto:events@green-wood.com",
+    bookingLabel: "Email events team",
     bars: [
-      { label: "Audience fit", pct: 80, color: "#7B9E87" },
-      { label: "Aesthetic", pct: 98, color: "#7B9E87" },
-      { label: "Value", pct: 95, color: "#7B9E87" },
-      { label: "Accessibility", pct: 72, color: "#C9A84C" }
+      {label:"Audience fit",pct:82,color:"#7B9E87"},
+      {label:"Aesthetic",pct:98,color:"#7B9E87"},
+      {label:"Value",pct:100,color:"#7B9E87"},
+      {label:"Accessibility",pct:72,color:"#C9A84C"}
     ],
-    tags: [
-      { text: "Free for wellness", cls: "tag-free" },
-      { text: "Sound healing gem", cls: "tag-green" },
-      { text: "Historic · Stunning", cls: "tag-gold" }
+    tags:[{t:"Free",c:"tag-free"},{t:"Sound healing gem",c:"tag-plum"},{t:"No cert needed",c:"tag-green"}],
+    requirements:[
+      {dot:"req-none",text:"No instructor certification required for sound healing or meditation events."},
+      {dot:"req-recommended",text:"Liability insurance recommended but not strictly required — confirm with events team."},
+      {dot:"req-none",text:"Green-Wood is specifically open to wellness programming — no formal vetting process."}
     ],
-    access: [
-      { color: "#C9A84C", text: "R at 25th St · 8 min walk" },
-      { color: "#7B9E87", text: "Free parking on-site" },
-      { color: "#C9A84C", text: "Some garden paths uneven" }
+    access:[
+      {color:"#C9A84C",text:"R at 25th St · 8 min walk"},
+      {color:"#7B9E87",text:"Free parking on-site"},
+      {color:"#C9A84C",text:"Some garden paths uneven · limited ADA"}
     ],
-    freeNote: "Free for community wellness events · Email events@green-wood.com",
-    outreach: "Hi Green-Wood events team, I'd love to explore hosting a small sound healing or meditation session in your north chapel or garden space. We run intimate wellness gatherings for 15–25 people and your grounds would create an incredibly meaningful setting.",
-    free: true
+    outreach:"Hi Green-Wood events team, I'd love to explore hosting a small sound healing session in your north chapel for 15–25 people. We run intimate wellness gatherings and your space's acoustics and architecture would create an extraordinary setting. Is this something you'd consider?"
   },
   {
     name: "1 Hotel Brooklyn Bridge",
     sub: "Eco-Luxury Hotel · DUMBO · Up to 120 guests",
-    type: "hotel",
+    type: "hotel", free: false,
     score: 89, scoreColor: "#EDF3EF", scoreText: "#2A5A36",
+    price: "$500–$2,000+",
+    priceNote: "Varies by space and date · F&B minimums apply",
+    bookingUrl: "https://www.1hotels.com/brooklyn-bridge/meetings-events",
+    bookingLabel: "Events inquiry",
     bars: [
-      { label: "Audience fit", pct: 90, color: "#7B9E87" },
-      { label: "Aesthetic", pct: 95, color: "#7B9E87" },
-      { label: "Value", pct: 50, color: "#C47D7D" },
-      { label: "Accessibility", pct: 88, color: "#6B9AB8" }
+      {label:"Audience fit",pct:90,color:"#7B9E87"},
+      {label:"Aesthetic",pct:95,color:"#7B9E87"},
+      {label:"Value",pct:45,color:"#C47D7D"},
+      {label:"Accessibility",pct:88,color:"#6B9AB8"}
     ],
-    tags: [
-      { text: "Retreat packages", cls: "tag-gold" },
-      { text: "Rooftop + spa", cls: "tag-green" },
-      { text: "Premium tier", cls: "tag-stone" }
+    tags:[{t:"Retreat packages",c:"tag-gold"},{t:"Rooftop + spa",c:"tag-green"},{t:"Premium tier",c:"tag-stone"}],
+    requirements:[
+      {dot:"req-required",text:"Liability insurance required — $2M minimum. Hotel will provide their specific COI requirements."},
+      {dot:"req-required",text:"Instructor certification required — hotel vets wellness professionals leading events."},
+      {dot:"req-required",text:"Event permit may be required for outdoor rooftop events. Hotel events team handles this."}
     ],
-    access: [
-      { color: "#7B9E87", text: "A/C at High St · 6 min walk" },
-      { color: "#C47D7D", text: "Valet only · $45/night" },
-      { color: "#7B9E87", text: "Fully ADA accessible" }
+    access:[
+      {color:"#7B9E87",text:"A/C at High St · 6 min walk"},
+      {color:"#C47D7D",text:"Valet only · $45/night"},
+      {color:"#7B9E87",text:"Fully ADA accessible throughout"}
     ],
-    outreach: "Hi, I run Auric Movement, a curated wellness event series for 30–80 guests. I'm interested in exploring a retreat partnership or event space hire at 1 Hotel Brooklyn Bridge — your sustainability mission and aesthetic align beautifully with our community.",
-    free: false
-  },
-  {
-    name: "Brooklyn Botanic Garden",
-    sub: "Botanical Garden · Crown Heights · Up to 200 guests",
-    type: "outdoor",
-    score: 86, scoreColor: "#EDF3EF", scoreText: "#2A5A36",
-    bars: [
-      { label: "Audience fit", pct: 88, color: "#7B9E87" },
-      { label: "Aesthetic", pct: 98, color: "#7B9E87" },
-      { label: "Value", pct: 65, color: "#C9A84C" },
-      { label: "Accessibility", pct: 90, color: "#6B9AB8" }
-    ],
-    tags: [
-      { text: "Greenhouse hire", cls: "tag-green" },
-      { text: "Garden paths", cls: "tag-green" },
-      { text: "Permits required", cls: "tag-stone" }
-    ],
-    access: [
-      { color: "#7B9E87", text: "2/3 at Eastern Pkwy · 2 min" },
-      { color: "#7B9E87", text: "Free parking lot on-site" },
-      { color: "#7B9E87", text: "Fully accessible paved paths" }
-    ],
-    outreach: "Hi Brooklyn Botanic Garden events team, I'd love to inquire about renting a greenhouse or garden space for a private wellness event for approximately 40 people. We host mindful movement and meditation experiences and your grounds would be an extraordinary setting.",
-    free: false
+    outreach:"Hi 1 Hotel Brooklyn Bridge events team, I run Auric Movement, a curated wellness event series. I'm interested in exploring a retreat partnership or event space hire for 30–80 guests. Your sustainability mission and aesthetic align perfectly with our community. Could we set up a call?"
   },
   {
     name: "Lifespan Aerial Arts",
     sub: "Aerial Dance Studio · Williamsburg · Up to 35 guests",
-    type: "studio",
+    type: "studio", free: false,
     score: 80, scoreColor: "#EDF3EF", scoreText: "#2A5A36",
+    price: "$80–$120/hr",
+    priceNote: "Affordable morning slots available",
+    bookingUrl: "https://lifespanaerialarts.com/studio-rental",
+    bookingLabel: "Studio rental",
     bars: [
-      { label: "Audience fit", pct: 80, color: "#7B9E87" },
-      { label: "Aesthetic", pct: 85, color: "#7B9E87" },
-      { label: "Value", pct: 88, color: "#7B9E87" },
-      { label: "Accessibility", pct: 65, color: "#C47D7D" }
+      {label:"Audience fit",pct:80,color:"#7B9E87"},
+      {label:"Aesthetic",pct:85,color:"#7B9E87"},
+      {label:"Value",pct:90,color:"#7B9E87"},
+      {label:"Accessibility",pct:60,color:"#C47D7D"}
     ],
-    tags: [
-      { text: "Sprung floors", cls: "tag-green" },
-      { text: "Morning slots cheap", cls: "tag-gold" },
-      { text: "$80–120/hr", cls: "tag-stone" }
+    tags:[{t:"Sprung floors",c:"tag-green"},{t:"Morning slots",c:"tag-gold"},{t:"L train · Bedford",c:"tag-sky"}],
+    requirements:[
+      {dot:"req-required",text:"Liability insurance required — $1M minimum. COI required before booking confirmation."},
+      {dot:"req-recommended",text:"Fitness or movement certification recommended for movement-based events."},
+      {dot:"req-none",text:"No certification required for meditation, breathwork, or non-movement wellness events."}
     ],
-    access: [
-      { color: "#C9A84C", text: "L at Bedford Ave · 8 min walk" },
-      { color: "#7B9E87", text: "Free street parking mornings" },
-      { color: "#C47D7D", text: "Stairs only · no elevator" }
+    access:[
+      {color:"#C9A84C",text:"L at Bedford Ave · 8 min walk"},
+      {color:"#7B9E87",text:"Free street parking mornings"},
+      {color:"#C47D7D",text:"Stairs only · no elevator"}
     ],
-    outreach: "Hi, I run wellness movement events in NYC and I'm interested in renting your studio space for a morning session of about 20–30 people. Your sprung floors and open space would be perfect for what we do — would you have availability in the mornings?",
-    free: false
+    outreach:"Hi Lifespan team, I run wellness movement events in NYC and I'm interested in renting your studio for a morning session of about 20–30 people. I have liability insurance and movement certification. Would you have weekday morning availability?"
   },
   {
-    name: "Brooklyn Public Library — Flatbush",
-    sub: "Public Library · Flatbush · Up to 45 guests",
-    type: "free",
-    score: 83, scoreColor: "#E8F5E8", scoreText: "#1A5A1A",
+    name: "Brooklyn Botanic Garden",
+    sub: "Botanical Garden · Crown Heights · Up to 200 guests",
+    type: "outdoor", free: false,
+    score: 86, scoreColor: "#EDF3EF", scoreText: "#2A5A36",
+    price: "$300–$1,500",
+    priceNote: "Varies by garden space and season",
+    bookingUrl: "https://bbg.org/visit/private-events",
+    bookingLabel: "Private events",
     bars: [
-      { label: "Audience fit", pct: 82, color: "#7B9E87" },
-      { label: "Aesthetic", pct: 75, color: "#7B9E87" },
-      { label: "Value", pct: 100, color: "#7B9E87" },
-      { label: "Accessibility", pct: 95, color: "#6B9AB8" }
+      {label:"Audience fit",pct:88,color:"#7B9E87"},
+      {label:"Aesthetic",pct:98,color:"#7B9E87"},
+      {label:"Value",pct:65,color:"#C9A84C"},
+      {label:"Accessibility",pct:90,color:"#6B9AB8"}
     ],
-    tags: [
-      { text: "Free", cls: "tag-free" },
-      { text: "Large meeting room", cls: "tag-green" },
-      { text: "ADA accessible", cls: "tag-sky" }
+    tags:[{t:"Greenhouse hire",c:"tag-green"},{t:"2/3 · Eastern Pkwy",c:"tag-sky"},{t:"Seasonal",c:"tag-stone"}],
+    requirements:[
+      {dot:"req-required",text:"Liability insurance required — $2M minimum. BBG requires COI naming Brooklyn Botanic Garden as additional insured."},
+      {dot:"req-recommended",text:"Instructor certification recommended for movement events — BBG may request credentials."},
+      {dot:"req-none",text:"No certification required for meditation, sound healing, or non-movement wellness events."}
     ],
-    access: [
-      { color: "#7B9E87", text: "B/Q at Church Ave · 3 min" },
-      { color: "#7B9E87", text: "ADA accessible throughout" },
-      { color: "#7B9E87", text: "Free street parking available" }
+    access:[
+      {color:"#7B9E87",text:"2/3 at Eastern Pkwy · 2 min walk"},
+      {color:"#7B9E87",text:"Free parking lot on-site"},
+      {color:"#7B9E87",text:"Fully accessible paved paths"}
     ],
-    freeNote: "Free to book · bklynlibrary.org/roomreservations · 2 weeks notice",
-    outreach: "Hi, I'd like to book a meeting room at the Flatbush branch for a community wellness workshop for approximately 30 people. We focus on mindful movement and breathwork and would love to bring this programming to the Flatbush community.",
-    free: true
+    outreach:"Hi Brooklyn Botanic Garden events team, I'd love to inquire about renting a greenhouse or garden space for a private wellness event for approximately 40 people. We host mindful movement and meditation experiences and your grounds would be an extraordinary setting."
+  },
+  {
+    name: "St. Paul's Community Church Hall",
+    sub: "Church Hall · Park Slope · Up to 80 guests",
+    type: "unique", free: false,
+    score: 83, scoreColor: "#F2EEF8", scoreText: "#4A2A7A",
+    price: "$75–$120/hr",
+    priceNote: "Negotiable for regular bookings",
+    bookingUrl: "mailto:office@stpaulsparkslope.org",
+    bookingLabel: "Email church office",
+    bars: [
+      {label:"Audience fit",pct:82,color:"#7B9E87"},
+      {label:"Aesthetic",pct:92,color:"#7B9E87"},
+      {label:"Value",pct:92,color:"#7B9E87"},
+      {label:"Accessibility",pct:75,color:"#C9A84C"}
+    ],
+    tags:[{t:"Sound healing ideal",c:"tag-plum"},{t:"High ceilings",c:"tag-gold"},{t:"B/Q · 7th Ave",c:"tag-sky"}],
+    requirements:[
+      {dot:"req-none",text:"No instructor certification required — church halls are generally open to all wellness formats."},
+      {dot:"req-recommended",text:"Liability insurance recommended — ask the office if they require it. Many church halls don't."},
+      {dot:"req-none",text:"No formal vetting process — email the office, describe your event, and they'll let you know."}
+    ],
+    access:[
+      {color:"#7B9E87",text:"B/Q at 7th Ave · 4 min walk"},
+      {color:"#C9A84C",text:"Street parking available"},
+      {color:"#C47D7D",text:"3 steps at entry · no elevator"}
+    ],
+    outreach:"Hi, I'm reaching out about renting your hall for a small wellness event. We host sound healing and breathwork sessions for 20–40 people and your hall's acoustics and architecture would be a beautiful setting. Would you be open to discussing availability and your rental terms?"
+  },
+  {
+    name: "NYPL — Mulberry Street Branch",
+    sub: "Public Library · SoHo/NoLita · Up to 45 guests",
+    type: "free", free: true,
+    score: 82, scoreColor: "#E8F5E8", scoreText: "#1A5A1A",
+    price: "Free",
+    priceNote: "2 weeks notice · online application",
+    bookingUrl: "https://nypl.org/spacerental",
+    bookingLabel: "Apply for space",
+    bars: [
+      {label:"Audience fit",pct:82,color:"#7B9E87"},
+      {label:"Aesthetic",pct:75,color:"#7B9E87"},
+      {label:"Value",pct:100,color:"#7B9E87"},
+      {label:"Accessibility",pct:92,color:"#6B9AB8"}
+    ],
+    tags:[{t:"Free",c:"tag-free"},{t:"SoHo location",c:"tag-green"},{t:"No cert needed",c:"tag-green"}],
+    requirements:[
+      {dot:"req-none",text:"No instructor certification required for any wellness programming at NYPL branches."},
+      {dot:"req-none",text:"No liability insurance required for standard community events."},
+      {dot:"req-none",text:"Simply fill out the online space request form — NYPL is very welcoming to wellness programming."}
+    ],
+    access:[
+      {color:"#7B9E87",text:"6 at Spring St · 5 min walk"},
+      {color:"#7B9E87",text:"ADA accessible throughout"},
+      {color:"#C9A84C",text:"Limited street parking · meter"}
+    ],
+    outreach:"Hi NYPL Mulberry Street Branch, I'd like to book your community room for a wellness workshop for approximately 25 people. We focus on breathwork and mindful movement programming and would love to serve the SoHo/NoLita community through your space."
+  },
+  {
+    name: "Equinox — Private Studio Hire",
+    sub: "Luxury Fitness Club · Multiple NYC locations · Up to 30 guests",
+    type: "studio", free: false,
+    score: 81, scoreColor: "#EDF3EF", scoreText: "#2A5A36",
+    price: "$200–$400/hr",
+    priceNote: "Member pricing available · varies by location",
+    bookingUrl: "https://equinox.com/corporate-wellness",
+    bookingLabel: "Corporate & events",
+    bars: [
+      {label:"Audience fit",pct:82,color:"#7B9E87"},
+      {label:"Aesthetic",pct:90,color:"#7B9E87"},
+      {label:"Value",pct:50,color:"#C47D7D"},
+      {label:"Accessibility",pct:88,color:"#6B9AB8"}
+    ],
+    tags:[{t:"Premium equipment",c:"tag-gold"},{t:"Multiple locations",c:"tag-sky"},{t:"ADA accessible",c:"tag-green"}],
+    requirements:[
+      {dot:"req-required",text:"Liability insurance required — $2M minimum. Equinox has a detailed COI template they send upon inquiry."},
+      {dot:"req-required",text:"Instructor certification required — ACE, NASM, RYT-200, or equivalent. Equinox vets all external instructors."},
+      {dot:"req-required",text:"Background check required for all instructors leading events at Equinox facilities."}
+    ],
+    access:[
+      {color:"#7B9E87",text:"Multiple subway lines · all locations"},
+      {color:"#C47D7D",text:"Paid parking only at most locations"},
+      {color:"#7B9E87",text:"All locations fully ADA accessible"}
+    ],
+    outreach:"Hi Equinox events team, I'm interested in hiring a private studio space for a wellness event for 20–30 guests. I'm a certified instructor and carry liability insurance. Could you share your rental rates, available locations, and the specific certification and insurance requirements?"
   }
 ];
 
@@ -425,46 +509,68 @@ function filter(type, btn) {
 function renderGrid() {
   const grid = document.getElementById('grid');
   grid.innerHTML = '';
-  const filtered = activeFilter === 'all'
-    ? venues
-    : venues.filter(v => v.type === activeFilter || v.type2 === activeFilter);
+  let filtered = venues;
+  if (activeFilter === 'free') filtered = venues.filter(v => v.free);
+  else if (activeFilter === 'no-cert') filtered = venues.filter(v => v.requirements.some(r => r.dot === 'req-none' && r.text.toLowerCase().includes('no instructor') || r.dot === 'req-none' && r.text.toLowerCase().includes('no certification')));
+  else if (activeFilter !== 'all') filtered = venues.filter(v => v.type === activeFilter);
 
   filtered.forEach(v => {
     const card = document.createElement('div');
     card.className = 'venue-card' + (v.free ? ' free' : '');
     card.innerHTML = `
-      ${v.freeNote ? `<div class="free-banner">Free space · ${v.freeNote}</div>` : ''}
+      ${v.free ? `<div class="free-banner"><svg width="12" height="12" viewBox="0 0 20 20" fill="none" stroke="#1A5A1A" stroke-width="1.5"><path d="M9 12l2 2 4-4"/><circle cx="10" cy="10" r="8"/></svg> Free space · ${v.priceNote}</div>` : ''}
       <div class="card-top">
-        <div>
-          <div class="venue-name">${v.name}</div>
-          <div class="venue-sub">${v.sub}</div>
-        </div>
-        <div class="score-badge" style="background:${v.scoreColor}">
-          <div class="score-n" style="color:${v.scoreText}">${v.score}</div>
-          <div class="score-l" style="color:${v.scoreText}">fit</div>
-        </div>
-      </div>
-      <div class="bars">
-        ${v.bars.map(b => `
-          <div class="bar-row">
-            <div class="bar-label">${b.label}</div>
-            <div class="bar-track"><div class="bar-fill" style="width:${b.pct}%;background:${b.color}"></div></div>
+        <div class="card-title-row">
+          <div>
+            <div class="venue-name">${v.name}</div>
+            <div class="venue-sub">${v.sub}</div>
           </div>
-        `).join('')}
+          <div class="score-badge" style="background:${v.scoreColor}">
+            <div class="score-n" style="color:${v.scoreText}">${v.score}</div>
+            <div class="score-l" style="color:${v.scoreText}">fit</div>
+          </div>
+        </div>
+        <div class="price-row">
+          ${v.free
+            ? `<span class="price-free">${v.price}</span>`
+            : `<span class="price-main">${v.price}</span>`}
+          <span class="price-note">${v.free ? '' : v.priceNote}</span>
+        </div>
+        <div class="bars">
+          ${v.bars.map(b => `
+            <div class="bar-row">
+              <div class="bar-label">${b.label}</div>
+              <div class="bar-track"><div class="bar-fill" style="width:${b.pct}%;background:${b.color}"></div></div>
+            </div>`).join('')}
+        </div>
+        <div class="tags">${v.tags.map(t => `<span class="tag ${t.c}">${t.t}</span>`).join('')}</div>
       </div>
-      <div class="tags">${v.tags.map(t => `<span class="tag ${t.cls}">${t.text}</span>`).join('')}</div>
-      <div class="access-section">
-        <div class="access-title">Getting there</div>
+
+      <div class="card-section">
+        <div class="section-title">Certifications & insurance</div>
+        ${v.requirements.map(r => `
+          <div class="req-row">
+            <div class="req-dot ${r.dot}"></div>
+            <div>${r.text}</div>
+          </div>`).join('')}
+      </div>
+
+      <div class="card-section">
+        <div class="section-title">Getting there</div>
         ${v.access.map(a => `
           <div class="access-row">
             <div class="access-dot" style="background:${a.color}"></div>
             ${a.text}
-          </div>
-        `).join('')}
+          </div>`).join('')}
       </div>
+
       <div class="card-actions">
-        <button class="btn-outreach" onclick="draftOutreach('${v.name}', \`${v.outreach.replace(/`/g,'\\`')}\`)">Draft outreach email</button>
-        <button class="btn-outline" onclick="askAssistant('${v.name}')">Ask AI</button>
+        ${v.bookingUrl ? `<a href="${v.bookingUrl}" target="_blank" class="btn-book">
+          <svg width="12" height="12" viewBox="0 0 20 20" fill="none" stroke="white" stroke-width="1.5"><path d="M10 3v14M3 10h14" stroke-linecap="round"/></svg>
+          ${v.bookingLabel}
+        </a>` : ''}
+        <button class="btn-outreach" onclick="draftOutreach('${v.name.replace(/'/g,"\\'")}', \`${v.outreach.replace(/`/g,'\\`')}\`)">Draft outreach</button>
+        <button class="btn-outline" onclick="askAssistant('${v.name.replace(/'/g,"\\'")}')">Ask AI</button>
       </div>
     `;
     grid.appendChild(card);
@@ -472,23 +578,17 @@ function renderGrid() {
 }
 
 function draftOutreach(name, text) {
-  const subject = encodeURIComponent(`Event space inquiry — ${name}`);
+  const subject = encodeURIComponent('Event space inquiry — ' + name);
   const body = encodeURIComponent(text + '\n\nWarm regards,\n[Your name]\nAuric Movement');
-  window.open(`mailto:?subject=${subject}&body=${body}`);
+  window.open('mailto:?subject=' + subject + '&body=' + body);
 }
 
 function askAssistant(name) {
-  sessionStorage.setItem('assistantPrompt', `Tell me more about hosting a wellness event at ${name} — what should I know before reaching out?`);
+  sessionStorage.setItem('assistantPrompt', 'Tell me more about hosting a wellness event at ' + name + ' — what should I know about their certification requirements, insurance needs, and how to approach the booking?');
   window.location.href = 'assistant.html';
 }
 
 renderGrid();
-
-window.addEventListener('load', () => {
-  const prompt = sessionStorage.getItem('assistantPrompt');
-  if (prompt) sessionStorage.removeItem('assistantPrompt');
-});
 </script>
-
 </body>
 </html>

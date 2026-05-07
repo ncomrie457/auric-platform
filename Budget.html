@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Event Budget Calculator — Auric OS</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --ink: #2C2418; --earth: #7A6A52; --stone: #EDE9E0;
+      --cream: #FAF8F4; --bark: #B5A48A;
+      --gold: #C9A84C; --gold-l: #FBF5E6; --gold-d: #7A5C14;
+      --sage: #7B9E87; --sage-l: #EDF3EF; --sage-d: #2A5A36;
+      --sky: #6B9AB8; --sky-l: #EAF2F8; --sky-d: #2A5A78;
+      --rose: #C47D7D; --rose-l: #FAEAEA; --rose-d: #7A3A3A;
+    }
+    body { font-family: 'DM Sans', sans-serif; background: var(--cream); color: var(--ink); }
+    nav {
+      background: rgba(250,248,244,0.95); backdrop-filter: blur(8px);
+      border-bottom: 0.5px solid var(--stone); padding: 0 24px;
+      height: 52px; display: flex; align-items: center; justify-content: space-between;
+      position: sticky; top: 0; z-index: 100;
+    }
+    .logo { font-family: 'Cormorant Garamond', serif; font-size: 20px; font-weight: 600; color: var(--ink); text-decoration: none; }
+    .logo span { color: var(--gold); }
+    .nav-links { display: flex; gap: 20px; align-items: center; }
+    .nav-links a { font-size: 13px; color: var(--earth); text-decoration: none; }
+    .nav-links a:hover { color: var(--ink); }
+    .page-wrap { max-width: 960px; margin: 0 auto; padding: 40px 24px 64px; }
+    h1 { font-family: 'Cormorant Garamond', serif; font-size: 40px; font-weight: 500; margin-bottom: 6px; }
+    .sub { font-size: 14px; color: var(--earth); line-height: 1.65; margin-bottom: 32px; max-width: 560px; }
+    .calc-grid { display: grid; grid-template-columns: 1fr 380px; gap: 24px; align-items: start; }
+    .card { background: white; border: 0.5px solid var(--stone); border-radius: 14px; overflow: hidden; margin-bottom: 16px; }
+    .card-hd { padding: 14px 18px; border-bottom: 0.5px solid var(--stone); font-size: 13px; font-weight: 500; background: var(--cream); display: flex; align-items: center; justify-content: space-between; }
+    .card-bd { padding: 18px; }
+    .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 12px; }
+    .field-row.full { grid-template-columns: 1fr; }
+    .field { display: flex; flex-direction: column; gap: 5px; }
+    .field label { font-size: 11px; font-weight: 500; color: var(--earth); text-transform: uppercase; letter-spacing: .05em; }
+    .field input, .field select {
+      height: 40px; border: 0.5px solid var(--stone); border-radius: 8px;
+      padding: 0 12px; font-size: 13px; font-family: 'DM Sans', sans-serif;
+      background: var(--cream); color: var(--ink); outline: none;
+    }
+    .field input:focus, .field select:focus { border-color: var(--gold); }
+    .field .hint { font-size: 11px; color: var(--bark); }
+    .section-title { font-size: 11px; font-weight: 500; color: var(--earth); text-transform: uppercase; letter-spacing: .06em; margin-bottom: 12px; padding-bottom: 6px; border-bottom: 0.5px solid var(--stone); }
+    .cost-row { display: flex; align-items: center; justify-content: space-between; padding: 8px 0; border-bottom: 0.5px solid var(--stone); font-size: 13px; }
+    .cost-row:last-child { border-bottom: none; }
+    .cost-label { color: var(--earth); }
+    .cost-val { font-weight: 500; color: var(--ink); }
+    .cost-val.zero { color: var(--bark); font-weight: 400; }
+    .total-row { display: flex; align-items: center; justify-content: space-between; padding: 12px 0 0; font-size: 14px; font-weight: 500; border-top: 1px solid var(--stone); margin-top: 4px; }
+    .total-amount { font-family: 'Cormorant Garamond', serif; font-size: 28px; font-weight: 500; color: var(--ink); }
+    .results-card { background: var(--ink); border-radius: 14px; padding: 20px; color: white; margin-bottom: 16px; }
+    .results-title { font-family: 'Cormorant Garamond', serif; font-size: 20px; font-weight: 500; margin-bottom: 16px; color: white; }
+    .result-row { display: flex; align-items: center; justify-content: space-between; padding: 10px 0; border-bottom: 0.5px solid rgba(255,255,255,.1); }
+    .result-row:last-child { border-bottom: none; }
+    .result-label { font-size: 12px; color: rgba(255,255,255,.7); }
+    .result-val { font-family: 'Cormorant Garamond', serif; font-size: 22px; font-weight: 500; color: white; }
+    .result-val.green { color: #7B9E87; }
+    .result-val.red { color: #C47D7D; }
+    .ticket-tiers { display: grid; grid-template-columns: repeat(3,1fr); gap: 8px; margin-top: 16px; }
+    .tier { background: rgba(255,255,255,.08); border-radius: 8px; padding: 12px; text-align: center; }
+    .tier-name { font-size: 10px; text-transform: uppercase; letter-spacing: .06em; color: rgba(255,255,255,.6); margin-bottom: 4px; }
+    .tier-price { font-family: 'Cormorant Garamond', serif; font-size: 24px; font-weight: 500; color: white; margin-bottom: 2px; }
+    .tier-note { font-size: 10px; color: rgba(255,255,255,.5); }
+    .tip-card { background: var(--sage-l); border: 0.5px solid #B5D4BB; border-radius: 10px; padding: 13px 15px; font-size: 12px; color: var(--sage-d); line-height: 1.65; }
+    .profit-bar { height: 6px; background: var(--stone); border-radius: 3px; margin: 12px 0; overflow: hidden; }
+    .profit-fill { height: 100%; border-radius: 3px; transition: width .3s; }
+    .badge { font-size: 10px; font-weight: 500; padding: 3px 9px; border-radius: 20px; }
+    .badge-green { background: var(--sage-l); color: var(--sage-d); }
+    .badge-rose { background: var(--rose-l); color: var(--rose-d); }
+    .btn-reset { background: transparent; color: var(--earth); border: 0.5px solid var(--stone); border-radius: 8px; padding: 7px 16px; font-size: 12px; cursor: pointer; font-family: 'DM Sans', sans-serif; }
+    .btn-reset:hover { background: var(--cream); }
+    @media (max-width: 720px) { .calc-grid { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="logo">auric<span>.</span>os</a>
+  <div class="nav-links">
+    <a href="index.html">Home</a>
+    <a href="listings.html">Venues</a>
+    <a href="assistant.html">AI Assistant</a>
+    <a href="gems.html">Gems</a>
+  </div>
+</nav>
+
+<div class="page-wrap">
+  <h1>Event Budget Calculator</h1>
+  <p class="sub">Enter your event details and costs to get a complete breakdown — total spend, per-person cost, breakeven ticket price, and suggested pricing tiers.</p>
+
+  <div class="calc-grid">
+    <div>
+      <div class="card">
+        <div class="card-hd">Event details <button class="btn-reset" onclick="reset()">Reset</button></div>
+        <div class="card-bd">
+          <div class="field-row">
+            <div class="field">
+              <label>Event type</label>
+              <select id="event-type" onchange="calc()">
+                <option>Pilates pop-up</option>
+                <option>Yoga class</option>
+                <option>Sound bath</option>
+                <option>Breathwork ceremony</option>
+                <option>Wellness workshop</option>
+                <option>Retreat (day)</option>
+                <option>Retreat (multi-day)</option>
+                <option>Other</option>
+              </select>
+            </div>
+            <div class="field">
+              <label>Expected attendance</label>
+              <input type="number" id="attendance" value="25" min="1" max="500" oninput="calc()">
+            </div>
+          </div>
+          <div class="field-row">
+            <div class="field">
+              <label>Event duration (hours)</label>
+              <input type="number" id="duration" value="2" min="0.5" step="0.5" oninput="calc()">
+            </div>
+            <div class="field">
+              <label>City</label>
+              <select id="city" onchange="calc()">
+                <option>New York City</option>
+                <option>Los Angeles</option>
+                <option>Miami</option>
+                <option>Chicago</option>
+                <option>Other</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-hd">Costs</div>
+        <div class="card-bd">
+          <div class="section-title">Venue</div>
+          <div class="field-row">
+            <div class="field">
+              <label>Venue rate ($/hr)</label>
+              <input type="number" id="venue-rate" value="150" min="0" oninput="calc()">
+              <span class="hint">Enter 0 for free spaces</span>
+            </div>
+            <div class="field">
+              <label>Cleaning / setup fee</label>
+              <input type="number" id="venue-fee" value="0" min="0" oninput="calc()">
+            </div>
+          </div>
+
+          <div class="section-title" style="margin-top:16px">Insurance & permits</div>
+          <div class="field-row">
+            <div class="field">
+              <label>Event insurance</label>
+              <input type="number" id="insurance" value="75" min="0" oninput="calc()">
+              <span class="hint">~$50–150 for a single event</span>
+            </div>
+            <div class="field">
+              <label>Permits</label>
+              <input type="number" id="permits" value="0" min="0" oninput="calc()">
+              <span class="hint">Parks permits $0–$50</span>
+            </div>
+          </div>
+
+          <div class="section-title" style="margin-top:16px">People</div>
+          <div class="field-row">
+            <div class="field">
+              <label>Guest instructor fee</label>
+              <input type="number" id="instructor" value="0" min="0" oninput="calc()">
+            </div>
+            <div class="field">
+              <label>Photographer</label>
+              <input type="number" id="photographer" value="0" min="0" oninput="calc()">
+              <span class="hint">$150–400 typical NYC rate</span>
+            </div>
+          </div>
+          <div class="field-row">
+            <div class="field">
+              <label>Assistant / helper</label>
+              <input type="number" id="assistant" value="0" min="0" oninput="calc()">
+            </div>
+            <div class="field">
+              <label>Sound healer / DJ</label>
+              <input type="number" id="sound" value="0" min="0" oninput="calc()">
+            </div>
+          </div>
+
+          <div class="section-title" style="margin-top:16px">Supplies & marketing</div>
+          <div class="field-row">
+            <div class="field">
+              <label>Equipment rental</label>
+              <input type="number" id="equipment" value="0" min="0" oninput="calc()">
+              <span class="hint">Mats, props, speaker, etc.</span>
+            </div>
+            <div class="field">
+              <label>Refreshments / snacks</label>
+              <input type="number" id="refreshments" value="50" min="0" oninput="calc()">
+            </div>
+          </div>
+          <div class="field-row">
+            <div class="field">
+              <label>Marketing & printing</label>
+              <input type="number" id="marketing" value="30" min="0" oninput="calc()">
+            </div>
+            <div class="field">
+              <label>Gifts / goodie bags</label>
+              <input type="number" id="gifts" value="0" min="0" oninput="calc()">
+            </div>
+          </div>
+
+          <div class="section-title" style="margin-top:16px">Platform & contingency</div>
+          <div class="field-row">
+            <div class="field">
+              <label>Ticketing platform fee (%)</label>
+              <input type="number" id="platform-fee" value="5" min="0" max="15" oninput="calc()">
+              <span class="hint">Eventbrite ~6%, Luma ~3%</span>
+            </div>
+            <div class="field">
+              <label>Contingency (%)</label>
+              <input type="number" id="contingency" value="10" min="0" max="30" oninput="calc()">
+              <span class="hint">Recommended: 10–15%</span>
+            </div>
+          </div>
+
+          <div class="section-title" style="margin-top:16px">Revenue</div>
+          <div class="field-row">
+            <div class="field">
+              <label>Sponsor contribution ($)</label>
+              <input type="number" id="sponsor" value="0" min="0" oninput="calc()">
+            </div>
+            <div class="field">
+              <label>Complimentary tickets (#)</label>
+              <input type="number" id="comps" value="2" min="0" oninput="calc()">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <div class="results-card">
+        <div class="results-title">Your event breakdown</div>
+        <div class="result-row">
+          <span class="result-label">Total cost</span>
+          <span class="result-val" id="r-total">$0</span>
+        </div>
+        <div class="result-row">
+          <span class="result-label">Cost per person</span>
+          <span class="result-val" id="r-per-person">$0</span>
+        </div>
+        <div class="result-row">
+          <span class="result-label">Breakeven ticket price</span>
+          <span class="result-val" id="r-breakeven">$0</span>
+        </div>
+        <div class="result-row">
+          <span class="result-label">Paying attendees</span>
+          <span class="result-val" id="r-paying">0</span>
+        </div>
+
+        <div style="margin-top:16px;margin-bottom:8px;font-size:11px;color:rgba(255,255,255,.6);text-transform:uppercase;letter-spacing:.06em">Suggested ticket tiers</div>
+        <div class="ticket-tiers">
+          <div class="tier">
+            <div class="tier-name">Community</div>
+            <div class="tier-price" id="t-community">$0</div>
+            <div class="tier-note" id="t-community-note">break-even</div>
+          </div>
+          <div class="tier">
+            <div class="tier-name">Standard</div>
+            <div class="tier-price" id="t-standard">$0</div>
+            <div class="tier-note" id="t-standard-note">~20% margin</div>
+          </div>
+          <div class="tier">
+            <div class="tier-name">Premium</div>
+            <div class="tier-price" id="t-premium">$0</div>
+            <div class="tier-note" id="t-premium-note">~50% margin</div>
+          </div>
+        </div>
+
+        <div style="margin-top:20px">
+          <div style="font-size:11px;color:rgba(255,255,255,.6);text-transform:uppercase;letter-spacing:.06em;margin-bottom:8px">Profit at standard pricing</div>
+          <div class="profit-bar"><div class="profit-fill" id="profit-bar" style="width:0%;background:#7B9E87"></div></div>
+          <div style="display:flex;justify-content:space-between;align-items:center">
+            <span style="font-size:12px;color:rgba(255,255,255,.6)">Net profit / loss</span>
+            <span class="result-val" id="r-profit" style="font-size:20px">$0</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-hd">Cost breakdown</div>
+        <div class="card-bd" id="breakdown"></div>
+      </div>
+
+      <div class="tip-card" id="tip-card">
+        Enter your costs on the left to see your full breakdown and ticket pricing recommendations.
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+function calc() {
+  const attendance = parseInt(document.getElementById('attendance').value) || 0;
+  const duration = parseFloat(document.getElementById('duration').value) || 0;
+  const comps = parseInt(document.getElementById('comps').value) || 0;
+  const paying = Math.max(0, attendance - comps);
+
+  const venueRate = parseFloat(document.getElementById('venue-rate').value) || 0;
+  const venueFee = parseFloat(document.getElementById('venue-fee').value) || 0;
+  const insurance = parseFloat(document.getElementById('insurance').value) || 0;
+  const permits = parseFloat(document.getElementById('permits').value) || 0;
+  const instructor = parseFloat(document.getElementById('instructor').value) || 0;
+  const photographer = parseFloat(document.getElementById('photographer').value) || 0;
+  const assistantFee = parseFloat(document.getElementById('assistant').value) || 0;
+  const sound = parseFloat(document.getElementById('sound').value) || 0;
+  const equipment = parseFloat(document.getElementById('equipment').value) || 0;
+  const refreshments = parseFloat(document.getElementById('refreshments').value) || 0;
+  const marketing = parseFloat(document.getElementById('marketing').value) || 0;
+  const gifts = parseFloat(document.getElementById('gifts').value) || 0;
+  const sponsor = parseFloat(document.getElementById('sponsor').value) || 0;
+  const platformFee = parseFloat(document.getElementById('platform-fee').value) / 100 || 0;
+  const contingencyPct = parseFloat(document.getElementById('contingency').value) / 100 || 0;
+
+  const venueCost = venueRate * duration + venueFee;
+  const peopleCost = instructor + photographer + assistantFee + sound;
+  const suppliesCost = equipment + refreshments + marketing + gifts;
+  const insuranceCost = insurance + permits;
+
+  const subtotal = venueCost + peopleCost + suppliesCost + insuranceCost;
+  const contingencyAmt = subtotal * contingencyPct;
+  const totalBeforePlatform = subtotal + contingencyAmt;
+
+  const breakeven = paying > 0 ? Math.max(0, (totalBeforePlatform - sponsor) / (paying * (1 - platformFee))) : 0;
+  const total = totalBeforePlatform;
+  const perPerson = attendance > 0 ? total / attendance : 0;
+
+  const communityPrice = Math.ceil(breakeven / 5) * 5;
+  const standardPrice = Math.ceil(breakeven * 1.2 / 5) * 5;
+  const premiumPrice = Math.ceil(breakeven * 1.5 / 5) * 5;
+
+  const standardRevenue = paying * standardPrice * (1 - platformFee) + sponsor;
+  const profit = standardRevenue - total;
+
+  document.getElementById('r-total').textContent = '$' + Math.round(total).toLocaleString();
+  document.getElementById('r-per-person').textContent = '$' + Math.round(perPerson).toLocaleString();
+  document.getElementById('r-breakeven').textContent = '$' + Math.round(breakeven).toLocaleString();
+  document.getElementById('r-paying').textContent = paying + ' of ' + attendance;
+
+  document.getElementById('t-community').textContent = '$' + communityPrice;
+  document.getElementById('t-standard').textContent = '$' + standardPrice;
+  document.getElementById('t-premium').textContent = '$' + premiumPrice;
+  document.getElementById('t-community-note').textContent = 'break-even';
+  document.getElementById('t-standard-note').textContent = '~20% margin';
+  document.getElementById('t-premium-note').textContent = '~50% margin';
+
+  const profitEl = document.getElementById('r-profit');
+  profitEl.textContent = (profit >= 0 ? '+' : '') + '$' + Math.round(profit).toLocaleString();
+  profitEl.style.color = profit >= 0 ? '#7B9E87' : '#C47D7D';
+
+  const profitBarWidth = Math.min(100, Math.max(0, (profit / total) * 100 + 50));
+  document.getElementById('profit-bar').style.width = profitBarWidth + '%';
+  document.getElementById('profit-bar').style.background = profit >= 0 ? '#7B9E87' : '#C47D7D';
+
+  const items = [
+    { label: 'Venue (' + duration + 'hrs @ $' + venueRate + '/hr)', val: venueRate * duration },
+    { label: 'Venue setup / cleaning fee', val: venueFee },
+    { label: 'Event insurance', val: insurance },
+    { label: 'Permits', val: permits },
+    { label: 'Guest instructor', val: instructor },
+    { label: 'Photographer', val: photographer },
+    { label: 'Assistant / helper', val: assistantFee },
+    { label: 'Sound healer / DJ', val: sound },
+    { label: 'Equipment rental', val: equipment },
+    { label: 'Refreshments', val: refreshments },
+    { label: 'Marketing & printing', val: marketing },
+    { label: 'Gifts / goodie bags', val: gifts },
+    { label: 'Contingency (' + Math.round(contingencyPct * 100) + '%)', val: contingencyAmt },
+    { label: 'Sponsor contribution', val: -sponsor, isCredit: true },
+  ].filter(item => item.val !== 0);
+
+  document.getElementById('breakdown').innerHTML = items.map(item => `
+    <div class="cost-row">
+      <span class="cost-label" style="${item.isCredit ? 'color:var(--sage-d)' : ''}">${item.label}</span>
+      <span class="cost-val ${item.val === 0 ? 'zero' : ''}" style="${item.isCredit ? 'color:var(--sage-d)' : ''}">
+        ${item.isCredit ? '−' : ''}$${Math.round(Math.abs(item.val)).toLocaleString()}
+      </span>
+    </div>
+  `).join('') + `
+    <div class="total-row">
+      <span style="font-size:13px">Total event cost</span>
+      <span class="total-amount">$${Math.round(total).toLocaleString()}</span>
+    </div>
+  `;
+
+  const tipEl = document.getElementById('tip-card');
+  if (total === 0) {
+    tipEl.textContent = 'Enter your costs on the left to see your full breakdown and ticket pricing recommendations.';
+  } else if (breakeven < 20) {
+    tipEl.textContent = '💡 Your breakeven price is very low — consider pricing at $' + standardPrice + ' to create perceived value and earn a small margin. Free events often have higher no-show rates.';
+  } else if (breakeven > 100) {
+    tipEl.textContent = '💡 Your costs are high relative to your expected attendance. Consider increasing attendance, finding a sponsor, or using a free space like an NYPL branch to reduce venue costs.';
+  } else if (profit < 0) {
+    tipEl.textContent = '💡 At standard pricing you\'re projecting a loss of $' + Math.abs(Math.round(profit)).toLocaleString() + '. Try increasing your ticket price to $' + premiumPrice + ' or finding a brand sponsor to cover part of your costs.';
+  } else {
+    tipEl.textContent = '✓ At $' + standardPrice + ' per ticket with ' + paying + ' paying attendees, you\'re projecting a profit of $' + Math.round(profit).toLocaleString() + '. The premium tier at $' + premiumPrice + ' would earn you $' + Math.round(paying * premiumPrice * (1 - platformFee) + sponsor - total).toLocaleString() + '.';
+  }
+}
+
+function reset() {
+  document.getElementById('attendance').value = 25;
+  document.getElementById('duration').value = 2;
+  document.getElementById('venue-rate').value = 150;
+  document.getElementById('venue-fee').value = 0;
+  document.getElementById('insurance').value = 75;
+  document.getElementById('permits').value = 0;
+  document.getElementById('instructor').value = 0;
+  document.getElementById('photographer').value = 0;
+  document.getElementById('assistant').value = 0;
+  document.getElementById('sound').value = 0;
+  document.getElementById('equipment').value = 0;
+  document.getElementById('refreshments').value = 50;
+  document.getElementById('marketing').value = 30;
+  document.getElementById('gifts').value = 0;
+  document.getElementById('sponsor').value = 0;
+  document.getElementById('comps').value = 2;
+  document.getElementById('platform-fee').value = 5;
+  document.getElementById('contingency').value = 10;
+  calc();
+}
+
+calc();
+</script>
+</body>
+</html>

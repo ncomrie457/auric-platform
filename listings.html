@@ -124,6 +124,7 @@
   </style>
 </head>
 <body>
+<script src="gate.js"></script>
 
 <nav>
   <a href="index.html" class="logo">auric<span>.</span>os</a>
@@ -146,6 +147,20 @@
     <button class="filter-btn" onclick="filter('outdoor',this)">Outdoor</button>
     <button class="filter-btn" onclick="filter('unique',this)">Unique</button>
     <button class="filter-btn" onclick="filter('no-cert',this)">No cert needed</button>
+  </div>
+  <div class="filters" style="margin-top:10px">
+    <span style="font-size:11px;color:var(--earth);text-transform:uppercase;letter-spacing:.06em;align-self:center;margin-right:4px">Modality</span>
+    <button class="filter-btn modality-btn active" onclick="filterModality('all',this)">All</button>
+    <button class="filter-btn modality-btn" onclick="filterModality('yoga',this)">Yoga</button>
+    <button class="filter-btn modality-btn" onclick="filterModality('pilates',this)">Pilates</button>
+    <button class="filter-btn modality-btn" onclick="filterModality('sound_bath',this)">Sound bath</button>
+    <button class="filter-btn modality-btn" onclick="filterModality('meditation',this)">Meditation</button>
+    <button class="filter-btn modality-btn" onclick="filterModality('breathwork',this)">Breathwork</button>
+    <button class="filter-btn modality-btn" onclick="filterModality('dance',this)">Dance</button>
+    <button class="filter-btn modality-btn" onclick="filterModality('hiit',this)">HIIT</button>
+    <button class="filter-btn modality-btn" onclick="filterModality('barre',this)">Barre</button>
+    <button class="filter-btn modality-btn" onclick="filterModality('workshop',this)">Workshop</button>
+    <button class="filter-btn modality-btn" onclick="filterModality('retreat',this)">Retreat</button>
   </div>
 </div>
 
@@ -185,7 +200,8 @@ const venues = [
       {color:"#7B9E87",text:"ADA accessible · step-free entry"},
       {color:"#C9A84C",text:"Street parking · free after 7pm"}
     ],
-    outreach:"Hi Modo Yoga Tribeca team, I'm reaching out about renting your studio for a community wellness event. We run curated Pilates and movement experiences for 20–40 people and your space feels perfectly aligned with our community. Could you share your rental rates and availability?"
+    outreach:"Hi Modo Yoga Tribeca team, I'm reaching out about renting your studio for a community wellness event. We run curated Pilates and movement experiences for 20–40 people and your space feels perfectly aligned with our community. Could you share your rental rates and availability?",
+    modalities:["yoga","pilates","meditation","breathwork","barre"]
   },
   {
     name: "NYPL — Brooklyn Central Library",
@@ -213,7 +229,8 @@ const venues = [
       {color:"#7B9E87",text:"Fully ADA accessible throughout"},
       {color:"#7B9E87",text:"Free street parking nearby"}
     ],
-    outreach:"Hi Brooklyn Public Library events team, I'd like to apply to book a community room for a wellness workshop for approximately 30 people. We focus on mindful movement and breathwork and would love to bring this programming to your space."
+    outreach:"Hi Brooklyn Public Library events team, I'd like to apply to book a community room for a wellness workshop for approximately 30 people. We focus on mindful movement and breathwork and would love to bring this programming to your space.",
+    modalities:["meditation","breathwork","workshop","sound_bath","tai_chi"]
   },
   {
     name: "Body by Simone — Flatiron",
@@ -241,7 +258,8 @@ const venues = [
       {color:"#C9A84C",text:"Paid parking nearby · no free street"},
       {color:"#7B9E87",text:"Elevator access · ADA compliant"}
     ],
-    outreach:"Hi Body by Simone team, I'm interested in renting your Flatiron studio for a wellness event for 25–35 guests. I'm a certified instructor and would love to discuss availability and your rental requirements including insurance specifications."
+    outreach:"Hi Body by Simone team, I'm interested in renting your Flatiron studio for a wellness event for 25–35 guests. I'm a certified instructor and would love to discuss availability and your rental requirements including insurance specifications.",
+    modalities:["pilates","dance","hiit","barre","strength"]
   },
   {
     name: "Central Park — Rumsey Playfield",
@@ -269,7 +287,8 @@ const venues = [
       {color:"#C9A84C",text:"No on-site parking · rideshare recommended"},
       {color:"#7B9E87",text:"Accessible pathways throughout park"}
     ],
-    outreach:"Hi NYC Parks Events Team, I'd like to apply for a permit to host a small outdoor wellness event (yoga/meditation) at Rumsey Playfield for approximately 25 people. Please let me know the best process for applying and any requirements."
+    outreach:"Hi NYC Parks Events Team, I'd like to apply for a permit to host a small outdoor wellness event (yoga/meditation) at Rumsey Playfield for approximately 25 people. Please let me know the best process for applying and any requirements.",
+    modalities:["yoga","tai_chi","meditation","breathwork"]
   },
   {
     name: "The Well NYC",
@@ -297,7 +316,8 @@ const venues = [
       {color:"#C47D7D",text:"Paid garage only · $35–45/visit"},
       {color:"#C9A84C",text:"Elevator · 3 steps at rooftop entry"}
     ],
-    outreach:"Hi The Well NYC events team, I run Auric Movement, a curated wellness event series. I'm interested in exploring a private event hire at your Flatiron location for 20–30 guests. Could you share your rental rates, insurance requirements, and instructor certification specs?"
+    outreach:"Hi The Well NYC events team, I run Auric Movement, a curated wellness event series. I'm interested in exploring a private event hire at your Flatiron location for 20–30 guests. Could you share your rental rates, insurance requirements, and instructor certification specs?",
+    modalities:["yoga","pilates","meditation","breathwork","sound_bath","workshop","retreat"]
   },
   {
     name: "Green-Wood Cemetery Chapel",
@@ -325,7 +345,8 @@ const venues = [
       {color:"#7B9E87",text:"Free parking on-site"},
       {color:"#C9A84C",text:"Some garden paths uneven · limited ADA"}
     ],
-    outreach:"Hi Green-Wood events team, I'd love to explore hosting a small sound healing session in your north chapel for 15–25 people. We run intimate wellness gatherings and your space's acoustics and architecture would create an extraordinary setting. Is this something you'd consider?"
+    outreach:"Hi Green-Wood events team, I'd love to explore hosting a small sound healing session in your north chapel for 15–25 people. We run intimate wellness gatherings and your space's acoustics and architecture would create an extraordinary setting. Is this something you'd consider?",
+    modalities:["sound_bath","meditation","breathwork","workshop"]
   },
   {
     name: "1 Hotel Brooklyn Bridge",
@@ -353,7 +374,8 @@ const venues = [
       {color:"#C47D7D",text:"Valet only · $45/night"},
       {color:"#7B9E87",text:"Fully ADA accessible throughout"}
     ],
-    outreach:"Hi 1 Hotel Brooklyn Bridge events team, I run Auric Movement, a curated wellness event series. I'm interested in exploring a retreat partnership or event space hire for 30–80 guests. Your sustainability mission and aesthetic align perfectly with our community. Could we set up a call?"
+    outreach:"Hi 1 Hotel Brooklyn Bridge events team, I run Auric Movement, a curated wellness event series. I'm interested in exploring a retreat partnership or event space hire for 30–80 guests. Your sustainability mission and aesthetic align perfectly with our community. Could we set up a call?",
+    modalities:["yoga","pilates","meditation","breathwork","sound_bath","retreat","workshop"]
   },
   {
     name: "Lifespan Aerial Arts",
@@ -381,7 +403,8 @@ const venues = [
       {color:"#7B9E87",text:"Free street parking mornings"},
       {color:"#C47D7D",text:"Stairs only · no elevator"}
     ],
-    outreach:"Hi Lifespan team, I run wellness movement events in NYC and I'm interested in renting your studio for a morning session of about 20–30 people. I have liability insurance and movement certification. Would you have weekday morning availability?"
+    outreach:"Hi Lifespan team, I run wellness movement events in NYC and I'm interested in renting your studio for a morning session of about 20–30 people. I have liability insurance and movement certification. Would you have weekday morning availability?",
+    modalities:["yoga","pilates","dance","aerial","workshop"]
   },
   {
     name: "Brooklyn Botanic Garden",
@@ -409,7 +432,8 @@ const venues = [
       {color:"#7B9E87",text:"Free parking lot on-site"},
       {color:"#7B9E87",text:"Fully accessible paved paths"}
     ],
-    outreach:"Hi Brooklyn Botanic Garden events team, I'd love to inquire about renting a greenhouse or garden space for a private wellness event for approximately 40 people. We host mindful movement and meditation experiences and your grounds would be an extraordinary setting."
+    outreach:"Hi Brooklyn Botanic Garden events team, I'd love to inquire about renting a greenhouse or garden space for a private wellness event for approximately 40 people. We host mindful movement and meditation experiences and your grounds would be an extraordinary setting.",
+    modalities:["yoga","tai_chi","meditation","breathwork","workshop","retreat"]
   },
   {
     name: "St. Paul's Community Church Hall",
@@ -437,7 +461,8 @@ const venues = [
       {color:"#C9A84C",text:"Street parking available"},
       {color:"#C47D7D",text:"3 steps at entry · no elevator"}
     ],
-    outreach:"Hi, I'm reaching out about renting your hall for a small wellness event. We host sound healing and breathwork sessions for 20–40 people and your hall's acoustics and architecture would be a beautiful setting. Would you be open to discussing availability and your rental terms?"
+    outreach:"Hi, I'm reaching out about renting your hall for a small wellness event. We host sound healing and breathwork sessions for 20–40 people and your hall's acoustics and architecture would be a beautiful setting. Would you be open to discussing availability and your rental terms?",
+    modalities:["sound_bath","meditation","breathwork","yoga","workshop"]
   },
   {
     name: "NYPL — Mulberry Street Branch",
@@ -465,7 +490,8 @@ const venues = [
       {color:"#7B9E87",text:"ADA accessible throughout"},
       {color:"#C9A84C",text:"Limited street parking · meter"}
     ],
-    outreach:"Hi NYPL Mulberry Street Branch, I'd like to book your community room for a wellness workshop for approximately 25 people. We focus on breathwork and mindful movement programming and would love to serve the SoHo/NoLita community through your space."
+    outreach:"Hi NYPL Mulberry Street Branch, I'd like to book your community room for a wellness workshop for approximately 25 people. We focus on breathwork and mindful movement programming and would love to serve the SoHo/NoLita community through your space.",
+    modalities:["meditation","breathwork","workshop","sound_bath","tai_chi"]
   },
   {
     name: "Equinox — Private Studio Hire",
@@ -493,15 +519,459 @@ const venues = [
       {color:"#C47D7D",text:"Paid parking only at most locations"},
       {color:"#7B9E87",text:"All locations fully ADA accessible"}
     ],
-    outreach:"Hi Equinox events team, I'm interested in hiring a private studio space for a wellness event for 20–30 guests. I'm a certified instructor and carry liability insurance. Could you share your rental rates, available locations, and the specific certification and insurance requirements?"
+    outreach:"Hi Equinox events team, I'm interested in hiring a private studio space for a wellness event for 20–30 guests. I'm a certified instructor and carry liability insurance. Could you share your rental rates, available locations, and the specific certification and insurance requirements?",
+    modalities:["yoga","pilates","hiit","dance","barre","strength"]
+  },
+  {
+    name: "Bartow-Pell Mansion",
+    sub: "Historic House Trust · Pelham Bay, Bronx · 35 indoor / 125 garden",
+    type: "unique", free: false,
+    score: 84, scoreColor: "#F2EEF8", scoreText: "#4A2A7A",
+    price: "$700–$3,500",
+    priceNote: "6-hr block · indoor + formal garden",
+    bookingUrl: "https://www.bartowpellmansionmuseum.org/rent/space-rentals/",
+    bookingLabel: "Mansion rentals",
+    bars: [
+      {label:"Audience fit",pct:82,color:"#7B9E87"},
+      {label:"Aesthetic",pct:96,color:"#7B9E87"},
+      {label:"Value",pct:92,color:"#7B9E87"},
+      {label:"Accessibility",pct:62,color:"#C47D7D"}
+    ],
+    tags:[{t:"Historic House Trust",c:"tag-plum"},{t:"Indoor + garden",c:"tag-green"},{t:"6 train · 20 min walk",c:"tag-sky"}],
+    requirements:[
+      {dot:"req-recommended",text:"Liability insurance recommended for groups over 20 — confirm with events team."},
+      {dot:"req-none",text:"No instructor certification required for meditation, sound healing, or contemplative programming."},
+      {dot:"req-recommended",text:"Events must end by 10pm to respect park hours."}
+    ],
+    access:[
+      {color:"#C9A84C",text:"6 at Pelham Bay Park · 20 min walk or short rideshare"},
+      {color:"#7B9E87",text:"Free on-site parking"},
+      {color:"#C47D7D",text:"Stairs at mansion entry · limited ADA access indoors"}
+    ],
+    outreach:"Hi Bartow-Pell team, I'm interested in renting the mansion or formal garden for a small wellness gathering of 25–30 people. We run contemplative wellness events — sound healing, breathwork, gentle movement — and your property's history and grounds feel perfectly suited. Could you share availability and rental terms?",
+    modalities:["sound_bath","meditation","breathwork","workshop","retreat","yoga"]
+  },
+  {
+    name: "Old Stone House",
+    sub: "Historic House · Park Slope · Up to 80 guests",
+    type: "unique", free: false,
+    score: 83, scoreColor: "#F2EEF8", scoreText: "#4A2A7A",
+    price: "$400–$1,500",
+    priceNote: "Great Room + garden + park access",
+    bookingUrl: "https://theoldstonehouse.org/space-rental/",
+    bookingLabel: "Space rental",
+    bars: [
+      {label:"Audience fit",pct:86,color:"#7B9E87"},
+      {label:"Aesthetic",pct:88,color:"#7B9E87"},
+      {label:"Value",pct:96,color:"#7B9E87"},
+      {label:"Accessibility",pct:78,color:"#C9A84C"}
+    ],
+    tags:[{t:"Park Slope gem",c:"tag-plum"},{t:"F/G · 4 min",c:"tag-sky"},{t:"Indoor + park",c:"tag-green"}],
+    requirements:[
+      {dot:"req-none",text:"No instructor certification required for community wellness programming."},
+      {dot:"req-recommended",text:"Liability insurance recommended for movement events — email to confirm."},
+      {dot:"req-none",text:"Old Stone House actively welcomes wellness programming as community-aligned use."}
+    ],
+    access:[
+      {color:"#7B9E87",text:"F/G at 4th Ave–9th St · 4 min walk"},
+      {color:"#C9A84C",text:"Street parking · metered weekdays"},
+      {color:"#C9A84C",text:"Park-level entry · ground floor accessible"}
+    ],
+    outreach:"Hi Old Stone House team, I run a small wellness event series in Brooklyn and would love to inquire about renting the Great Room for a movement and sound session for 30–50 people. Your space's history and community-aligned use feel like a perfect match. Could you share rates and availability?",
+    modalities:["yoga","sound_bath","meditation","breathwork","workshop","tai_chi"]
+  },
+  {
+    name: "Merchant's House Museum",
+    sub: "Historic House · NoHo · Max 25 guests",
+    type: "unique", free: false,
+    score: 80, scoreColor: "#F2EEF8", scoreText: "#4A2A7A",
+    price: "$1,500–$3,500",
+    priceNote: "+ $500 deposit · no catering · ceremony-only",
+    bookingUrl: "https://merchantshouse.org/rentals/",
+    bookingLabel: "Rentals",
+    bars: [
+      {label:"Audience fit",pct:78,color:"#C9A84C"},
+      {label:"Aesthetic",pct:98,color:"#7B9E87"},
+      {label:"Value",pct:72,color:"#C9A84C"},
+      {label:"Accessibility",pct:55,color:"#C47D7D"}
+    ],
+    tags:[{t:"Greek Revival parlor",c:"tag-plum"},{t:"Secret garden",c:"tag-green"},{t:"6 · Bleecker · 4 min",c:"tag-sky"}],
+    requirements:[
+      {dot:"req-required",text:"Strict 25-person cap including all vendors. No catering or open flames."},
+      {dot:"req-recommended",text:"Liability insurance recommended — confirm with events coordinator."},
+      {dot:"req-none",text:"No instructor certification required — events must respect the historic interior."}
+    ],
+    access:[
+      {color:"#7B9E87",text:"6 at Bleecker St · 4 min walk · B/D/F/M at Broadway-Lafayette"},
+      {color:"#C47D7D",text:"No on-site parking · meter only"},
+      {color:"#C47D7D",text:"Historic stairs · no elevator · not ADA"}
+    ],
+    outreach:"Hi Merchant's House team, I'd like to inquire about renting the parlor or garden for an intimate wellness ceremony for 15–20 people. We run contemplative gatherings — breathwork and sound healing — that would be respectful of the historic interior. What dates are available?",
+    modalities:["sound_bath","meditation","breathwork","workshop"]
+  },
+  {
+    name: "Bronx Museum of the Arts",
+    sub: "Museum · Concourse, Bronx · 25–275 guests",
+    type: "unique", free: false,
+    score: 86, scoreColor: "#F2EEF8", scoreText: "#4A2A7A",
+    price: "From $1,500",
+    priceNote: "4-hr minimum · free-admission museum",
+    bookingUrl: "https://bronxmuseum.org/rentals/",
+    bookingLabel: "Rentals",
+    bars: [
+      {label:"Audience fit",pct:84,color:"#7B9E87"},
+      {label:"Aesthetic",pct:90,color:"#7B9E87"},
+      {label:"Value",pct:88,color:"#7B9E87"},
+      {label:"Accessibility",pct:90,color:"#6B9AB8"}
+    ],
+    tags:[{t:"Mid-tier museum",c:"tag-plum"},{t:"B/D · 167 St",c:"tag-sky"},{t:"Under-the-radar",c:"tag-gold"}],
+    requirements:[
+      {dot:"req-required",text:"Liability insurance required — $1M minimum. Museum will provide their COI requirements."},
+      {dot:"req-recommended",text:"Instructor certification recommended for movement programming."},
+      {dot:"req-none",text:"No certification needed for workshops, talks, sound healing, or meditation."}
+    ],
+    access:[
+      {color:"#7B9E87",text:"B/D at 167 St · 3 min walk"},
+      {color:"#7B9E87",text:"Street parking · plentiful evenings"},
+      {color:"#7B9E87",text:"Fully ADA accessible"}
+    ],
+    outreach:"Hi Bronx Museum team, I'd love to inquire about renting your gallery or community space for a wellness workshop for 40–60 people. We're a curated wellness series and would love to bring programming to the Bronx — your community-first model is a perfect fit. Could you share rental options and availability?",
+    modalities:["workshop","sound_bath","meditation","breathwork","retreat","yoga"]
+  },
+  {
+    name: "Snug Harbor Cultural Center",
+    sub: "83-Acre Campus · Staten Island · Up to 300 guests",
+    type: "outdoor", free: false,
+    score: 85, scoreColor: "#EDF3EF", scoreText: "#2A5A36",
+    price: "Custom quotes",
+    priceNote: "Multiple buildings + Chinese Scholar's Garden",
+    bookingUrl: "https://snug-harbor.org/rentals/",
+    bookingLabel: "Rentals",
+    bars: [
+      {label:"Audience fit",pct:80,color:"#7B9E87"},
+      {label:"Aesthetic",pct:96,color:"#7B9E87"},
+      {label:"Value",pct:85,color:"#7B9E87"},
+      {label:"Accessibility",pct:78,color:"#C9A84C"}
+    ],
+    tags:[{t:"Major untapped gem",c:"tag-gold"},{t:"83-acre campus",c:"tag-green"},{t:"Staten Island Ferry",c:"tag-sky"}],
+    requirements:[
+      {dot:"req-required",text:"Liability insurance required for events — $1M minimum for most spaces."},
+      {dot:"req-recommended",text:"Instructor certification recommended for movement programming."},
+      {dot:"req-none",text:"Snug Harbor actively encourages wellness programming and is welcoming to community-first creators."}
+    ],
+    access:[
+      {color:"#C9A84C",text:"Staten Island Ferry + S40 bus · 45 min from Manhattan"},
+      {color:"#7B9E87",text:"Free on-site parking"},
+      {color:"#C9A84C",text:"Most outdoor paths accessible · some buildings ADA-limited"}
+    ],
+    outreach:"Hi Snug Harbor team, I'm interested in hosting a wellness retreat day on your campus — sound healing, breathwork, gentle movement across the gardens. We typically run gatherings of 40–80 people and your scale, beauty, and almost-zero wellness creator awareness make this an exciting fit. Could we explore dates and spaces?",
+    modalities:["yoga","tai_chi","meditation","breathwork","sound_bath","retreat","workshop"]
+  },
+  {
+    name: "Wave Hill",
+    sub: "Public Garden · Riverdale, Bronx · Up to 120 guests",
+    type: "outdoor", free: false,
+    score: 88, scoreColor: "#EDF3EF", scoreText: "#2A5A36",
+    price: "$10K–$16K (membership + rental)",
+    priceNote: "Weekday: $5K membership + $5K rental · Hudson views",
+    bookingUrl: "https://www.wavehill.org/weddings-private-events",
+    bookingLabel: "Private events",
+    bars: [
+      {label:"Audience fit",pct:92,color:"#7B9E87"},
+      {label:"Aesthetic",pct:98,color:"#7B9E87"},
+      {label:"Value",pct:60,color:"#C9A84C"},
+      {label:"Accessibility",pct:82,color:"#6B9AB8"}
+    ],
+    tags:[{t:"Forest bathing",c:"tag-plum"},{t:"Hudson + Palisades view",c:"tag-green"},{t:"1 train + shuttle",c:"tag-sky"}],
+    requirements:[
+      {dot:"req-required",text:"Liability insurance required — $2M minimum for events of 20+."},
+      {dot:"req-recommended",text:"Instructor certification recommended for movement events. Wave Hill is wellness-welcoming."},
+      {dot:"req-recommended",text:"Wave Hill already runs forest bathing and meditation programming — strong programmatic alignment."}
+    ],
+    access:[
+      {color:"#C9A84C",text:"1 train to 231st + free Wave Hill shuttle · 35 min from Midtown"},
+      {color:"#7B9E87",text:"Free on-site parking"},
+      {color:"#7B9E87",text:"Paved accessible pathways throughout most of property"}
+    ],
+    outreach:"Hi Wave Hill events team, I'd love to inquire about hosting a wellness retreat day or sunset gathering at the property. Given that you already run forest bathing and meditation programming, my work feels directly aligned. Could you share weekday rates and which spaces work best for groups of 30–60?",
+    modalities:["yoga","tai_chi","meditation","breathwork","sound_bath","workshop","retreat"]
+  },
+  {
+    name: "NYPL Stavros Niarchos Library — Rooftop",
+    sub: "Public Library Rooftop · Midtown · 3,500 sqft · Up to 250",
+    type: "outdoor", free: false,
+    score: 89, scoreColor: "#F2EEF8", scoreText: "#4A2A7A",
+    price: "Inquire",
+    priceNote: "Public-library rooftop · Bryant Park skyline view",
+    bookingUrl: "https://www.nypl.org/locations/snfl/event-center",
+    bookingLabel: "Event center",
+    bars: [
+      {label:"Audience fit",pct:90,color:"#7B9E87"},
+      {label:"Aesthetic",pct:94,color:"#7B9E87"},
+      {label:"Value",pct:85,color:"#7B9E87"},
+      {label:"Accessibility",pct:96,color:"#6B9AB8"}
+    ],
+    tags:[{t:"Rooftop · public library",c:"tag-gold"},{t:"Hidden gem",c:"tag-plum"},{t:"B/D/F/M · Bryant Park",c:"tag-sky"}],
+    requirements:[
+      {dot:"req-required",text:"Liability insurance required — NYPL will provide COI specifications."},
+      {dot:"req-recommended",text:"Instructor certification recommended for movement events."},
+      {dot:"req-none",text:"NYPL is welcoming to community wellness programming aligned with public benefit."}
+    ],
+    access:[
+      {color:"#7B9E87",text:"B/D/F/M at Bryant Park · 1 min walk · 7 at 5th Ave"},
+      {color:"#C9A84C",text:"Paid garages nearby"},
+      {color:"#7B9E87",text:"Fully ADA accessible · elevator to rooftop"}
+    ],
+    outreach:"Hi NYPL Stavros Niarchos events team, I'm interested in renting the rooftop terrace for a sunset wellness gathering for 40–80 people. The skyline view across Bryant Park is unmatched and a public-library rooftop is exactly the kind of space our community values. Could you share rental rates and available dates?",
+    modalities:["yoga","pilates","sound_bath","meditation","breathwork","tai_chi","workshop"]
+  },
+  {
+    name: "Brooklyn Grange — Brooklyn Navy Yard",
+    sub: "Rooftop Farm · BNY · Up to 100 guests · 1.5 acres",
+    type: "outdoor", free: false,
+    score: 86, scoreColor: "#EDF3EF", scoreText: "#2A5A36",
+    price: "$8,500–$10,000",
+    priceNote: "3-hr block · +$1,000/hr overage · Manhattan skyline view",
+    bookingUrl: "https://www.brooklyngrangefarm.com/private-dinners",
+    bookingLabel: "Private events",
+    bars: [
+      {label:"Audience fit",pct:90,color:"#7B9E87"},
+      {label:"Aesthetic",pct:96,color:"#7B9E87"},
+      {label:"Value",pct:62,color:"#C9A84C"},
+      {label:"Accessibility",pct:75,color:"#C9A84C"}
+    ],
+    tags:[{t:"Working rooftop farm",c:"tag-green"},{t:"Already runs yoga",c:"tag-gold"},{t:"F · York St + shuttle",c:"tag-sky"}],
+    requirements:[
+      {dot:"req-required",text:"Liability insurance required — $1M minimum. COI before booking."},
+      {dot:"req-recommended",text:"Instructor certification recommended — Brooklyn Grange already partners with wellness creators."},
+      {dot:"req-recommended",text:"Weather contingency planning required for any guaranteed-rain-or-shine event."}
+    ],
+    access:[
+      {color:"#C9A84C",text:"F at York St + BNY shuttle · 15 min total"},
+      {color:"#C9A84C",text:"Paid lot at BNY · limited"},
+      {color:"#C47D7D",text:"Elevator up · uneven gravel pathways on rooftop"}
+    ],
+    outreach:"Hi Brooklyn Grange team, I'd love to bring a sunrise yoga + sound healing session to the BNY rooftop farm. We run intimate wellness gatherings of 30–50 people and your existing wellness programming aligns directly with our community. Could you share a few weekday morning dates?",
+    modalities:["yoga","meditation","breathwork","sound_bath","tai_chi","workshop","retreat"]
+  },
+  {
+    name: "The Invisible Dog Art Center",
+    sub: "1863 Factory + Art Center · Boerum Hill · Up to 300 guests",
+    type: "unique", free: false,
+    score: 85, scoreColor: "#F2EEF8", scoreText: "#4A2A7A",
+    price: "$1,000–$6,000",
+    priceNote: "Weekday $1K · weekend day $6K · 10pm hard end",
+    bookingUrl: "https://www.theinvisibledog.org/event-space-faq",
+    bookingLabel: "Space rentals",
+    bars: [
+      {label:"Audience fit",pct:88,color:"#7B9E87"},
+      {label:"Aesthetic",pct:92,color:"#7B9E87"},
+      {label:"Value",pct:88,color:"#7B9E87"},
+      {label:"Accessibility",pct:72,color:"#C9A84C"}
+    ],
+    tags:[{t:"Polished concrete",c:"tag-green"},{t:"Outside catering OK",c:"tag-gold"},{t:"F/G · Bergen St",c:"tag-sky"}],
+    requirements:[
+      {dot:"req-required",text:"Liability insurance required — $1M minimum. COI before booking."},
+      {dot:"req-recommended",text:"Instructor certification recommended for movement events."},
+      {dot:"req-required",text:"All events end at 10pm sharp · load-out included in rental."}
+    ],
+    access:[
+      {color:"#7B9E87",text:"F/G at Bergen St · 4 min walk"},
+      {color:"#C9A84C",text:"Street parking · alternate side rules apply"},
+      {color:"#C47D7D",text:"Steps at entry · limited ADA · contact for accommodation"}
+    ],
+    outreach:"Hi Invisible Dog team, I'd love to inquire about a weekday booking for a wellness pop-up — yoga, sound healing, and ecstatic dance — for around 40 people. The polished concrete and art-center brand feel perfectly aligned with our community. Could you share availability for next month?",
+    modalities:["yoga","pilates","sound_bath","meditation","breathwork","dance","ecstatic_dance","workshop"]
+  },
+  {
+    name: "Frying Pan / Pier 66 Maritime",
+    sub: "Historic Lightship + Barge · Pier 66, West Side · 15–400",
+    type: "outdoor", free: false,
+    score: 78, scoreColor: "#EDF3EF", scoreText: "#2A5A36",
+    price: "Group min 25 · F&B-driven",
+    priceNote: "Seasonal Apr–Oct · sunrise/sunset slots possible",
+    bookingUrl: "https://www.fryingpan.com/group-reservations/",
+    bookingLabel: "Group reservations",
+    bars: [
+      {label:"Audience fit",pct:78,color:"#C9A84C"},
+      {label:"Aesthetic",pct:92,color:"#7B9E87"},
+      {label:"Value",pct:75,color:"#C9A84C"},
+      {label:"Accessibility",pct:72,color:"#C9A84C"}
+    ],
+    tags:[{t:"On the water",c:"tag-sky"},{t:"Seasonal Apr–Oct",c:"tag-gold"},{t:"C/E · 23rd St",c:"tag-sky"}],
+    requirements:[
+      {dot:"req-recommended",text:"Liability insurance recommended — confirm with the events team."},
+      {dot:"req-none",text:"No instructor certification typically required for sunrise yoga or meditation on deck."},
+      {dot:"req-recommended",text:"Weather backup essential — open-deck venue."}
+    ],
+    access:[
+      {color:"#7B9E87",text:"C/E at 23rd St · 10 min walk to Pier 66"},
+      {color:"#C9A84C",text:"Limited paid parking nearby · rideshare recommended"},
+      {color:"#C9A84C",text:"Step over rail to board lightship · uneven decks"}
+    ],
+    outreach:"Hi Frying Pan team, I'd love to inquire about a sunrise yoga and breathwork session on the barge deck before public hours. We run intimate water-side wellness events for 20–30 people and the lightship's atmosphere would create something genuinely unforgettable. Could you share rates and morning availability?",
+    modalities:["yoga","meditation","breathwork","sound_bath","workshop"]
+  },
+  {
+    name: "SeaGlass Carousel at The Battery",
+    sub: "Aquarium-Inspired Pavilion · Battery Park · ~25 guests",
+    type: "unique", free: false,
+    score: 84, scoreColor: "#F2EEF8", scoreText: "#4A2A7A",
+    price: "$680 · 1.5 hrs",
+    priceNote: "Deep Sea Divers package · terrace + Piet Oudolf garden",
+    bookingUrl: "https://www.seaglasscarousel.nyc/birthdays/",
+    bookingLabel: "Private events",
+    bars: [
+      {label:"Audience fit",pct:80,color:"#7B9E87"},
+      {label:"Aesthetic",pct:98,color:"#7B9E87"},
+      {label:"Value",pct:94,color:"#7B9E87"},
+      {label:"Accessibility",pct:90,color:"#6B9AB8"}
+    ],
+    tags:[{t:"Hidden gem",c:"tag-gold"},{t:"Nautilus pavilion",c:"tag-plum"},{t:"1/R/W/4/5 · Bowling Green",c:"tag-sky"}],
+    requirements:[
+      {dot:"req-none",text:"No instructor certification required — terrace package is independently operated."},
+      {dot:"req-recommended",text:"Liability insurance recommended for any group movement."},
+      {dot:"req-none",text:"Battery Park location is publicly accessible · no formal vetting."}
+    ],
+    access:[
+      {color:"#7B9E87",text:"1 to South Ferry · 4/5 to Bowling Green · R/W to Whitehall · 3 min walk"},
+      {color:"#C47D7D",text:"No on-site parking · rideshare or transit"},
+      {color:"#7B9E87",text:"Fully ADA accessible · paved garden paths"}
+    ],
+    outreach:"Hi SeaGlass Party team, I'd love to inquire about renting the Deep Sea Divers terrace package for a small wellness gathering of 20–25 people. We run breathwork and meditation events and the carousel's nautilus design plus the Piet Oudolf garden setting would create something genuinely unique. Could you confirm availability?",
+    modalities:["meditation","breathwork","sound_bath","workshop"]
+  },
+  {
+    name: "New York Aquarium",
+    sub: "Aquarium · Coney Island · Up to 250 cocktail / 90 plated",
+    type: "unique", free: false,
+    score: 78, scoreColor: "#F2EEF8", scoreText: "#4A2A7A",
+    price: "From $10,000",
+    priceNote: "Site rental + F&B from ~$200/pp + bar ~$55/pp",
+    bookingUrl: "https://nyaquarium.com/host-an-event",
+    bookingLabel: "Host an event",
+    bars: [
+      {label:"Audience fit",pct:72,color:"#C9A84C"},
+      {label:"Aesthetic",pct:94,color:"#7B9E87"},
+      {label:"Value",pct:42,color:"#C47D7D"},
+      {label:"Accessibility",pct:80,color:"#6B9AB8"}
+    ],
+    tags:[{t:"Premium tier",c:"tag-gold"},{t:"Underwater galleries",c:"tag-plum"},{t:"F/Q · Coney Island",c:"tag-sky"}],
+    requirements:[
+      {dot:"req-required",text:"Liability insurance required — $2M minimum. WCS-managed venue."},
+      {dot:"req-required",text:"Instructor certification required for movement events."},
+      {dot:"req-required",text:"Mandatory in-house catering · external food not permitted."}
+    ],
+    access:[
+      {color:"#7B9E87",text:"F/Q at West 8th–NY Aquarium · steps from entrance"},
+      {color:"#7B9E87",text:"Free parking lot on-site"},
+      {color:"#7B9E87",text:"Fully ADA accessible"}
+    ],
+    outreach:"Hi New York Aquarium events team, I'd love to inquire about a private event in your underwater galleries for around 80 guests. We run premium wellness gatherings — sound healing, ceremonial movement — and the aquarium's atmosphere would create something nobody could replicate. Could you share rental rates and available dates?",
+    modalities:["sound_bath","meditation","retreat","workshop"]
+  },
+  {
+    name: "Hayden Planetarium · Rose Center",
+    sub: "Planetarium Dome · AMNH, UWS · Custom capacity",
+    type: "unique", free: false,
+    score: 82, scoreColor: "#F2EEF8", scoreText: "#4A2A7A",
+    price: "Premium tier",
+    priceNote: "After-hours dome buyouts · custom proposals",
+    bookingUrl: "https://www.amnh.org/host-an-event",
+    bookingLabel: "Host an event",
+    bars: [
+      {label:"Audience fit",pct:75,color:"#C9A84C"},
+      {label:"Aesthetic",pct:100,color:"#7B9E87"},
+      {label:"Value",pct:35,color:"#C47D7D"},
+      {label:"Accessibility",pct:92,color:"#6B9AB8"}
+    ],
+    tags:[{t:"Unicorn booking",c:"tag-gold"},{t:"Sound bath under stars",c:"tag-plum"},{t:"B/C · 81st St",c:"tag-sky"}],
+    requirements:[
+      {dot:"req-required",text:"Liability insurance required — $5M typical for AMNH spaces. Museum will provide specifications."},
+      {dot:"req-required",text:"Background check + vetting for all instructors leading events."},
+      {dot:"req-required",text:"AMNH approves all programming · 4–6 week lead time minimum."}
+    ],
+    access:[
+      {color:"#7B9E87",text:"B/C at 81st St–Museum of Natural History · steps to entrance"},
+      {color:"#C9A84C",text:"Paid garage · $50+ per visit"},
+      {color:"#7B9E87",text:"Fully ADA accessible"}
+    ],
+    outreach:"Hi AMNH events team, I'd love to explore an after-hours sound bath under the Hayden Planetarium dome for an intimate audience. We run premium wellness gatherings and a sound healing experience under your projected sky would be a singular collaboration. Could we set up an initial conversation?",
+    modalities:["sound_bath","meditation","breathwork","workshop","retreat"]
+  },
+  {
+    name: "NeueHouse Madison Square",
+    sub: "Members' Club · Flatiron · 80–225 guests · 5 event spaces",
+    type: "studio", free: false,
+    score: 82, scoreColor: "#EDF3EF", scoreText: "#2A5A36",
+    price: "Inquire",
+    priceNote: "Non-member event hire · Penthouse + cinema + gallery",
+    bookingUrl: "https://www.neuehouse.com/private-events/madison-square/",
+    bookingLabel: "Private events",
+    bars: [
+      {label:"Audience fit",pct:84,color:"#7B9E87"},
+      {label:"Aesthetic",pct:94,color:"#7B9E87"},
+      {label:"Value",pct:55,color:"#C9A84C"},
+      {label:"Accessibility",pct:88,color:"#6B9AB8"}
+    ],
+    tags:[{t:"Non-member bookable",c:"tag-gold"},{t:"Penthouse + cinema",c:"tag-plum"},{t:"R/W · 23rd St",c:"tag-sky"}],
+    requirements:[
+      {dot:"req-required",text:"Liability insurance required — $2M minimum. NeueHouse will share COI specifications."},
+      {dot:"req-required",text:"Instructor certification required for any movement programming."},
+      {dot:"req-recommended",text:"Brand alignment review · NeueHouse curates which non-member events fit their members."}
+    ],
+    access:[
+      {color:"#7B9E87",text:"R/W at 23rd St · 3 min walk"},
+      {color:"#C9A84C",text:"Paid garages · no free street parking"},
+      {color:"#7B9E87",text:"Fully ADA accessible · elevators throughout"}
+    ],
+    outreach:"Hi NeueHouse Private Events team, I'm reaching out about a wellness gathering for 40–80 guests at your Madison Square location. We're a creator-led wellness series with strong brand alignment to your members. Could you share which of your 5 event spaces work best and current rates?",
+    modalities:["yoga","pilates","meditation","breathwork","sound_bath","workshop"]
+  },
+  {
+    name: "Pioneer Works",
+    sub: "Warehouse + Garden · Red Hook · Up to 1,000 guests",
+    type: "unique", free: false,
+    score: 83, scoreColor: "#F2EEF8", scoreText: "#4A2A7A",
+    price: "$10,000–$38,000/day",
+    priceNote: "25,000 sqft warehouse + 20,000 sqft garden",
+    bookingUrl: "https://pioneerworks.org/rentals",
+    bookingLabel: "Rentals",
+    bars: [
+      {label:"Audience fit",pct:82,color:"#7B9E87"},
+      {label:"Aesthetic",pct:92,color:"#7B9E87"},
+      {label:"Value",pct:48,color:"#C47D7D"},
+      {label:"Accessibility",pct:80,color:"#6B9AB8"}
+    ],
+    tags:[{t:"Premium retreat scale",c:"tag-gold"},{t:"Polished concrete + garden",c:"tag-green"},{t:"Red Hook · F · ferry",c:"tag-sky"}],
+    requirements:[
+      {dot:"req-required",text:"Liability insurance required — $2M minimum for events of this scale."},
+      {dot:"req-recommended",text:"Instructor certification recommended for movement-based programming."},
+      {dot:"req-recommended",text:"Pioneer Works is a nonprofit — programming that aligns with their cultural mission gets favorable terms."}
+    ],
+    access:[
+      {color:"#C9A84C",text:"F at Smith–9th + B61 bus · 25 min · or NYC Ferry to Red Hook"},
+      {color:"#7B9E87",text:"Street parking · plentiful"},
+      {color:"#7B9E87",text:"Fully ADA accessible warehouse + garden paths"}
+    ],
+    outreach:"Hi Pioneer Works team, I'd love to inquire about hosting a wellness retreat day in the warehouse + garden — sound healing, breathwork, movement, ecstatic dance — for around 100 people. Your nonprofit mission and creator-aligned brand are a strong match. Could we explore weekday rates and dates?",
+    modalities:["yoga","dance","ecstatic_dance","sound_bath","meditation","breathwork","workshop","retreat"]
   }
 ];
 
 let activeFilter = 'all';
+let activeModality = 'all';
 
 function filter(type, btn) {
   activeFilter = type;
-  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.filter-btn:not(.modality-btn)').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  renderGrid();
+}
+
+function filterModality(modality, btn) {
+  activeModality = modality;
+  document.querySelectorAll('.filter-btn.modality-btn').forEach(b => b.classList.remove('active'));
   btn.classList.add('active');
   renderGrid();
 }
@@ -510,9 +980,10 @@ function renderGrid() {
   const grid = document.getElementById('grid');
   grid.innerHTML = '';
   let filtered = venues;
-  if (activeFilter === 'free') filtered = venues.filter(v => v.free);
-  else if (activeFilter === 'no-cert') filtered = venues.filter(v => v.requirements.some(r => r.dot === 'req-none' && r.text.toLowerCase().includes('no instructor') || r.dot === 'req-none' && r.text.toLowerCase().includes('no certification')));
-  else if (activeFilter !== 'all') filtered = venues.filter(v => v.type === activeFilter);
+  if (activeFilter === 'free') filtered = filtered.filter(v => v.free);
+  else if (activeFilter === 'no-cert') filtered = filtered.filter(v => v.requirements.some(r => r.dot === 'req-none' && r.text.toLowerCase().includes('no instructor') || r.dot === 'req-none' && r.text.toLowerCase().includes('no certification')));
+  else if (activeFilter !== 'all') filtered = filtered.filter(v => v.type === activeFilter);
+  if (activeModality !== 'all') filtered = filtered.filter(v => (v.modalities || []).includes(activeModality));
 
   filtered.forEach(v => {
     const card = document.createElement('div');

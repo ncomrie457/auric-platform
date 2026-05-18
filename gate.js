@@ -4,6 +4,8 @@
 
   if (sessionStorage.getItem(KEY) === 'true') return;
 
+  function mount() {
+
   const overlay = document.createElement('div');
   overlay.id = 'auric-gate';
   overlay.innerHTML = `
@@ -112,4 +114,12 @@
       }
     }, 400);
   };
+
+  } // end mount()
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', mount);
+  } else {
+    mount();
+  }
 })();

@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>NYC Certification Guide — Auric OS</title>
+  <meta name="description" content="Where to actually get certified in NYC: Pilates (BASI, STOTT, Romana's), Yoga Alliance 200/500, Personal Training (NASM/ACE/ISSA), Reiki, Sound, Breathwork, Meditation. Cost, duration, format compared.">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --ink: #2C2418; --earth: #7A6A52; --stone: #EDE9E0;
+      --cream: #FAF8F4; --bark: #B5A48A;
+      --gold: #C9A84C; --gold-l: #FBF5E6; --gold-d: #7A5C14;
+      --sage: #7B9E87; --sage-l: #EDF3EF; --sage-d: #2A5A36;
+      --sky: #6B9AB8; --sky-l: #EAF2F8; --sky-d: #2A5A78;
+      --rose: #C47D7D; --rose-l: #FAEAEA;
+      --plum: #8A6FAA; --plum-l: #F2EEF8; --plum-d: #4A2A7A;
+    }
+    body { font-family: 'DM Sans', sans-serif; background: var(--cream); color: var(--ink); line-height: 1.7; }
+    nav {
+      background: rgba(250,248,244,0.95); backdrop-filter: blur(8px);
+      border-bottom: 0.5px solid var(--stone); padding: 0 24px;
+      height: 52px; display: flex; align-items: center; justify-content: space-between;
+      position: sticky; top: 0; z-index: 100;
+    }
+    .logo { font-family: 'Cormorant Garamond', serif; font-size: 20px; font-weight: 600; color: var(--ink); text-decoration: none; }
+    .logo span { color: var(--gold); }
+    .nav-links { display: flex; gap: 20px; align-items: center; }
+    .nav-links a { font-size: 13px; color: var(--earth); text-decoration: none; }
+    .nav-links a:hover { color: var(--ink); }
+    .nav-heart { display: inline-flex; align-items: center; gap: 4px; color: var(--earth); text-decoration: none; padding: 4px 6px; border-radius: 6px; }
+    .nav-heart:hover { color: #C47D7D; }
+    .nav-heart svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 1.7; }
+    .nav-heart [data-bookmark-count] { font-size: 10px; font-weight: 500; line-height: 1; }
+    .nav-heart [data-bookmark-count]:not(:empty) { background: #C47D7D; color: white; padding: 2px 6px; border-radius: 10px; }
+    main { max-width: 800px; margin: 0 auto; padding: 56px 24px 80px; }
+    h1 { font-family: 'Cormorant Garamond', serif; font-size: 46px; font-weight: 500; margin-bottom: 8px; line-height: 1.1; }
+    .lede { font-size: 16px; color: var(--earth); margin-bottom: 32px; line-height: 1.7; max-width: 640px; }
+    h2 { font-family: 'Cormorant Garamond', serif; font-size: 28px; font-weight: 500; margin-top: 48px; margin-bottom: 14px; color: var(--ink); display: flex; align-items: center; gap: 12px; }
+    h2 .cat { font-size: 11px; padding: 4px 10px; border-radius: 14px; background: var(--gold-l); color: var(--gold-d); text-transform: uppercase; letter-spacing: .06em; font-family: 'DM Sans', sans-serif; font-weight: 500; }
+    h3 { font-family: 'Cormorant Garamond', serif; font-size: 20px; font-weight: 500; margin-top: 28px; margin-bottom: 8px; color: var(--ink); }
+    p { font-size: 15px; color: var(--ink); margin-bottom: 14px; }
+    ul, ol { padding-left: 22px; margin-bottom: 14px; }
+    li { font-size: 15px; margin-bottom: 6px; }
+    strong { font-weight: 500; }
+    a { color: var(--gold-d); }
+    .callout {
+      background: var(--sage-l); border-left: 3px solid var(--sage); border-radius: 0 8px 8px 0;
+      padding: 14px 18px; font-size: 14px; color: var(--sage-d); margin: 18px 0; line-height: 1.65;
+    }
+    .callout strong { display: block; margin-bottom: 4px; }
+    .callout.tip { background: var(--gold-l); border-color: var(--gold); color: var(--gold-d); }
+    .callout.note { background: var(--plum-l); border-color: var(--plum); color: var(--plum-d); }
+    table { width: 100%; border-collapse: collapse; margin: 18px 0 24px; font-size: 13px; }
+    th { background: var(--stone); text-align: left; padding: 10px 12px; font-weight: 500; color: var(--ink); font-size: 12px; text-transform: uppercase; letter-spacing: .04em; }
+    td { padding: 10px 12px; border-bottom: 0.5px solid var(--stone); color: var(--ink); vertical-align: top; line-height: 1.5; }
+    td a { color: var(--gold-d); }
+    .toc { background: white; border: 0.5px solid var(--stone); border-radius: 10px; padding: 18px 22px; margin-bottom: 36px; }
+    .toc-title { font-size: 11px; font-weight: 500; color: var(--earth); text-transform: uppercase; letter-spacing: .08em; margin-bottom: 10px; }
+    .toc ol { padding-left: 18px; margin: 0; }
+    .toc li { font-size: 13px; margin-bottom: 4px; }
+    .toc a { color: var(--ink); text-decoration: none; }
+    .toc a:hover { color: var(--gold-d); }
+    .disclaimer { background: var(--cream); border: 0.5px dashed var(--bark); border-radius: 8px; padding: 12px 16px; font-size: 12px; color: var(--earth); line-height: 1.6; margin-top: 48px; }
+    footer { border-top: 0.5px solid var(--stone); padding: 32px 24px; max-width: 720px; margin: 0 auto; display: flex; flex-wrap: wrap; gap: 18px; font-size: 12px; color: var(--earth); justify-content: center; align-items: center; }
+    footer a { color: var(--earth); text-decoration: none; }
+    footer a:hover { color: var(--ink); }
+    @media (max-width: 600px) {
+      nav { padding: 0 8px; }
+      .nav-links { gap: 9px; }
+      .nav-links a { font-size: 11.5px; }
+      .nav-heart { padding: 2px 2px; gap: 2px; }
+      .nav-heart svg { width: 13px; height: 13px; }
+      .nav-heart [data-bookmark-count]:not(:empty) { padding: 1px 4px; font-size: 9.5px; }
+      main { padding: 36px 16px 56px; }
+      h1 { font-size: 34px; }
+      h2 { font-size: 24px; flex-wrap: wrap; }
+      table { font-size: 12px; }
+      th, td { padding: 8px 8px; }
+      footer { padding: 24px 16px; gap: 14px; }
+    }
+  </style>
+</head>
+<body>
+<script defer src="bookmarks.js"></script>
+
+<nav>
+  <a href="index.html" class="logo">auric<span>.</span>os</a>
+  <div class="nav-links">
+    <a href="index.html">Home</a>
+    <a href="listings.html">Venues</a>
+    <a href="assistant.html">Concierge</a>
+    <a href="templates.html">Templates</a>
+    <a href="budget.html">Budget</a>
+    <a href="saved.html" class="nav-heart" aria-label="Saved venues">
+      <svg viewBox="0 0 24 24"><path d="M12 21s-7.5-4.5-9.5-9C1 8 3.5 5 7 5c1.7 0 3.3.9 4.2 2.2.3.4.9.4 1.2 0C13.3 5.9 14.9 5 16.6 5 20.1 5 22.6 8 21 12c-2 4.5-9 9-9 9z"/></svg>
+      <span data-bookmark-count></span>
+    </a>
+  </div>
+</nav>
+
+<main>
+  <h1>NYC Certification Guide</h1>
+  <p class="lede">Where to actually get certified to teach in NYC — Pilates, Yoga, Personal Training, Reiki, Sound, Breathwork, Meditation. Schools, formats, what you'll pay, what each certification gets you in the door.</p>
+
+  <div class="toc">
+    <div class="toc-title">Contents</div>
+    <ol>
+      <li><a href="#pilates">Pilates</a></li>
+      <li><a href="#yoga">Yoga</a></li>
+      <li><a href="#pt">Personal Training</a></li>
+      <li><a href="#reiki">Reiki</a></li>
+      <li><a href="#sound">Sound healing</a></li>
+      <li><a href="#meditation">Meditation teacher</a></li>
+      <li><a href="#breathwork">Breathwork</a></li>
+      <li><a href="#barre">Barre</a></li>
+      <li><a href="#how-to-pick">How to pick a program</a></li>
+    </ol>
+  </div>
+
+  <h2 id="pilates">1. Pilates <span class="cat">Mind-body</span></h2>
+  <p>NYC is the home of Pilates — Joseph Pilates opened his first studio at 939 8th Avenue in 1926. That history shows up in the cert landscape: you can train in the strict classical lineage that goes straight back to his protégée, or in modern contemporary schools that integrate biomechanics and physiotherapy research.</p>
+
+  <div class="callout note">
+    <strong>Classical vs. contemporary — the lineage debate</strong>
+    Classical (Romana's Pilates) sticks to Joseph Pilates's original repertoire and order, no modifications. Contemporary (BASI, STOTT, Peak) keep the principles but allow modifications, modern anatomy, and rehab applications. Neither is "right." Pick based on what you want to teach.
+  </div>
+
+  <h3>BASI Pilates (Body Arts & Science International)</h3>
+  <ul>
+    <li><strong>Format:</strong> Contemporary, modular. Mat → Reformer → Cadillac/Chair/Barrels → Comprehensive (450+ hours).</li>
+    <li><strong>NYC hosts:</strong> Real Pilates Tribeca and other authorized studios. Verify current host on <a href="https://www.basipilates.com/" target="_blank" rel="noopener">basipilates.com</a>.</li>
+    <li><strong>Cost:</strong> ~$5,500–$8,000 for comprehensive.</li>
+    <li><strong>Duration:</strong> 12–18 months part-time.</li>
+    <li><strong>What you can teach:</strong> Mat, Reformer, full apparatus. Pre/post-natal and rehab modules available.</li>
+    <li><strong>Notable:</strong> Instructors who want strong anatomical grounding and modular pacing.</li>
+  </ul>
+
+  <h3>STOTT Pilates (Merrithew)</h3>
+  <ul>
+    <li><strong>Format:</strong> Contemporary, modular (Intensive Mat-Plus, Intensive Reformer, Cadillac, Chair, Barrels). Strong physiotherapy influence.</li>
+    <li><strong>NYC hosts:</strong> Through Merrithew-authorized hosts. <a href="https://www.merrithew.com/stott-pilates" target="_blank" rel="noopener">merrithew.com/stott-pilates</a> has the host directory.</li>
+    <li><strong>Cost:</strong> ~$6,000–$8,000 comprehensive.</li>
+    <li><strong>Duration:</strong> 6–18 months depending on pacing.</li>
+    <li><strong>Notable:</strong> Instructors interested in rehabilitative applications, modifications for injuries, and clients managing chronic conditions.</li>
+  </ul>
+
+  <h3>Romana's Pilates</h3>
+  <ul>
+    <li><strong>Format:</strong> Classical — directly descended from Romana Kryzanowska, Joseph Pilates's protégée. Strictest classical orthodoxy.</li>
+    <li><strong>NYC hosts:</strong> Drago's Gym in Manhattan + a handful of other classical studios. <a href="https://www.romanaspilates.com/" target="_blank" rel="noopener">romanaspilates.com</a></li>
+    <li><strong>Cost:</strong> ~$10,000+ for full apparatus certification.</li>
+    <li><strong>Duration:</strong> Intensive immersive — months of full-time training plus apprenticeship hours.</li>
+    <li><strong>Notable:</strong> Instructors committed to the classical lineage who want to teach traditional Pilates as Joseph Pilates designed it.</li>
+  </ul>
+
+  <h3>Peak Pilates</h3>
+  <ul>
+    <li><strong>Format:</strong> Workshop-based intensives. Mat first, then Comprehensive.</li>
+    <li><strong>NYC hosts:</strong> Through Peak partners. <a href="https://www.peakpilates.com/" target="_blank" rel="noopener">peakpilates.com</a></li>
+    <li><strong>Cost:</strong> ~$4,500–$7,500 comprehensive.</li>
+    <li><strong>Duration:</strong> 6–12 months.</li>
+    <li><strong>Notable:</strong> Workshop-based scheduling instead of a fixed weekly cohort.</li>
+  </ul>
+
+  <h3>Balanced Body</h3>
+  <ul>
+    <li><strong>Format:</strong> Comprehensive Pilates teacher training delivered through Balanced Body Master Educators in a 4-module, self-paced curriculum. Blends traditional and contemporary approaches.</li>
+    <li><strong>NYC host:</strong> Pilates Reforming New York. Lead educator is Ann Kamhi Toran, a second-generation Pilates teacher who completed the Pilates Master Mentor Program with Lolita San Miguel. <a href="https://pilatesreformingny.com/balanced-body-teacher-training/" target="_blank" rel="noopener">pilatesreformingny.com</a></li>
+    <li><strong>Find any host:</strong> <a href="https://www.pilates.com/pilates-training-near-me/" target="_blank" rel="noopener">pilates.com/pilates-training-near-me</a></li>
+    <li><strong>Cost:</strong> ~$5,500–$8,000 comprehensive depending on host.</li>
+    <li><strong>Duration:</strong> 6–18 months, self-paced module-by-module.</li>
+    <li><strong>Notable:</strong> Balanced Body also manufactures the Reformer equipment used in many boutique NYC studios, so the curriculum aligns directly with the apparatus you're likely to teach on.</li>
+  </ul>
+
+  <h3>Club Pilates Teacher Training (CPTT)</h3>
+  <ul>
+    <li><strong>Format:</strong> 450-hour Comprehensive Pilates Teacher Training Program with both <strong>in-person training</strong> and online learning. In-person component: 12 set days with a Club Pilates Master Trainer, 5.5 hours of hands-on instruction each day, working on full apparatus at your host studio. Online component: 24/7 access to a lecture platform for self-paced study alongside the in-person days.</li>
+    <li><strong>Pacing options:</strong> Complete the full Comprehensive in one program, or take individual apparatus modules. Each module includes its own in-person hands-on instruction — modules are not online-only.</li>
+    <li><strong>NYC locations:</strong> Multiple Club Pilates franchise studios across the five boroughs host CPTT. Check <a href="https://www.clubpilates.com/education" target="_blank" rel="noopener">clubpilates.com/education</a> for current host studios.</li>
+    <li><strong>Requirements:</strong> All 450 hours + online coursework + written exercise library + written class library + final written exam + final practical exam with your Master Trainer.</li>
+    <li><strong>Cost:</strong> Not published online; inquire with your local host studio. Industry average for a 450-hr program runs ~$5,000–$10,000+.</li>
+    <li><strong>Post-program access:</strong> One year of continued access to your host studio and Master Trainer.</li>
+    <li><strong>FAQ:</strong> <a href="https://www.clubpilates.com/education-faq" target="_blank" rel="noopener">clubpilates.com/education-faq</a></li>
+  </ul>
+
+  <h3>The Space Pilates Studio Teacher Training</h3>
+  <ul>
+    <li><strong>Format:</strong> 450-hour comprehensive teacher training program at the studio in Flatiron.</li>
+    <li><strong>Location:</strong> 36 W 20th Street, 2nd Floor.</li>
+    <li><strong>Website:</strong> <a href="https://www.thespacepilates.com/" target="_blank" rel="noopener">thespacepilates.com</a></li>
+    <li><strong>Notable:</strong> Instructors who want to train in the same boutique studio where they'll teach. Direct path to teaching at The Space's Reformer classroom.</li>
+  </ul>
+
+  <h3>Comparison</h3>
+  <table>
+    <thead><tr><th>Program</th><th>Lineage</th><th>Cost</th><th>Duration</th><th>Format / notable</th></tr></thead>
+    <tbody>
+      <tr><td>BASI</td><td>Contemporary</td><td>$5.5–8K</td><td>12–18 mo</td><td>Anatomy-forward, modular</td></tr>
+      <tr><td>STOTT (Merrithew)</td><td>Contemporary, rehab-leaning</td><td>$6–8K</td><td>6–18 mo</td><td>Physiotherapy-influenced</td></tr>
+      <tr><td>Romana's</td><td>Classical (orthodox)</td><td>$10K+</td><td>Intensive immersive</td><td>Direct lineage to Joseph Pilates</td></tr>
+      <tr><td>Peak</td><td>Contemporary</td><td>$4.5–7.5K</td><td>6–12 mo</td><td>Workshop-based intensives</td></tr>
+      <tr><td>Balanced Body</td><td>Traditional + contemporary blend</td><td>$5.5–8K</td><td>6–18 mo</td><td>4-module self-paced; aligned to Reformer manufacturer</td></tr>
+      <tr><td>Club Pilates (CPTT)</td><td>Contemporary</td><td>Inquire</td><td>450 hrs (12 days + online)</td><td>Multi-borough host studios; 1-year post-grad access</td></tr>
+      <tr><td>The Space (NYC)</td><td>Contemporary</td><td>Inquire</td><td>450 hrs</td><td>Flatiron boutique studio</td></tr>
+    </tbody>
+  </table>
+
+  <div class="callout tip">
+    <strong>PMA</strong>
+    The Pilates Method Alliance (PMA) is the cert most studios actually look for. PMA isn't a school — it's the umbrella standard. Most comprehensive programs (BASI, STOTT, Peak, Romana's) make you PMA-eligible at completion.
+  </div>
+
+  <h2 id="yoga">2. Yoga <span class="cat">Mind-body</span></h2>
+  <p>Yoga Alliance (YA) is the de facto standard. Two main tiers: 200-hour (RYT-200, baseline for most NYC studios) and 500-hour (RYT-500, advanced and specialty teaching).</p>
+
+  <h3>Yoga Alliance 200-hour — NYC schools</h3>
+  <ul>
+    <li><strong>Pure Yoga</strong> (UES + UWS) — Reputable 200hr trainings. ~$3,500. <a href="https://pureyoga.com/teacher-training" target="_blank" rel="noopener">pureyoga.com/teacher-training</a></li>
+    <li><strong>YogaWorks</strong> (multiple NYC locations) — Long-running brand with international reach. ~$3,200–$4,500. <a href="https://www.yogaworks.com/" target="_blank" rel="noopener">yogaworks.com</a></li>
+    <li><strong>Sky Ting Yoga</strong> (Chinatown / Williamsburg) — Boutique, lineage-aware, popular with younger NYC instructors. ~$3,800.</li>
+    <li><strong>Kula Yoga Project</strong> (Tribeca) — Established alignment-focused school. ~$3,800.</li>
+    <li><strong>Three Sail Yoga</strong> — Trauma-informed track popular with social-justice-aware practitioners.</li>
+    <li><strong>Laughing Lotus</strong> — Vinyasa-forward, dance-influenced. ~$3,200.</li>
+    <li><strong>Mandala Yoga (Amagansett, Hamptons)</strong> — Active 200hr program if you want an East End residency option. <a href="https://www.mandalayoga.com/" target="_blank" rel="noopener">mandalayoga.com</a></li>
+    <li><strong>Yoga Shanti (Sag Harbor)</strong> — 200hr in the Hamptons.</li>
+  </ul>
+
+  <h3>Yoga Alliance 500-hour</h3>
+  <ul>
+    <li><strong>Pure Yoga</strong> offers 500hr extensions.</li>
+    <li><strong>Kripalu</strong> (Stockbridge, MA — drivable from NYC) is the gold-standard 500hr destination program for NYC instructors who want to do residential immersion.</li>
+    <li><strong>Laughing Lotus</strong> 500hr — additional 300hr stacked onto their 200hr.</li>
+  </ul>
+
+  <h3>Specialty yoga certs</h3>
+  <ul>
+    <li><strong>Prenatal yoga</strong> — Pamela Samuelson and Karma Kids Yoga both run NYC-based prenatal trainings. ~$700–$1,500.</li>
+    <li><strong>Trauma-informed yoga</strong> — Hala Khouri and Off the Mat Into the World run trainings; some visit NYC, some are online with NYC cohorts. ~$1,000+.</li>
+    <li><strong>Kids yoga</strong> — Karma Kids Yoga is the NYC default. ~$600.</li>
+    <li><strong>Restorative</strong> — Judith Hanson Lasater's intensives travel to NYC occasionally; otherwise online.</li>
+  </ul>
+
+  <h3>Comparison</h3>
+  <table>
+    <thead><tr><th>School</th><th>Style</th><th>Cost (200hr)</th><th>Format</th></tr></thead>
+    <tbody>
+      <tr><td>Pure Yoga</td><td>Multi-style</td><td>~$3,500</td><td>In-person UES/UWS</td></tr>
+      <tr><td>YogaWorks</td><td>Multi-style</td><td>~$3,200–4,500</td><td>In-person multi-NYC</td></tr>
+      <tr><td>Sky Ting</td><td>Boutique vinyasa</td><td>~$3,800</td><td>In-person Chinatown/WB</td></tr>
+      <tr><td>Kula Yoga</td><td>Alignment</td><td>~$3,800</td><td>In-person Tribeca</td></tr>
+      <tr><td>Laughing Lotus</td><td>Vinyasa, dance</td><td>~$3,200</td><td>In-person</td></tr>
+    </tbody>
+  </table>
+
+  <h2 id="pt">3. Personal Training <span class="cat">Fitness</span></h2>
+  <p>Most PT certs are online + remote exam, but the bodies of work and recognition matter. NASM, ACE, and NSCA-CSCS are the three most recognized by NYC fitness clubs.</p>
+
+  <ul>
+    <li><strong>NASM (CPT)</strong> — National Academy of Sports Medicine. ~$2,000 incl. exam. Online study with optional in-person workshops. The most-requested cert by Equinox and other NYC clubs. <a href="https://www.nasm.org/" target="_blank" rel="noopener">nasm.org</a></li>
+    <li><strong>ACE (CPT)</strong> — American Council on Exercise. ~$1,500. Online + exam at NYC Pearson VUE test centers. Strong general-population focus. <a href="https://www.acefitness.org/" target="_blank" rel="noopener">acefitness.org</a></li>
+    <li><strong>ISSA (CPT)</strong> — Fully online, payment-plan friendly. ~$700–$1,200 depending on package. Less prestigious but widely accepted. <a href="https://www.issaonline.com/" target="_blank" rel="noopener">issaonline.com</a></li>
+    <li><strong>NSCA-CSCS</strong> — National Strength & Conditioning Association Certified Strength and Conditioning Specialist. Bachelor's degree required. The most prestigious cert for performance/sport training. ~$475 exam + study materials. <a href="https://www.nsca.com/" target="_blank" rel="noopener">nsca.com</a></li>
+  </ul>
+
+  <h3>Comparison</h3>
+  <table>
+    <thead><tr><th>Cert</th><th>Cost</th><th>Format</th><th>Prereq</th><th>NYC acceptance</th></tr></thead>
+    <tbody>
+      <tr><td>NASM-CPT</td><td>~$2,000</td><td>Online + Pearson exam</td><td>HS diploma + CPR/AED</td><td>Very high (Equinox standard)</td></tr>
+      <tr><td>ACE-CPT</td><td>~$1,500</td><td>Online + Pearson exam</td><td>HS diploma + CPR/AED</td><td>High</td></tr>
+      <tr><td>ISSA-CPT</td><td>~$700–1,200</td><td>Fully online</td><td>HS diploma + CPR/AED</td><td>Medium</td></tr>
+      <tr><td>NSCA-CSCS</td><td>~$475 exam + study</td><td>Online + Pearson exam</td><td>Bachelor's degree</td><td>Very high (elite)</td></tr>
+    </tbody>
+  </table>
+
+  <h2 id="reiki">4. Reiki <span class="cat">Energy work</span></h2>
+  <p>Reiki has three levels (1, 2, Master). Each level is an "attunement" from a Reiki Master plus instruction. No central governing body — lineage matters more than school name.</p>
+
+  <h3>Usui Reiki — the original lineage</h3>
+  <ul>
+    <li><strong>NY Open Center</strong> — Manhattan. Reiki 1/2/Master trainings throughout the year. ~$150–$500 per level. <a href="https://www.opencenter.org/" target="_blank" rel="noopener">opencenter.org</a></li>
+    <li><strong>Maha Rose</strong> (Greenpoint) — Reiki + sound + breathwork center. ~$200–$600 per level. <a href="https://maharose.com/" target="_blank" rel="noopener">maharose.com</a></li>
+    <li><strong>MNDFL</strong> — Hosts visiting Reiki Masters for one-off trainings.</li>
+    <li><strong>Individual Reiki Masters</strong> — Many NYC-based Masters run private attunements. Cost varies widely ($150–$800 per level depending on practitioner reputation).</li>
+  </ul>
+
+  <h3>Holy Fire Reiki</h3>
+  <p>Modern Reiki system developed by William Lee Rand and the International Center for Reiki Training (ICRT). Available through ICRT-affiliated teachers in NYC. ~$200–$500 per level. <a href="https://www.reiki.org/" target="_blank" rel="noopener">reiki.org</a></p>
+
+  <h3>Karuna Reiki</h3>
+  <p>Advanced Reiki system. Requires Reiki Master in Usui first. ~$300–$700.</p>
+
+  <div class="callout">
+    <strong>How to pick a Reiki teacher</strong>
+    Lineage and personal fit matter more than school name. Ask for the teacher's lineage chart (who attuned them, going back to Mikao Usui). Sit in on a session before committing. Reiki is intimate — pick a teacher whose energy and ethics you trust.
+  </div>
+
+  <h2 id="sound">5. Sound healing <span class="cat">Energy work</span></h2>
+  <p>Less standardized than yoga or Pilates. The most-recognized NYC programs:</p>
+
+  <ul>
+    <li><strong>Sage Academy of Sound</strong> (Sound Yoga School) — Comprehensive sound healing training. ~$1,800–$3,500 depending on program. <a href="https://sageacademyofsound.com/" target="_blank" rel="noopener">sageacademyofsound.com</a></li>
+    <li><strong>Maha Rose</strong> — Sound bath facilitator training. ~$1,500.</li>
+    <li><strong>Yoga of Sound</strong> (Russell Paul) — Visits NYC for trainings.</li>
+    <li><strong>Crystal Tones / Crystal Singing Bowl Foundation</strong> — Trainings on the singing-bowl side specifically.</li>
+    <li><strong>Apprenticeship route</strong> — Many established NYC sound practitioners take apprentices for $1,000–$3,000.</li>
+  </ul>
+
+  <p>If you're already a yoga or meditation teacher, you can add sound to your practice without a formal cert — but for venue events (especially museum or hotel programming), a sound cert plus a recorded session library helps you book.</p>
+
+  <h2 id="meditation">6. Meditation teacher <span class="cat">Mind-body</span></h2>
+  <ul>
+    <li><strong>MNDFL</strong> — NYC's most visible secular meditation studio. Hosts teacher trainings periodically. <a href="https://mndflmeditation.com/" target="_blank" rel="noopener">mndflmeditation.com</a></li>
+    <li><strong>Buddhist Insight Network / NY Insight Meditation Center</strong> — Vipassana-tradition teacher trainings. Multi-year path. <a href="https://nyimc.org/" target="_blank" rel="noopener">nyimc.org</a></li>
+    <li><strong>Tibet House</strong> — Tibetan Buddhist meditation trainings.</li>
+    <li><strong>Mindful Schools</strong> — Online mindfulness teacher certs popular with educators. <a href="https://www.mindfulschools.org/" target="_blank" rel="noopener">mindfulschools.org</a></li>
+    <li><strong>Ziva Meditation</strong> — Vedic meditation, NYC-based brand. Teacher training is selective and expensive (~$10,000+).</li>
+    <li><strong>Search Inside Yourself Leadership Institute</strong> — Corporate-leaning mindfulness teacher cert started at Google. ~$5,000.</li>
+  </ul>
+
+  <h2 id="breathwork">7. Breathwork <span class="cat">Energy work</span></h2>
+  <p>Breathwork is the fastest-growing modality on the platform. Three main schools NYC creators train in:</p>
+
+  <ul>
+    <li><strong>David Elliott Breathwork Practitioner Training</strong> — Two-stage breathwork (also called the David Elliott method). Cohorts run in NYC and LA. ~$5,000+ for full practitioner training. <a href="https://www.davidelliott.com/" target="_blank" rel="noopener">davidelliott.com</a></li>
+    <li><strong>Breathwave</strong> — Bindu and Dharm Khalsa's breathwork lineage. NYC residencies. <a href="https://breathwave.com/" target="_blank" rel="noopener">breathwave.com</a></li>
+    <li><strong>Wim Hof Method Instructor Academy</strong> — More cold-immersion-leaning. ~$3,000+ for instructor certification. <a href="https://www.wimhofmethod.com/" target="_blank" rel="noopener">wimhofmethod.com</a></li>
+    <li><strong>Conscious Connected Breathwork (CCB)</strong> — Multiple teachers offer trainings; quality varies. Verify the lead teacher's lineage.</li>
+    <li><strong>Holotropic Breathwork</strong> — Stanislav Grof's original system. Trainings are global and intensive — Grof Transpersonal Training is the official path. ~$10,000+ over 2+ years.</li>
+  </ul>
+
+  <div class="callout note">
+    <strong>Breathwork safety</strong>
+    Two-stage and Holotropic breathwork can produce intense emotional and physical responses. A real cert program should include trauma-informed training, contraindications (pregnancy, cardiovascular conditions, recent surgery, severe mental health history), and how to support a session that goes deep. If a "breathwork cert" can be done in a weekend with no trauma training, it's probably not enough to facilitate strangers safely.
+  </div>
+
+  <h2 id="barre">8. Barre <span class="cat">Fitness</span></h2>
+  <ul>
+    <li><strong>Barre3</strong> — National brand with NYC studios. Instructor training available to staff. <a href="https://barre3.com/" target="_blank" rel="noopener">barre3.com</a></li>
+    <li><strong>Pure Barre</strong> — National brand, NYC studios. Internal cert for franchise instructors.</li>
+    <li><strong>Bar Method</strong> — Original boutique barre school. Instructor training. <a href="https://barmethod.com/" target="_blank" rel="noopener">barmethod.com</a></li>
+    <li><strong>Physique 57</strong> — NYC-founded barre brand. Trainings for company instructors.</li>
+    <li><strong>Open barre certs</strong> — Total Barre (Merrithew/STOTT) and Booty Barre offer non-franchise certs you can use anywhere. ~$500–$1,500.</li>
+  </ul>
+
+  <h2 id="how-to-pick">9. Questions to research before picking a program</h2>
+  <p>These are the questions worth answering for yourself before committing money. Every instructor's path is different — we won't tell you which cert is "right." Here's what to investigate:</p>
+
+  <ol>
+    <li><strong>What certifications do my target employers ask for?</strong> — Most NYC fitness clubs, boutique studios, and premium venues publish their preferred or required certifications on their hiring or rental pages. Check the specific employers you're considering and read their listed requirements directly. Requirements change, and what one studio accepts another might not.</li>
+    <li><strong>Classical or contemporary?</strong> — In Pilates, classical (Romana's) preserves Joseph Pilates' original order and repertoire; contemporary (BASI, STOTT, Peak, Balanced Body, Club Pilates, The Space) integrates modern biomechanics and modifications. In yoga, lineages range from strictly alignment-based to flow-based to lineage-grounded devotional. Take classes in each lineage you're considering before enrolling.</li>
+    <li><strong>Cohort or self-paced?</strong> — A weekly cohort builds community and accountability and locks you to a fixed schedule. Workshop intensives or modular self-paced programs (Balanced Body, Peak, Club Pilates modules) let you pace yourself. Both formats are valid; the right choice depends on your life logistics.</li>
+    <li><strong>Cost vs. time vs. depth</strong> — Comprehensive programs typically run 450–600 hours and $5,000–$10,000+. Shorter mat-only or modular paths cost less and certify you to teach a narrower scope. Decide what you want to be able to teach when you finish, then work backward.</li>
+    <li><strong>Insurance + post-program support</strong> — Most cert programs make you eligible for instructor liability insurance through a partner provider. Many also offer continuing education, master-trainer access, and apprenticeship hours after graduation. Ask each program what's included.</li>
+  </ol>
+
+  <p>Want to talk through any of these questions out loud? <a href="assistant.html">Auric Concierge</a> can walk you through the specifics of any school listed here based on your situation.</p>
+
+  <div class="disclaimer">
+    Cost ranges and program availability change. Verify current tuition and schedules directly with each school before applying. NYC certification options are a moving target — schools open, close, and rebrand frequently. This guide is for orientation only, not endorsement of any specific program. Last reviewed: May 2026.
+  </div>
+</main>
+
+<footer>
+  <a href="reviews.html">Reviews</a>
+  <a href="suggest.html">Suggest a venue</a>
+  <a href="permit-guide.html">Permit Guide</a>
+  <a href="cert-guide.html">Cert Guide</a>
+  <a href="terms.html">Terms</a>
+  <a href="privacy.html">Privacy</a>
+  <a href="accessibility.html">Accessibility</a>
+  <a href="dmca.html">DMCA</a>
+  <span style="color:var(--bark)">© 2026 Auric Movement LLC · auricmovement@outlook.com</span>
+</footer>
+
+</body>
+</html>

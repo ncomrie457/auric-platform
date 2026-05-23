@@ -89,34 +89,58 @@ main { padding: 40px 16px 56px; }
   <h2>1. Information We Collect</h2>
   <p>The Platform collects information in three categories:</p>
   <ul>
-    <li><strong>Information you give us directly</strong> — your email address when you join the platform, the contents of messages you send to Auric Concierge (the AI assistant), and information you submit through any future creator profile, venue submission, or review feature.</li>
-    <li><strong>Information our hosting partners may log</strong> — Auric OS is hosted on GitHub Pages and uses Cloudflare to proxy the Auric Concierge AI assistant. Like every web host, those services keep their own infrastructure logs that can include your IP address, browser type, and request paths. We do not have access to those logs, do not aggregate or analyze them, and do not connect them to your account or submissions. If we add our own analytics in the future (Plausible, Google Analytics, or similar), this policy will be updated to describe exactly what we collect.</li>
-    <li><strong>Information from payment processors</strong> — if we introduce paid features in the future, we will receive transaction confirmations from a third-party payment processor, but never your full card number, CVV, or banking credentials.</li>
+    <li><strong>Information you give us directly</strong> — (a) your email address when you tap "Join free" on the homepage (which opens your email client so you can send us a note manually); (b) the contents of any message you send to Auric Concierge (passed through to our AI provider for the response, not stored on our servers); (c) the fields you fill in when you submit a venue through <em>Suggest a Venue</em>: venue name and details, your name, your email, and your relationship to the venue.</li>
+    <li><strong>Information our hosting partners may log</strong> — the Platform is hosted on GitHub Pages and uses Cloudflare to proxy the Auric Concierge AI assistant. Like every web host, those services keep their own infrastructure logs that can include your IP address, browser type, and request paths. We do not have access to those logs, do not aggregate or analyze them, and do not connect them to your submissions. If we add our own analytics in the future (Plausible, Google Analytics, or similar), this policy will be updated to describe exactly what we collect.</li>
+    <li><strong>Information from payment processors</strong> — the Platform does not currently process payments. If we introduce paid features in the future, we will receive transaction confirmations from a third-party payment processor, but never your full card number, CVV, or banking credentials.</li>
   </ul>
 
   <h2>2. How We Use Your Information</h2>
-  <p>We use your information solely to: (a) operate the Platform; (b) respond to your Auric Concierge messages by sending them to our AI provider (Anthropic) via a secure proxy; (c) send you product updates if you've opted in; (d) prevent abuse of usage limits; and (e) improve the venue directory based on aggregate usage patterns.</p>
+  <p>We use the information you give us solely to:</p>
+  <ul>
+    <li>Operate the Platform (display venues, respond to your Concierge messages by passing them to Anthropic and returning the response);</li>
+    <li>Review the venues you submit through <em>Suggest a Venue</em> and decide whether to add them to the directory;</li>
+    <li>Reply to you by email if you've contacted us or sent us a submission that needs follow-up.</li>
+  </ul>
+  <p>We do not currently run analytics, marketing email campaigns, or usage tracking. If that changes, this policy will be updated.</p>
 
   <h2>3. Auric Concierge Conversations</h2>
-  <p>Messages you send to Auric Concierge are processed via a Cloudflare Worker proxy and sent to Anthropic (the AI provider) for response generation. Anthropic's data handling is governed by their <a href="https://www.anthropic.com/legal/privacy" target="_blank" rel="noopener">privacy policy</a>. We do not store the contents of your Concierge conversations on our own servers; they exist in your browser session only.</p>
+  <p>Messages you send to Auric Concierge are processed via a Cloudflare Worker proxy and sent to Anthropic (the AI provider) for response generation. Anthropic's data handling is governed by their <a href="https://www.anthropic.com/legal/privacy" target="_blank" rel="noopener">privacy policy</a>. We do not store the contents of your Concierge conversations on our own servers — they exist only in your browser tab while the chat is open and disappear when you close it.</p>
 
   <h2>4. How Your Data Is Stored</h2>
-  <p>As of the effective date above, the Platform is a static website. We do not maintain a database of user accounts. Email addresses submitted via the "Join free" form are sent directly to our inbox at auricmovement@outlook.com. As we introduce backend features (creator profiles, venue reviews, success stories), user data will be stored in <strong>Supabase</strong>, a secure cloud database service hosted in the United States. We will update this policy when those features launch.</p>
+  <p>The Platform itself is a static website hosted on GitHub Pages. We do not maintain a database of user accounts. Specifically:</p>
+  <ul>
+    <li><strong>Emails from the "Join free" form</strong> arrive in our inbox at auricmovement@outlook.com (the form opens your email client; you click send manually).</li>
+    <li><strong>Venue suggestions submitted through <em>Suggest a Venue</em></strong> are stored in <strong>Supabase</strong>, a secure cloud database service hosted in the United States. Stored fields are exactly what you saw on the form: venue info, your name, your email, your relationship to the venue. We read these submissions to decide whether to add the venue to the directory. We do not share them.</li>
+    <li><strong>Bookmarks (saved venues)</strong> live only in your browser's <code>localStorage</code>. We never see them.</li>
+    <li><strong>Future Phase 2 features</strong> — creator profiles, venue reviews, and success stories — will also use Supabase. The schema is set up but the user-facing forms aren't live yet. When they launch, this policy will be updated.</li>
+  </ul>
 
   <h2>5. Payment Processing (Forthcoming)</h2>
   <p>The Platform does not currently collect payments. If we introduce paid features in the future, payments will be processed by a reputable third-party processor and this section will be updated with the processor's name, link to their privacy policy, and details of what financial data they handle. We will not collect, store, or have access to your full payment card details.</p>
 
   <h2>6. Venue Listings</h2>
-  <p>Venues displayed on the Platform are sourced from publicly available information, the venues' own websites, and community submissions from creators. We do not store private contact information from venues without their consent. If you operate a venue and want to be listed, edited, or removed, email auricmovement@outlook.com.</p>
+  <p>Venues displayed on the Platform are sourced from publicly available information — the venues' own websites, public Instagram profiles, listed business phone numbers, and creator submissions. Where contact info appears on a venue card, it is information the venue itself publishes publicly. If you operate a venue and want to be listed, edited, or removed, email auricmovement@outlook.com.</p>
 
   <h2>7. We Do Not Sell Your Data</h2>
-  <p>We do not sell, rent, trade, or share your personal information with third parties for marketing purposes. We may share information with service providers (currently: Anthropic for the AI Concierge, Cloudflare for the API proxy; in the future: Supabase for backend data, and a payment processor if paid features launch) strictly as needed to operate the Platform.</p>
+  <p>We do not sell, rent, trade, or share your personal information with third parties for marketing purposes. We share information with service providers strictly as needed to operate the Platform:</p>
+  <ul>
+    <li><strong>Anthropic</strong> — receives your Auric Concierge messages to generate AI responses.</li>
+    <li><strong>Cloudflare</strong> — proxies the AI requests securely (holds the API key server-side so it never reaches your browser).</li>
+    <li><strong>Supabase</strong> — stores your venue suggestion submissions.</li>
+    <li><strong>GitHub Pages</strong> — hosts the static website you're reading right now.</li>
+  </ul>
+  <p>If we add a payment processor for future paid features, it will be named here.</p>
 
   <h2>8. Cookies & Local Storage</h2>
-  <p>The Platform uses <code>localStorage</code> in your browser to remember your saved venues, bookmark counts, and (in the future) free-tier usage counters. We do not use third-party tracking cookies. You can clear localStorage at any time through your browser settings.</p>
+  <p>The Platform uses your browser's <code>localStorage</code> for two things only:</p>
+  <ul>
+    <li><strong>Saved venues</strong> — the venues you've tapped the heart icon on, plus the count badge in the nav.</li>
+    <li><strong>Beta access flag</strong> — a flag that remembers you've entered the beta password so you don't see the password screen on every page.</li>
+  </ul>
+  <p>We do not use third-party tracking cookies. We do not use cookies for advertising or analytics. You can clear localStorage at any time through your browser settings (this will sign you out of beta access and forget your saved venues).</p>
 
   <h2>9. Email Communications</h2>
-  <p>By joining the Platform, you consent to receive transactional emails (e.g., a confirmation of your sign-up, password resets once accounts launch). We do not send marketing emails without your explicit opt-in. Every marketing email includes an unsubscribe link as required by the CAN-SPAM Act.</p>
+  <p>The Platform does not currently operate a marketing mailing list, transactional email system, or account-based email flow. We only email you directly if (a) you've emailed us first via the "Join free" form, the suggest-a-venue submission, or any other route, AND (b) you need a reply (for example, a follow-up about your venue suggestion). When we do, those emails come from a person at auricmovement@outlook.com — not an automated system. If we add a real mailing list in the future, opt-in will be explicit and unsubscribe will be one click per CAN-SPAM.</p>
 
   <h2>10. Your Rights (NY SHIELD, CCPA, GDPR-aligned)</h2>
   <p>You have the right to: (a) request a copy of the personal data we hold about you; (b) request correction of inaccurate data; (c) request deletion of your data; (d) opt out of future marketing communications; (e) ask which third parties we share data with. Email auricmovement@outlook.com — we will respond within 30 days.</p>
@@ -140,12 +164,14 @@ main { padding: 40px 16px 56px; }
   <a href="assistant.html">Concierge</a>
   <a href="templates.html">Templates</a>
   <a href="budget.html">Budget</a>
+  <a href="reviews.html">Reviews</a>
   <a href="suggest.html">Suggest a venue</a>
   <a href="permit-guide.html">Permit Guide</a>
   <a href="cert-guide.html">Cert Guide</a>
   <a href="terms.html">Terms</a>
   <a href="privacy.html">Privacy</a>
   <a href="accessibility.html">Accessibility</a>
+  <a href="dmca.html">DMCA</a>
 </footer>
 
 </body>

@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Leave a Review — Auric OS</title>
+  <meta name="description" content="Share your experience hosting an event at an NYC or Long Island wellness venue.">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --ink: #2C2418; --earth: #7A6A52; --stone: #EDE9E0;
+      --cream: #FAF8F4; --bark: #B5A48A;
+      --gold: #C9A84C; --gold-l: #FBF5E6; --gold-d: #7A5C14;
+      --sage: #7B9E87; --sage-l: #EDF3EF; --sage-d: #2A5A36;
+      --rose: #C47D7D; --rose-l: #FAEAEA;
+    }
+    body { font-family: 'DM Sans', sans-serif; background: var(--cream); color: var(--ink); line-height: 1.6; }
+    nav {
+      background: rgba(250,248,244,0.95); backdrop-filter: blur(8px);
+      border-bottom: 0.5px solid var(--stone); padding: 0 24px;
+      height: 52px; display: flex; align-items: center; justify-content: space-between;
+      position: sticky; top: 0; z-index: 100;
+    }
+    .logo { font-family: 'Cormorant Garamond', serif; font-size: 20px; font-weight: 600; color: var(--ink); text-decoration: none; }
+    .logo span { color: var(--gold); }
+    .nav-links { display: flex; gap: 20px; align-items: center; }
+    .nav-links a { font-size: 13px; color: var(--earth); text-decoration: none; }
+    .nav-links a:hover { color: var(--ink); }
+    .nav-heart { display: inline-flex; align-items: center; gap: 4px; color: var(--earth); text-decoration: none; padding: 4px 6px; border-radius: 6px; }
+    .nav-heart:hover { color: #C47D7D; }
+    .nav-heart svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 1.7; }
+    .nav-heart [data-bookmark-count] { font-size: 10px; font-weight: 500; line-height: 1; }
+    .nav-heart [data-bookmark-count]:not(:empty) { background: #C47D7D; color: white; padding: 2px 6px; border-radius: 10px; }
+    main { max-width: 640px; margin: 0 auto; padding: 48px 24px 80px; }
+    h1 { font-family: 'Cormorant Garamond', serif; font-size: 44px; font-weight: 500; margin-bottom: 10px; line-height: 1.1; }
+    .lede { font-size: 15px; color: var(--earth); margin-bottom: 32px; line-height: 1.7; }
+    .lede strong { color: var(--ink); font-weight: 500; }
+    form { display: flex; flex-direction: column; gap: 22px; }
+    .field { display: flex; flex-direction: column; gap: 6px; }
+    .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    label { font-size: 12px; font-weight: 500; color: var(--earth); text-transform: uppercase; letter-spacing: .05em; }
+    label .req { color: var(--rose); margin-left: 3px; }
+    label .hint { display: block; text-transform: none; letter-spacing: 0; font-weight: 400; color: var(--bark); margin-top: 2px; font-size: 11px; }
+    input, select, textarea {
+      width: 100%; background: white; border: 0.5px solid var(--stone); border-radius: 8px;
+      padding: 12px 14px; font-size: 15px; font-family: 'DM Sans', sans-serif; color: var(--ink);
+      outline: none; transition: border-color .15s;
+    }
+    input:focus, select:focus, textarea:focus { border-color: var(--gold); }
+    textarea { resize: vertical; min-height: 96px; line-height: 1.6; }
+    .char-count { font-size: 11px; color: var(--bark); text-align: right; margin-top: -2px; }
+
+    /* Star rating picker */
+    .star-picker { display: flex; gap: 6px; padding: 6px 0; }
+    .star-btn {
+      background: none; border: none; padding: 4px; cursor: pointer;
+      font-family: inherit; line-height: 1;
+    }
+    .star-btn svg { width: 32px; height: 32px; fill: none; stroke: var(--bark); stroke-width: 1.5; transition: all .15s; }
+    .star-btn:hover svg, .star-btn.filled svg { fill: var(--gold); stroke: var(--gold); }
+    .rating-label { font-size: 13px; color: var(--earth); margin-left: 6px; align-self: center; }
+
+    .checkbox-row { display: flex; align-items: center; gap: 10px; }
+    .checkbox-row input[type=checkbox] { width: 18px; height: 18px; margin: 0; padding: 0; }
+    .checkbox-row label { text-transform: none; letter-spacing: 0; font-weight: 400; font-size: 14px; color: var(--ink); margin: 0; cursor: pointer; }
+
+    .submit-row { display: flex; gap: 12px; align-items: center; margin-top: 8px; flex-wrap: wrap; }
+    .btn-primary {
+      background: var(--ink); color: white; border: none; border-radius: 10px;
+      padding: 14px 28px; font-size: 14px; font-weight: 500; cursor: pointer;
+      font-family: 'DM Sans', sans-serif; transition: opacity .15s;
+    }
+    .btn-primary:hover { opacity: .88; }
+    .btn-primary:disabled { opacity: .5; cursor: not-allowed; }
+    .submit-note { font-size: 12px; color: var(--earth); line-height: 1.55; flex: 1; min-width: 200px; }
+    .success {
+      background: var(--sage-l); border: 1px solid #B5D4BB; border-radius: 10px;
+      padding: 18px 22px; font-size: 14px; color: var(--sage-d); line-height: 1.65;
+      display: none;
+    }
+    .success strong { display: block; margin-bottom: 4px; font-weight: 500; }
+    .error-text { color: var(--rose); font-size: 12px; min-height: 16px; line-height: 1.4; }
+    footer {
+      border-top: 0.5px solid var(--stone); padding: 32px 24px; max-width: 720px; margin: 0 auto;
+      display: flex; flex-wrap: wrap; gap: 18px; font-size: 12px; color: var(--earth);
+      justify-content: center; align-items: center;
+    }
+    footer a { color: var(--earth); text-decoration: none; }
+    footer a:hover { color: var(--ink); }
+    @media (max-width: 600px) {
+      nav { padding: 0 8px; }
+      .nav-links { gap: 9px; }
+      .nav-links a { font-size: 11.5px; }
+      .nav-heart { padding: 2px 2px; gap: 2px; }
+      .nav-heart svg { width: 13px; height: 13px; }
+      .nav-heart [data-bookmark-count]:not(:empty) { padding: 1px 4px; font-size: 9.5px; }
+      main { padding: 32px 16px 56px; }
+      h1 { font-size: 34px; }
+      .field-row { grid-template-columns: 1fr; gap: 22px; }
+      input, select, textarea { font-size: 16px; }
+      .star-btn svg { width: 28px; height: 28px; }
+      footer { padding: 24px 16px; gap: 14px; }
+    }
+  </style>
+</head>
+<body>
+<script defer src="bookmarks.js"></script>
+<script src="supabase-config.js"></script>
+<script src="venues.js"></script>
+
+<nav>
+  <a href="index.html" class="logo">auric<span>.</span>os</a>
+  <div class="nav-links">
+    <a href="index.html">Home</a>
+    <a href="listings.html">Venues</a>
+    <a href="assistant.html">Concierge</a>
+    <a href="templates.html">Templates</a>
+    <a href="budget.html">Budget</a>
+    <a href="saved.html" class="nav-heart" aria-label="Saved venues">
+      <svg viewBox="0 0 24 24"><path d="M12 21s-7.5-4.5-9.5-9C1 8 3.5 5 7 5c1.7 0 3.3.9 4.2 2.2.3.4.9.4 1.2 0C13.3 5.9 14.9 5 16.6 5 20.1 5 22.6 8 21 12c-2 4.5-9 9-9 9z"/></svg>
+      <span data-bookmark-count></span>
+    </a>
+  </div>
+</nav>
+
+<main>
+  <h1>Leave a review</h1>
+  <p class="lede">Share your experience hosting an event at a venue. Reviews help other creators decide where to book — and reach the venues themselves as feedback. <strong>Your name and review may be displayed publicly</strong> once approved. Your email stays private.</p>
+
+  <form id="review-form" onsubmit="return submitReview(event)">
+    <div class="field">
+      <label for="venue">Venue<span class="req">*</span></label>
+      <select id="venue" name="venue" required>
+        <option value="">Choose a venue from the directory…</option>
+      </select>
+    </div>
+
+    <div class="field">
+      <label>Rating<span class="req">*</span></label>
+      <div class="star-picker" id="star-picker" role="radiogroup" aria-label="Rating from 1 to 5">
+        <button type="button" class="star-btn" data-value="1" aria-label="1 star"><svg viewBox="0 0 24 24"><path d="M12 2l3 7 7 .5-5.5 5 1.5 7L12 17.5 5.5 21.5l1.5-7L1.5 9.5 8.5 9z"/></svg></button>
+        <button type="button" class="star-btn" data-value="2" aria-label="2 stars"><svg viewBox="0 0 24 24"><path d="M12 2l3 7 7 .5-5.5 5 1.5 7L12 17.5 5.5 21.5l1.5-7L1.5 9.5 8.5 9z"/></svg></button>
+        <button type="button" class="star-btn" data-value="3" aria-label="3 stars"><svg viewBox="0 0 24 24"><path d="M12 2l3 7 7 .5-5.5 5 1.5 7L12 17.5 5.5 21.5l1.5-7L1.5 9.5 8.5 9z"/></svg></button>
+        <button type="button" class="star-btn" data-value="4" aria-label="4 stars"><svg viewBox="0 0 24 24"><path d="M12 2l3 7 7 .5-5.5 5 1.5 7L12 17.5 5.5 21.5l1.5-7L1.5 9.5 8.5 9z"/></svg></button>
+        <button type="button" class="star-btn" data-value="5" aria-label="5 stars"><svg viewBox="0 0 24 24"><path d="M12 2l3 7 7 .5-5.5 5 1.5 7L12 17.5 5.5 21.5l1.5-7L1.5 9.5 8.5 9z"/></svg></button>
+        <span class="rating-label" id="rating-label">Tap to rate</span>
+      </div>
+      <input type="hidden" id="rating-value" name="rating">
+    </div>
+
+    <div class="field">
+      <label for="review-text">Your review<span class="req">*</span>
+        <span class="hint">What worked, what didn't, what kind of event you ran. 500 character max.</span>
+      </label>
+      <textarea id="review-text" name="review-text" maxlength="500" required placeholder="Booked a sunrise pilates pop-up for 25 here in May. Floors were perfect, light was unreal. The events coordinator answered within 24 hrs."></textarea>
+      <div class="char-count" id="char-count">0 / 500</div>
+    </div>
+
+    <div class="field-row">
+      <div class="field">
+        <label for="event-type">Event type</label>
+        <input id="event-type" name="event-type" type="text" placeholder="e.g., Pilates pop-up, Sound bath, Workshop">
+      </div>
+      <div class="field">
+        <label for="event-size">Group size</label>
+        <input id="event-size" name="event-size" type="number" min="1" max="2000" placeholder="e.g., 25">
+      </div>
+    </div>
+
+    <div class="checkbox-row">
+      <input type="checkbox" id="booked-via-auric" name="booked-via-auric">
+      <label for="booked-via-auric">I booked this venue through Auric (adds a verified badge to your review)</label>
+    </div>
+
+    <div class="field-row">
+      <div class="field">
+        <label for="reviewer-name">Your name<span class="req">*</span>
+          <span class="hint">Shown publicly on the review</span>
+        </label>
+        <input id="reviewer-name" name="reviewer-name" type="text" required placeholder="First L.">
+      </div>
+      <div class="field">
+        <label for="reviewer-handle">Instagram (optional)
+          <span class="hint">Without the @. Shown publicly if provided.</span>
+        </label>
+        <input id="reviewer-handle" name="reviewer-handle" type="text" placeholder="yourhandle">
+      </div>
+    </div>
+
+    <div class="field">
+      <label for="reviewer-email">Your email<span class="req">*</span>
+        <span class="hint">Stays private. Used to follow up if we need to verify your review.</span>
+      </label>
+      <input id="reviewer-email" name="reviewer-email" type="email" required placeholder="you@email.com">
+    </div>
+
+    <div id="form-error" class="error-text"></div>
+
+    <p style="font-size:11px;color:var(--bark);line-height:1.6;margin-top:-6px">By submitting, you agree to our <a href="terms.html" style="color:var(--bark);text-decoration:underline">Terms</a> and <a href="privacy.html" style="color:var(--bark);text-decoration:underline">Privacy Policy</a>, and confirm your review is based on your own experience at this venue. Reviews must be factual — don't post defamatory or false statements about a venue, its staff, or its operators.</p>
+
+    <div class="submit-row">
+      <button type="submit" class="btn-primary">Send review →</button>
+      <p class="submit-note">Reviews are moderated before going public. We aim to review within 5 business days.</p>
+    </div>
+  </form>
+
+  <div id="success" class="success">
+    <strong>Thanks — your review is in.</strong>
+    We review every submission before publishing. We'll email you within 5 business days when it's live, or if we need to verify something.
+  </div>
+</main>
+
+<footer>
+  <a href="reviews.html">Reviews</a>
+  <a href="suggest.html">Suggest a venue</a>
+  <a href="permit-guide.html">Permit Guide</a>
+  <a href="cert-guide.html">Cert Guide</a>
+  <a href="terms.html">Terms</a>
+  <a href="privacy.html">Privacy</a>
+  <a href="accessibility.html">Accessibility</a>
+  <a href="dmca.html">DMCA</a>
+  <span style="color:var(--bark)">© 2026 Auric Movement LLC · auricmovement@outlook.com</span>
+</footer>
+
+<script>
+// Populate venue dropdown from venues.js, sorted alphabetically.
+// Pre-select via ?venue=... URL param if provided (so cards can deep-link).
+(function () {
+  const select = document.getElementById('venue');
+  const venues = (window.AURIC_VENUES || []).map(v => v.name).sort();
+  venues.forEach(name => {
+    const opt = document.createElement('option');
+    opt.value = name;
+    opt.textContent = name;
+    select.appendChild(opt);
+  });
+  const params = new URLSearchParams(window.location.search);
+  const preset = params.get('venue');
+  if (preset && venues.includes(preset)) select.value = preset;
+})();
+
+// Star picker
+(function () {
+  const picker = document.getElementById('star-picker');
+  const hidden = document.getElementById('rating-value');
+  const label = document.getElementById('rating-label');
+  const labels = { 1: 'Hated it', 2: 'Meh', 3: 'It was fine', 4: 'Really good', 5: 'Loved it' };
+  picker.querySelectorAll('.star-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const val = parseInt(btn.dataset.value, 10);
+      hidden.value = String(val);
+      label.textContent = labels[val];
+      picker.querySelectorAll('.star-btn').forEach((b, i) => {
+        b.classList.toggle('filled', i < val);
+      });
+    });
+  });
+})();
+
+// Live character count
+(function () {
+  const ta = document.getElementById('review-text');
+  const cc = document.getElementById('char-count');
+  ta.addEventListener('input', () => { cc.textContent = `${ta.value.length} / 500`; });
+})();
+
+async function submitReview(e) {
+  e.preventDefault();
+  const errEl = document.getElementById('form-error');
+  errEl.textContent = '';
+
+  const get = id => (document.getElementById(id).value || '').trim();
+  const fields = {
+    venue_name: get('venue'),
+    venue_known: true,
+    rating: parseInt(get('rating-value'), 10),
+    review_text: get('review-text'),
+    event_type: get('event-type') || null,
+    event_size: get('event-size') ? parseInt(get('event-size'), 10) : null,
+    booked_via_auric: document.getElementById('booked-via-auric').checked,
+    reviewer_name: get('reviewer-name'),
+    reviewer_email: get('reviewer-email'),
+    reviewer_handle: get('reviewer-handle').replace(/^@/, '') || null,
+  };
+
+  if (!fields.venue_name || !fields.rating || !fields.review_text ||
+      !fields.reviewer_name || !fields.reviewer_email) {
+    errEl.textContent = 'Please fill in venue, rating, review, name, and email.';
+    return false;
+  }
+  if (fields.rating < 1 || fields.rating > 5) {
+    errEl.textContent = 'Please pick a star rating from 1 to 5.';
+    return false;
+  }
+  if (fields.review_text.length > 500) {
+    errEl.textContent = 'Review must be 500 characters or fewer.';
+    return false;
+  }
+
+  const submitBtn = document.querySelector('.btn-primary');
+  if (submitBtn) { submitBtn.disabled = true; submitBtn.textContent = 'Sending...'; }
+
+  // ---- Path A: Supabase, if configured -------------------------------------
+  if (typeof window.AURIC_SUPABASE_READY === 'function' && window.AURIC_SUPABASE_READY()) {
+    try {
+      const cfg = window.AURIC_SUPABASE;
+      const resp = await fetch(cfg.url + '/rest/v1/venue_reviews', {
+        method: 'POST',
+        headers: {
+          'apikey': cfg.anonKey,
+          'Authorization': 'Bearer ' + cfg.anonKey,
+          'Content-Type': 'application/json',
+          'Prefer': 'return=minimal',
+        },
+        body: JSON.stringify(fields),
+      });
+      if (!resp.ok) {
+        const text = await resp.text();
+        throw new Error('HTTP ' + resp.status + ': ' + text);
+      }
+      document.getElementById('review-form').style.display = 'none';
+      document.getElementById('success').style.display = 'block';
+      return false;
+    } catch (err) {
+      console.warn('Supabase submission failed, falling back to mailto:', err);
+      // fall through
+    }
+  }
+
+  // ---- Path B: mailto fallback ---------------------------------------------
+  const subject = `Venue review: ${fields.venue_name} (${fields.rating}★)`;
+  const body =
+    `New venue review via app.auricmovement.com/review-submit.html\n\n` +
+    `=== REVIEW ===\n` +
+    `Venue: ${fields.venue_name}\n` +
+    `Rating: ${fields.rating} / 5\n` +
+    `Review:\n${fields.review_text}\n\n` +
+    (fields.event_type ? `Event type: ${fields.event_type}\n` : '') +
+    (fields.event_size ? `Group size: ${fields.event_size}\n` : '') +
+    `Booked via Auric: ${fields.booked_via_auric ? 'Yes' : 'No'}\n\n` +
+    `=== REVIEWER ===\n` +
+    `Name: ${fields.reviewer_name}\n` +
+    `Email: ${fields.reviewer_email}\n` +
+    (fields.reviewer_handle ? `Instagram: @${fields.reviewer_handle}\n` : '');
+
+  window.location.href = `mailto:auricmovement@outlook.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+  document.getElementById('review-form').style.display = 'none';
+  document.getElementById('success').style.display = 'block';
+  return false;
+}
+</script>
+
+</body>
+</html>

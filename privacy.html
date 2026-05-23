@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Privacy Policy — Auric OS</title>
+  <meta name="description" content="How Auric Movement LLC collects, stores, and uses information on the Auric OS platform — venue directory and creator tools for NYC wellness creators.">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --ink: #2C2418; --earth: #7A6A52; --stone: #EDE9E0;
+      --cream: #FAF8F4; --bark: #B5A48A;
+      --gold: #C9A84C; --gold-l: #FBF5E6; --gold-d: #7A5C14;
+      --sage: #7B9E87; --sage-l: #EDF3EF; --sage-d: #2A5A36;
+    }
+    body { font-family: 'DM Sans', sans-serif; background: var(--cream); color: var(--ink); line-height: 1.7; }
+    nav {
+      background: rgba(250,248,244,0.95); backdrop-filter: blur(8px);
+      border-bottom: 0.5px solid var(--stone); padding: 0 24px;
+      height: 52px; display: flex; align-items: center; justify-content: space-between;
+      position: sticky; top: 0; z-index: 100;
+    }
+    .logo { font-family: 'Cormorant Garamond', serif; font-size: 20px; font-weight: 600; color: var(--ink); text-decoration: none; }
+    .logo span { color: var(--gold); }
+    .nav-links { display: flex; gap: 20px; align-items: center; }
+    .nav-links a { font-size: 13px; color: var(--earth); text-decoration: none; }
+    .nav-links a:hover { color: var(--ink); }
+    main { max-width: 720px; margin: 0 auto; padding: 56px 24px 80px; }
+    h1 { font-family: 'Cormorant Garamond', serif; font-size: 44px; font-weight: 500; margin-bottom: 8px; line-height: 1.1; }
+    .effective { font-size: 13px; color: var(--earth); margin-bottom: 32px; font-style: italic; }
+    h2 { font-family: 'Cormorant Garamond', serif; font-size: 22px; font-weight: 500; margin-top: 32px; margin-bottom: 10px; color: var(--ink); }
+    p { font-size: 15px; color: var(--ink); margin-bottom: 14px; }
+    ul { padding-left: 22px; margin-bottom: 14px; }
+    li { font-size: 15px; margin-bottom: 6px; }
+    strong { font-weight: 500; }
+    a { color: var(--gold-d); }
+    footer {
+      border-top: 0.5px solid var(--stone); padding: 32px 24px;
+      max-width: 720px; margin: 0 auto;
+      display: flex; flex-wrap: wrap; gap: 18px; font-size: 12px; color: var(--earth);
+      justify-content: center;
+    }
+    footer a { color: var(--earth); text-decoration: none; }
+    footer a:hover { color: var(--ink); }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="logo">auric<span>.</span>os</a>
+  <div class="nav-links">
+    <a href="index.html">Home</a>
+    <a href="listings.html">Venues</a>
+    <a href="assistant.html">Concierge</a>
+  </div>
+</nav>
+
+<main>
+  <h1>Privacy Policy</h1>
+  <p class="effective">Effective Date: May 2026 · Last updated: May 2026</p>
+
+  <p>Auric Movement LLC ("we," "us," or "our") operates Auric OS (the "Platform") at app.auricmovement.com. We are committed to protecting your personal information in accordance with the New York SHIELD Act, the federal CAN-SPAM Act, the California Consumer Privacy Act (CCPA), and other applicable laws.</p>
+
+  <h2>1. Information We Collect</h2>
+  <p>The Platform collects information in three categories:</p>
+  <ul>
+    <li><strong>Information you give us directly</strong> — your email address when you join the platform, the contents of messages you send to Auric Concierge (the AI assistant), and information you submit through any future creator profile, venue submission, or review feature.</li>
+    <li><strong>Information collected automatically</strong> — your IP address, browser type, device type, the pages you visit, and the time you spend on them. We do not currently use third-party analytics; if we add them (Plausible, Google Analytics, or similar), this policy will be updated.</li>
+    <li><strong>Information from payment processors</strong> — if we introduce paid features in the future, we will receive transaction confirmations from a third-party payment processor, but never your full card number, CVV, or banking credentials.</li>
+  </ul>
+
+  <h2>2. How We Use Your Information</h2>
+  <p>We use your information solely to: (a) operate the Platform; (b) respond to your Auric Concierge messages by sending them to our AI provider (Anthropic) via a secure proxy; (c) send you product updates if you've opted in; (d) prevent abuse of usage limits; and (e) improve the venue directory based on aggregate usage patterns.</p>
+
+  <h2>3. Auric Concierge Conversations</h2>
+  <p>Messages you send to Auric Concierge are processed via a Cloudflare Worker proxy and sent to Anthropic (the AI provider) for response generation. Anthropic's data handling is governed by their <a href="https://www.anthropic.com/legal/privacy" target="_blank" rel="noopener">privacy policy</a>. We do not store the contents of your Concierge conversations on our own servers; they exist in your browser session only.</p>
+
+  <h2>4. How Your Data Is Stored</h2>
+  <p>As of the effective date above, the Platform is a static website. We do not maintain a database of user accounts. Email addresses submitted via the "Join free" form are sent directly to our inbox at hello@auricmovement.com. As we introduce backend features (creator profiles, venue reviews, success stories), user data will be stored in <strong>Supabase</strong>, a secure cloud database service hosted in the United States. We will update this policy when those features launch.</p>
+
+  <h2>5. Payment Processing (Forthcoming)</h2>
+  <p>The Platform does not currently collect payments. If we introduce paid features in the future, payments will be processed by a reputable third-party processor and this section will be updated with the processor's name, link to their privacy policy, and details of what financial data they handle. We will not collect, store, or have access to your full payment card details.</p>
+
+  <h2>6. Venue Listings</h2>
+  <p>Venues displayed on the Platform are sourced from publicly available information, the venues' own websites, and community submissions from creators. We do not store private contact information from venues without their consent. If you operate a venue and want to be listed, edited, or removed, email hello@auricmovement.com.</p>
+
+  <h2>7. We Do Not Sell Your Data</h2>
+  <p>We do not sell, rent, trade, or share your personal information with third parties for marketing purposes. We may share information with service providers (currently: Anthropic for the AI Concierge, Cloudflare for the API proxy; in the future: Supabase for backend data, and a payment processor if paid features launch) strictly as needed to operate the Platform.</p>
+
+  <h2>8. Cookies & Local Storage</h2>
+  <p>The Platform uses <code>localStorage</code> in your browser to remember your saved venues, bookmark counts, and (in the future) free-tier usage counters. We do not use third-party tracking cookies. You can clear localStorage at any time through your browser settings.</p>
+
+  <h2>9. Email Communications</h2>
+  <p>By joining the Platform, you consent to receive transactional emails (e.g., a confirmation of your sign-up, password resets once accounts launch). We do not send marketing emails without your explicit opt-in. Every marketing email includes an unsubscribe link as required by the CAN-SPAM Act.</p>
+
+  <h2>10. Your Rights (NY SHIELD, CCPA, GDPR-aligned)</h2>
+  <p>You have the right to: (a) request a copy of the personal data we hold about you; (b) request correction of inaccurate data; (c) request deletion of your data; (d) opt out of future marketing communications; (e) ask which third parties we share data with. Email hello@auricmovement.com — we will respond within 30 days.</p>
+
+  <h2>11. Data Security</h2>
+  <p>We implement reasonable administrative and technical safeguards consistent with the New York SHIELD Act, including encryption in transit (HTTPS), access controls on backend services, and limited data retention.</p>
+
+  <h2>12. Minors</h2>
+  <p>The Platform is not directed at individuals under the age of 18. We do not knowingly collect information from minors. If you believe we have collected information from a minor, contact hello@auricmovement.com and we will delete it.</p>
+
+  <h2>13. Changes to This Policy</h2>
+  <p>We may update this Privacy Policy as the Platform evolves (especially when Phase 2 backend features and Phase 4 monetization launch). Material changes will be announced on the Platform homepage and via email to active users.</p>
+
+  <h2>14. Contact</h2>
+  <p><strong>Auric Movement LLC</strong><br>hello@auricmovement.com</p>
+</main>
+
+<footer>
+  <a href="index.html">Home</a>
+  <a href="listings.html">Venues</a>
+  <a href="assistant.html">Concierge</a>
+  <a href="templates.html">Templates</a>
+  <a href="budget.html">Budget</a>
+  <a href="terms.html">Terms</a>
+  <a href="privacy.html">Privacy</a>
+  <a href="accessibility.html">Accessibility</a>
+</footer>
+
+</body>
+</html>

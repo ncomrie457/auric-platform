@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Accessibility Statement — Auric OS</title>
+  <meta name="description" content="Accessibility statement for Auric OS — our commitment to WCAG 2.1 Level AA conformance and inclusive design.">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --ink: #2C2418; --earth: #7A6A52; --stone: #EDE9E0;
+      --cream: #FAF8F4; --bark: #B5A48A;
+      --gold: #C9A84C; --gold-l: #FBF5E6; --gold-d: #7A5C14;
+      --sage: #7B9E87; --sage-l: #EDF3EF; --sage-d: #2A5A36;
+    }
+    body { font-family: 'DM Sans', sans-serif; background: var(--cream); color: var(--ink); line-height: 1.7; }
+    nav {
+      background: rgba(250,248,244,0.95); backdrop-filter: blur(8px);
+      border-bottom: 0.5px solid var(--stone); padding: 0 24px;
+      height: 52px; display: flex; align-items: center; justify-content: space-between;
+      position: sticky; top: 0; z-index: 100;
+    }
+    .logo { font-family: 'Cormorant Garamond', serif; font-size: 20px; font-weight: 600; color: var(--ink); text-decoration: none; }
+    .logo span { color: var(--gold); }
+    .nav-links { display: flex; gap: 20px; align-items: center; }
+    .nav-links a { font-size: 13px; color: var(--earth); text-decoration: none; }
+    .nav-links a:hover { color: var(--ink); }
+    main { max-width: 720px; margin: 0 auto; padding: 56px 24px 80px; }
+    h1 { font-family: 'Cormorant Garamond', serif; font-size: 44px; font-weight: 500; margin-bottom: 8px; line-height: 1.1; }
+    .effective { font-size: 13px; color: var(--earth); margin-bottom: 32px; font-style: italic; }
+    h2 { font-family: 'Cormorant Garamond', serif; font-size: 22px; font-weight: 500; margin-top: 32px; margin-bottom: 10px; color: var(--ink); }
+    p { font-size: 15px; color: var(--ink); margin-bottom: 14px; }
+    ul { padding-left: 22px; margin-bottom: 14px; }
+    li { font-size: 15px; margin-bottom: 6px; }
+    strong { font-weight: 500; }
+    a { color: var(--gold-d); }
+    code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 13px; background: var(--stone); padding: 1px 6px; border-radius: 4px; }
+    footer {
+      border-top: 0.5px solid var(--stone); padding: 32px 24px;
+      max-width: 720px; margin: 0 auto;
+      display: flex; flex-wrap: wrap; gap: 18px; font-size: 12px; color: var(--earth);
+      justify-content: center;
+    }
+    footer a { color: var(--earth); text-decoration: none; }
+    footer a:hover { color: var(--ink); }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="logo">auric<span>.</span>os</a>
+  <div class="nav-links">
+    <a href="index.html">Home</a>
+    <a href="listings.html">Venues</a>
+    <a href="assistant.html">Concierge</a>
+  </div>
+</nav>
+
+<main>
+  <h1>Accessibility Statement</h1>
+  <p class="effective">Effective Date: May 2026 · Last updated: May 2026</p>
+
+  <h2>1. Our Commitment</h2>
+  <p>Auric Movement LLC is committed to ensuring digital accessibility on Auric OS (the "Platform"). We are continually improving the user experience for everyone and applying the relevant accessibility standards.</p>
+
+  <h2>2. Conformance Status</h2>
+  <p>The Platform aims to conform to the <strong>Web Content Accessibility Guidelines (WCAG) 2.1 Level AA</strong>, the standard referenced by Title III of the Americans with Disabilities Act (ADA) and recognized by New York State and New York City accessibility guidelines.</p>
+
+  <h2>3. Measures We Take</h2>
+  <p>To support accessibility, the Platform includes:</p>
+  <ul>
+    <li>Semantic HTML and ARIA landmarks for assistive technologies</li>
+    <li>Keyboard-accessible navigation, filters, and forms</li>
+    <li>Visible focus indicators on interactive elements</li>
+    <li>Alt text on meaningful images and icons</li>
+    <li>Color contrast that meets or exceeds 4.5:1 for body text</li>
+    <li>Responsive layouts that work on mobile and desktop</li>
+    <li>Honoring the <code>prefers-reduced-motion</code> setting where animations are used</li>
+    <li>Labeled form fields and clear button text</li>
+    <li>Touch targets that meet the 44×44px minimum on mobile</li>
+  </ul>
+
+  <h2>4. Venue Accessibility Information</h2>
+  <p>For each venue listed on the Platform, we provide accessibility details where available — subway access, elevator availability, ADA-compliant entrances, and known accessibility limitations. <strong>This information is sourced from publicly available data and venue websites and may not always be current.</strong> If accessibility is critical for your event, we strongly recommend contacting the venue directly to confirm:</p>
+  <ul>
+    <li>Step-free entry and route to the event space</li>
+    <li>Accessible restrooms</li>
+    <li>Elevator availability and dimensions</li>
+    <li>Service animal policies</li>
+    <li>Visual or auditory accommodations</li>
+    <li>Sensory-friendly options if relevant</li>
+  </ul>
+  <p>Auric Movement LLC is a directory and does not operate the venues we list. Final accessibility decisions, and any necessary accommodations, are the responsibility of the venue and the event organizer.</p>
+
+  <h2>5. Known Limitations</h2>
+  <p>Despite our efforts, some content may not yet be fully accessible:</p>
+  <ul>
+    <li>Auric Concierge (the AI assistant) renders dynamic chat content that may not always announce updates optimally to screen readers. We are working to improve <code>aria-live</code> coverage in chat responses.</li>
+    <li>The Budget Calculator's real-time numerical updates may not be announced by all screen readers. We are working to add explicit announcements.</li>
+    <li>Third-party services embedded on the Platform (e.g., the Cloudflare Worker proxy for Auric Concierge) follow those providers' accessibility implementations, which we cannot fully control.</li>
+  </ul>
+
+  <h2>6. Compatibility</h2>
+  <p>The Platform is designed to work with the most recent versions of major browsers (Chrome, Safari, Firefox, Edge) and to be compatible with assistive technologies including:</p>
+  <ul>
+    <li>VoiceOver (macOS and iOS)</li>
+    <li>NVDA and JAWS (Windows)</li>
+    <li>TalkBack (Android)</li>
+    <li>System-level keyboard navigation</li>
+  </ul>
+  <p>We don't actively test against older or unmaintained browsers. If you encounter issues, please let us know.</p>
+
+  <h2>7. Feedback & Requests</h2>
+  <p>We welcome your feedback. If you encounter an accessibility barrier on the Platform, need information in an alternative format, or have suggestions for improvement, please contact us:</p>
+  <p><strong>Email:</strong> <a href="mailto:hello@auricmovement.com">hello@auricmovement.com</a></p>
+  <p>We aim to respond to accessibility feedback within <strong>5 business days</strong>.</p>
+
+  <h2>8. Ongoing Improvement</h2>
+  <p>Accessibility is an ongoing effort, not a fixed milestone. We regularly review the Platform and make improvements as we learn from feedback and as the WCAG standard evolves.</p>
+
+  <h2>9. Contact</h2>
+  <p><strong>Auric Movement LLC</strong><br>hello@auricmovement.com</p>
+</main>
+
+<footer>
+  <a href="index.html">Home</a>
+  <a href="listings.html">Venues</a>
+  <a href="assistant.html">Concierge</a>
+  <a href="templates.html">Templates</a>
+  <a href="budget.html">Budget</a>
+  <a href="terms.html">Terms</a>
+  <a href="privacy.html">Privacy</a>
+  <a href="accessibility.html">Accessibility</a>
+</footer>
+
+</body>
+</html>

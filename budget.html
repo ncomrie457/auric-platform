@@ -295,12 +295,12 @@
           <div class="tier">
             <div class="tier-name">Standard</div>
             <div class="tier-price" id="t-standard">$0</div>
-            <div class="tier-note" id="t-standard-note">~20% margin</div>
+            <div class="tier-note" id="t-standard-note">2x cost · ~50% margin</div>
           </div>
           <div class="tier">
             <div class="tier-name">Premium</div>
             <div class="tier-price" id="t-premium">$0</div>
-            <div class="tier-note" id="t-premium-note">~50% margin</div>
+            <div class="tier-note" id="t-premium-note">3x cost · boutique</div>
           </div>
         </div>
 
@@ -310,6 +310,32 @@
           <div style="display:flex;justify-content:space-between;align-items:center">
             <span style="font-size:12px;color:rgba(255,255,255,.6)">Net profit / loss</span>
             <span class="result-val" id="r-profit" style="font-size:20px">$0</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-hd">Test a price</div>
+        <div class="card-bd">
+          <div class="field" style="margin-bottom:14px">
+            <label for="custom-price">Your price per person ($)</label>
+            <input type="number" id="custom-price" min="0" step="1" placeholder="e.g., 45" oninput="calc()">
+          </div>
+          <div id="custom-result" style="font-size:13px;color:var(--earth);line-height:1.7">
+            Enter a price above to see projected revenue, profit, and how it compares to your suggested tiers.
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-hd">Hit a profit goal</div>
+        <div class="card-bd">
+          <div class="field" style="margin-bottom:14px">
+            <label for="profit-goal">Your target net profit ($)</label>
+            <input type="number" id="profit-goal" min="0" step="50" placeholder="e.g., 500" oninput="calc()">
+          </div>
+          <div id="goal-result" style="font-size:13px;color:var(--earth);line-height:1.7">
+            Enter a profit goal above to see what price per person you'd need to charge — at full attendance and at 80% attendance.
           </div>
         </div>
       </div>
@@ -362,9 +388,13 @@ function calc() {
   const total = totalBeforePlatform;
   const perPerson = attendance > 0 ? total / attendance : 0;
 
-  const communityPrice = Math.ceil(breakeven / 5) * 5;
-  const standardPrice = Math.ceil(breakeven * 1.2 / 5) * 5;
-  const premiumPrice = Math.ceil(breakeven * 1.5 / 5) * 5;
+  // Realistic NYC wellness markups:
+  //   community  = 1.2x breakeven  (small buffer for no-shows)
+  //   standard   = 2.0x breakeven  (typical boutique pricing)
+  //   premium    = 3.0x breakeven  (premium-positioned events)
+  const communityPrice = Math.ceil(breakeven * 1.2 / 5) * 5;
+  const standardPrice  = Math.ceil(breakeven * 2.0 / 5) * 5;
+  const premiumPrice   = Math.ceil(breakeven * 3.0 / 5) * 5;
 
   const standardRevenue = paying * standardPrice * (1 - platformFee) + sponsor;
   const profit = standardRevenue - total;
@@ -377,9 +407,9 @@ function calc() {
   document.getElementById('t-community').textContent = '$' + communityPrice;
   document.getElementById('t-standard').textContent = '$' + standardPrice;
   document.getElementById('t-premium').textContent = '$' + premiumPrice;
-  document.getElementById('t-community-note').textContent = 'break-even';
-  document.getElementById('t-standard-note').textContent = '~20% margin';
-  document.getElementById('t-premium-note').textContent = '~50% margin';
+  document.getElementById('t-community-note').textContent = '~20% buffer';
+  document.getElementById('t-standard-note').textContent = '2x cost · ~50% margin';
+  document.getElementById('t-premium-note').textContent = '3x cost · boutique';
 
   const profitEl = document.getElementById('r-profit');
   profitEl.textContent = (profit >= 0 ? '+' : '') + '$' + Math.round(profit).toLocaleString();
@@ -388,6 +418,83 @@ function calc() {
   const profitBarWidth = Math.min(100, Math.max(0, (profit / total) * 100 + 50));
   document.getElementById('profit-bar').style.width = profitBarWidth + '%';
   document.getElementById('profit-bar').style.background = profit >= 0 ? '#7B9E87' : '#C47D7D';
+
+  // ---- Test a price ------------------------------------------------------
+  const customPriceRaw = parseFloat(document.getElementById('custom-price').value);
+  const customResultEl = document.getElementById('custom-result');
+  if (!customPriceRaw || customPriceRaw <= 0 || paying === 0) {
+    customResultEl.innerHTML = "Enter a price above to see projected revenue, profit, and how it compares to your suggested tiers.";
+  } else {
+    const fullRevenue   = paying * customPriceRaw * (1 - platformFee) + sponsor;
+    const fullProfit    = fullRevenue - total;
+    const eightyAttn    = Math.floor(paying * 0.8);
+    const eightyRevenue = eightyAttn * customPriceRaw * (1 - platformFee) + sponsor;
+    const eightyProfit  = eightyRevenue - total;
+    const halfAttn      = Math.floor(paying * 0.5);
+    const halfRevenue   = halfAttn * customPriceRaw * (1 - platformFee) + sponsor;
+    const halfProfit    = halfRevenue - total;
+
+    const vsBreakeven = breakeven > 0 ? (customPriceRaw / breakeven).toFixed(1) : '–';
+    const fmtP = p => (p >= 0 ? '+$' : '–$') + Math.abs(Math.round(p)).toLocaleString();
+    const color = p => p >= 0 ? '#2A5A36' : '#7A3A3A';
+    customResultEl.innerHTML =
+      `<div style="font-size:14px;color:var(--ink);margin-bottom:8px"><strong>At $${customPriceRaw}/person:</strong> that's <strong>${vsBreakeven}×</strong> your breakeven cost.</div>` +
+      `<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-top:8px">` +
+        `<div style="background:var(--cream);border-radius:8px;padding:10px;text-align:center">` +
+          `<div style="font-size:10px;color:var(--earth);text-transform:uppercase;letter-spacing:.05em">Sold out (${paying})</div>` +
+          `<div style="font-size:18px;font-weight:500;color:${color(fullProfit)};margin-top:2px">${fmtP(fullProfit)}</div>` +
+        `</div>` +
+        `<div style="background:var(--cream);border-radius:8px;padding:10px;text-align:center">` +
+          `<div style="font-size:10px;color:var(--earth);text-transform:uppercase;letter-spacing:.05em">80% full (${eightyAttn})</div>` +
+          `<div style="font-size:18px;font-weight:500;color:${color(eightyProfit)};margin-top:2px">${fmtP(eightyProfit)}</div>` +
+        `</div>` +
+        `<div style="background:var(--cream);border-radius:8px;padding:10px;text-align:center">` +
+          `<div style="font-size:10px;color:var(--earth);text-transform:uppercase;letter-spacing:.05em">Half full (${halfAttn})</div>` +
+          `<div style="font-size:18px;font-weight:500;color:${color(halfProfit)};margin-top:2px">${fmtP(halfProfit)}</div>` +
+        `</div>` +
+      `</div>`;
+  }
+
+  // ---- Hit a profit goal -------------------------------------------------
+  const goalRaw = parseFloat(document.getElementById('profit-goal').value);
+  const goalResultEl = document.getElementById('goal-result');
+  if (!goalRaw || goalRaw <= 0 || paying === 0) {
+    goalResultEl.innerHTML = "Enter a profit goal above to see what price per person you'd need to charge — at full attendance and at 80% attendance.";
+  } else {
+    // revenue = paying * price * (1 - fee) + sponsor; revenue - total = goal
+    // → price = (goal + total - sponsor) / (paying * (1 - fee))
+    const denomFull = paying * (1 - platformFee);
+    const priceFull = denomFull > 0 ? (goalRaw + total - sponsor) / denomFull : 0;
+    const eightyAttn = Math.floor(paying * 0.8);
+    const denomEighty = eightyAttn * (1 - platformFee);
+    const priceEighty = denomEighty > 0 ? (goalRaw + total - sponsor) / denomEighty : 0;
+    const roundUp5 = p => Math.ceil(p / 5) * 5;
+    const priceFullR = roundUp5(priceFull);
+    const priceEightyR = roundUp5(priceEighty);
+    const vsStandard = standardPrice > 0 ? (priceFullR / standardPrice).toFixed(1) : '–';
+
+    goalResultEl.innerHTML =
+      `<div style="font-size:14px;color:var(--ink);margin-bottom:10px"><strong>To hit $${goalRaw.toLocaleString()} profit:</strong></div>` +
+      `<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">` +
+        `<div style="background:var(--cream);border-radius:8px;padding:12px;text-align:center">` +
+          `<div style="font-size:10px;color:var(--earth);text-transform:uppercase;letter-spacing:.05em">If sold out (${paying})</div>` +
+          `<div style="font-size:22px;font-weight:500;color:var(--ink);margin-top:4px;font-family:'Cormorant Garamond',serif">$${priceFullR}</div>` +
+          `<div style="font-size:11px;color:var(--bark);margin-top:2px">per person</div>` +
+        `</div>` +
+        `<div style="background:var(--cream);border-radius:8px;padding:12px;text-align:center">` +
+          `<div style="font-size:10px;color:var(--earth);text-transform:uppercase;letter-spacing:.05em">If 80% full (${eightyAttn})</div>` +
+          `<div style="font-size:22px;font-weight:500;color:var(--ink);margin-top:4px;font-family:'Cormorant Garamond',serif">$${priceEightyR}</div>` +
+          `<div style="font-size:11px;color:var(--bark);margin-top:2px">per person</div>` +
+        `</div>` +
+      `</div>` +
+      `<div style="font-size:12px;color:var(--earth);margin-top:10px;line-height:1.55">` +
+        (priceFullR > breakeven * 4
+          ? `⚠ That's ${vsStandard}× your suggested standard price — likely above market for this format. Consider raising attendance, lowering venue cost (try a free civic space), or adjusting your profit target.`
+          : priceFullR <= breakeven
+          ? `That's below your breakeven cost. Increase your goal or recheck inputs.`
+          : `That's roughly ${vsStandard}× your suggested standard price. Within market range for boutique wellness pricing.`) +
+      `</div>`;
+  }
 
   const items = [
     { label: 'Venue (' + duration + 'hrs @ $' + venueRate + '/hr)', val: venueRate * duration },
@@ -460,7 +567,8 @@ calc();
 </script>
 
 <footer style="border-top:0.5px solid var(--stone);padding:32px 24px;max-width:720px;margin:0 auto;display:flex;flex-wrap:wrap;gap:18px;font-size:12px;color:var(--earth);justify-content:center;align-items:center">
-  <a href="suggest.html" style="color:var(--earth);text-decoration:none">Suggest a venue</a>
+  <a href="reviews.html" style="color:var(--earth);text-decoration:none">Reviews</a>
+      <a href="suggest.html" style="color:var(--earth);text-decoration:none">Suggest a venue</a>
       <a href="permit-guide.html" style="color:var(--earth);text-decoration:none">Permit Guide</a>
   <a href="cert-guide.html" style="color:var(--earth);text-decoration:none">Cert Guide</a>
   <a href="terms.html" style="color:var(--earth);text-decoration:none">Terms</a>

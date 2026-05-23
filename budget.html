@@ -75,6 +75,15 @@
     .btn-reset { background: transparent; color: var(--earth); border: 0.5px solid var(--stone); border-radius: 8px; padding: 7px 16px; font-size: 12px; cursor: pointer; font-family: 'DM Sans', sans-serif; }
     .btn-reset:hover { background: var(--cream); }
     @media (max-width: 720px) { .calc-grid { grid-template-columns: 1fr; } }
+    @media (max-width: 520px) {
+      nav { padding: 0 12px; }
+      .nav-links { gap: 12px; }
+      .nav-links a { font-size: 12px; }
+      .page-header { padding: 32px 16px 20px; }
+      .calc-grid { padding: 0 16px 48px; gap: 14px; }
+      .form-row { grid-template-columns: 1fr; gap: 10px; }
+      .field input, .field select { font-size: 16px; }
+    }
   </style>
 </head>
 <body>
@@ -440,7 +449,7 @@ calc();
   <a href="terms.html" style="color:var(--earth);text-decoration:none">Terms</a>
   <a href="privacy.html" style="color:var(--earth);text-decoration:none">Privacy</a>
   <a href="accessibility.html" style="color:var(--earth);text-decoration:none">Accessibility</a>
-  <span style="color:var(--bark)">© 2026 Auric Movement LLC · hello@auricmovement.com</span>
+  <span style="color:var(--bark)">© 2026 Auric Movement LLC · auricmovement@outlook.com</span>
 </footer>
 </body>
 </html>

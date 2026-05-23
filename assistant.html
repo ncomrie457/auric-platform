@@ -217,6 +217,13 @@
       .sidebar { display: none; }
       .chat-wrap { height: calc(100vh - 52px - 24px); }
     }
+    @media (max-width: 520px) {
+      nav { padding: 0 12px; }
+      .nav-links { gap: 12px; }
+      .nav-links a { font-size: 12px; }
+      .msg { max-width: 95%; }
+      .chat-input { font-size: 16px; }
+    }
   </style>
 </head>
 <body>
@@ -355,7 +362,7 @@ const SYSTEM = `You are Auric Concierge, the AI guide for Auric OS — the platf
 
 ## Venues (NYC wellness scene)
 You have deep knowledge of NYC pilates, yoga, and wellness studios by borough. Categories you cover:
-- Boutique studios (Modo Yoga, Body by Simone, The Well, Lifespan Aerial, Equinox private hire)
+- Boutique studios (Modo Yoga, Body by Simone, The Well, The Invisible Dog Art Center, Equinox private hire)
 - Pilates studios (The Fit In in Bed-Stuy, The Space Pilates in Flatiron, Gibney 280/890 Broadway with their $10/hr NPDR rate)
 - Hidden civic gems (NYPL Schwarzman + Stavros Niarchos rooftop, Brooklyn Central Library, Mulberry Street branch, Schomburg Center)
 - Historic House Trust properties (Bartow-Pell Mansion $700-$3,500, Old Stone House $400-$1,500, Merchant's House $1,500-$3,500)
@@ -509,7 +516,7 @@ async function sendMessage() {
 
   } catch (err) {
     typingEl.remove();
-    addMessage('assistant', "I couldn't connect right now. If you're testing locally, you'll need to set up a Cloudflare Worker to proxy the API key securely. Reach out to hello@auricmovement.com and we'll help you get set up.");
+    addMessage('assistant', "I couldn't connect right now. If you're testing locally, you'll need to set up a Cloudflare Worker to proxy the API key securely. Reach out to auricmovement@outlook.com and we'll help you get set up.");
   }
 
   isTyping = false;
@@ -522,7 +529,7 @@ async function sendMessage() {
   <a href="terms.html" style="color:var(--earth);text-decoration:none">Terms</a>
   <a href="privacy.html" style="color:var(--earth);text-decoration:none">Privacy</a>
   <a href="accessibility.html" style="color:var(--earth);text-decoration:none">Accessibility</a>
-  <span style="color:var(--bark)">© 2026 Auric Movement LLC · hello@auricmovement.com</span>
+  <span style="color:var(--bark)">© 2026 Auric Movement LLC · auricmovement@outlook.com</span>
 </footer>
 </body>
 </html>

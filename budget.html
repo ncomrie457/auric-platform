@@ -78,15 +78,15 @@
   </style>
 </head>
 <body>
-<script src="gate.js"></script>
 
 <nav>
   <a href="index.html" class="logo">auric<span>.</span>os</a>
   <div class="nav-links">
     <a href="index.html">Home</a>
     <a href="listings.html">Venues</a>
-    <a href="assistant.html">AI Assistant</a>
-    <a href="gems.html">Gems</a>
+    <a href="assistant.html">Concierge</a>
+    <a href="templates.html">Templates</a>
+    <a href="budget.html" class="active">Budget</a>
   </div>
 </nav>
 
@@ -405,7 +405,7 @@ function calc() {
   } else if (breakeven > 100) {
     tipEl.textContent = '💡 Your costs are high relative to your expected attendance. Consider increasing attendance, finding a sponsor, or using a free space like an NYPL branch to reduce venue costs.';
   } else if (profit < 0) {
-    tipEl.textContent = '💡 At standard pricing you\'re projecting a loss of $' + Math.abs(Math.round(profit)).toLocaleString() + '. Try increasing your ticket price to $' + premiumPrice + ' or finding a brand sponsor to cover part of your costs.';
+    tipEl.textContent = '💡 At standard pricing you\'re projecting a loss of $' + Math.abs(Math.round(profit)).toLocaleString() + '. Try increasing your ticket price to $' + premiumPrice + ', cutting venue costs (a free NYPL or civic space), or trimming the headcount.';
   } else {
     tipEl.textContent = '✓ At $' + standardPrice + ' per ticket with ' + paying + ' paying attendees, you\'re projecting a profit of $' + Math.round(profit).toLocaleString() + '. The premium tier at $' + premiumPrice + ' would earn you $' + Math.round(paying * premiumPrice * (1 - platformFee) + sponsor - total).toLocaleString() + '.';
   }
@@ -435,5 +435,12 @@ function reset() {
 
 calc();
 </script>
+
+<footer style="border-top:0.5px solid var(--stone);padding:32px 24px;max-width:720px;margin:0 auto;display:flex;flex-wrap:wrap;gap:18px;font-size:12px;color:var(--earth);justify-content:center;align-items:center">
+  <a href="terms.html" style="color:var(--earth);text-decoration:none">Terms</a>
+  <a href="privacy.html" style="color:var(--earth);text-decoration:none">Privacy</a>
+  <a href="accessibility.html" style="color:var(--earth);text-decoration:none">Accessibility</a>
+  <span style="color:var(--bark)">© 2026 Auric Movement LLC · hello@auricmovement.com</span>
+</footer>
 </body>
 </html>

@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Suggest a Venue — Auric OS</title>
+  <meta name="description" content="Know a NYC or Long Island wellness space that should be in Auric? Send it our way.">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --ink: #2C2418; --earth: #7A6A52; --stone: #EDE9E0;
+      --cream: #FAF8F4; --bark: #B5A48A;
+      --gold: #C9A84C; --gold-l: #FBF5E6; --gold-d: #7A5C14;
+      --sage: #7B9E87; --sage-l: #EDF3EF; --sage-d: #2A5A36;
+      --rose: #C47D7D; --rose-l: #FAEAEA;
+    }
+    body { font-family: 'DM Sans', sans-serif; background: var(--cream); color: var(--ink); line-height: 1.6; }
+    nav {
+      background: rgba(250,248,244,0.95); backdrop-filter: blur(8px);
+      border-bottom: 0.5px solid var(--stone); padding: 0 24px;
+      height: 52px; display: flex; align-items: center; justify-content: space-between;
+      position: sticky; top: 0; z-index: 100;
+    }
+    .logo { font-family: 'Cormorant Garamond', serif; font-size: 20px; font-weight: 600; color: var(--ink); text-decoration: none; }
+    .logo span { color: var(--gold); }
+    .nav-links { display: flex; gap: 20px; align-items: center; }
+    .nav-links a { font-size: 13px; color: var(--earth); text-decoration: none; }
+    .nav-links a:hover { color: var(--ink); }
+    .nav-heart { display: inline-flex; align-items: center; gap: 4px; color: var(--earth); text-decoration: none; padding: 4px 6px; border-radius: 6px; }
+    .nav-heart:hover { color: #C47D7D; }
+    .nav-heart svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 1.7; }
+    .nav-heart [data-bookmark-count] { font-size: 10px; font-weight: 500; line-height: 1; }
+    .nav-heart [data-bookmark-count]:not(:empty) { background: #C47D7D; color: white; padding: 2px 6px; border-radius: 10px; }
+    main { max-width: 640px; margin: 0 auto; padding: 48px 24px 80px; }
+    h1 { font-family: 'Cormorant Garamond', serif; font-size: 44px; font-weight: 500; margin-bottom: 10px; line-height: 1.1; }
+    .lede { font-size: 15px; color: var(--earth); margin-bottom: 28px; line-height: 1.7; }
+    .lede strong { color: var(--ink); font-weight: 500; }
+
+    .filter-note {
+      background: var(--gold-l); border: 1px solid #E8D080; border-radius: 10px;
+      padding: 14px 16px; font-size: 13px; color: var(--gold-d); line-height: 1.65; margin-bottom: 32px;
+    }
+    .filter-note strong { display: block; margin-bottom: 4px; font-weight: 500; }
+
+    form { display: flex; flex-direction: column; gap: 22px; }
+    .field { display: flex; flex-direction: column; gap: 6px; }
+    .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    label { font-size: 12px; font-weight: 500; color: var(--earth); text-transform: uppercase; letter-spacing: .05em; }
+    label .req { color: var(--rose); margin-left: 3px; }
+    label .hint { display: block; text-transform: none; letter-spacing: 0; font-weight: 400; color: var(--bark); margin-top: 2px; font-size: 11px; }
+    input, select, textarea {
+      width: 100%; background: white; border: 0.5px solid var(--stone); border-radius: 8px;
+      padding: 12px 14px; font-size: 15px; font-family: 'DM Sans', sans-serif; color: var(--ink);
+      outline: none; transition: border-color .15s;
+    }
+    input:focus, select:focus, textarea:focus { border-color: var(--gold); }
+    textarea { resize: vertical; min-height: 96px; line-height: 1.6; }
+
+    .submit-row { display: flex; gap: 12px; align-items: center; margin-top: 8px; flex-wrap: wrap; }
+    .btn-primary {
+      background: var(--ink); color: white; border: none; border-radius: 10px;
+      padding: 14px 28px; font-size: 14px; font-weight: 500; cursor: pointer;
+      font-family: 'DM Sans', sans-serif; transition: opacity .15s;
+    }
+    .btn-primary:hover { opacity: .88; }
+    .submit-note { font-size: 12px; color: var(--earth); line-height: 1.55; flex: 1; min-width: 200px; }
+
+    .success {
+      background: var(--sage-l); border: 1px solid #B5D4BB; border-radius: 10px;
+      padding: 18px 22px; font-size: 14px; color: var(--sage-d); line-height: 1.65;
+      display: none;
+    }
+    .success strong { display: block; margin-bottom: 4px; font-weight: 500; }
+    .error-text { color: var(--rose); font-size: 12px; min-height: 16px; line-height: 1.4; }
+
+    footer {
+      border-top: 0.5px solid var(--stone); padding: 32px 24px; max-width: 720px; margin: 0 auto;
+      display: flex; flex-wrap: wrap; gap: 18px; font-size: 12px; color: var(--earth);
+      justify-content: center; align-items: center;
+    }
+    footer a { color: var(--earth); text-decoration: none; }
+    footer a:hover { color: var(--ink); }
+
+    @media (max-width: 600px) {
+      nav { padding: 0 8px; }
+      .nav-links { gap: 9px; }
+      .nav-links a { font-size: 11.5px; }
+      .nav-heart { padding: 2px 2px; gap: 2px; }
+      .nav-heart svg { width: 13px; height: 13px; }
+      .nav-heart [data-bookmark-count]:not(:empty) { padding: 1px 4px; font-size: 9.5px; }
+      main { padding: 32px 16px 56px; }
+      h1 { font-size: 34px; }
+      .field-row { grid-template-columns: 1fr; gap: 22px; }
+      input, select, textarea { font-size: 16px; }
+      footer { padding: 24px 16px; gap: 14px; }
+    }
+  </style>
+</head>
+<body>
+<script src="gate.js"></script>
+<script defer src="bookmarks.js"></script>
+<script src="supabase-config.js"></script>
+
+<nav>
+  <a href="index.html" class="logo">auric<span>.</span>os</a>
+  <div class="nav-links">
+    <a href="index.html">Home</a>
+    <a href="listings.html">Venues</a>
+    <a href="assistant.html">Concierge</a>
+    <a href="templates.html">Templates</a>
+    <a href="budget.html">Budget</a>
+    <a href="saved.html" class="nav-heart" aria-label="Saved venues">
+      <svg viewBox="0 0 24 24"><path d="M12 21s-7.5-4.5-9.5-9C1 8 3.5 5 7 5c1.7 0 3.3.9 4.2 2.2.3.4.9.4 1.2 0C13.3 5.9 14.9 5 16.6 5 20.1 5 22.6 8 21 12c-2 4.5-9 9-9 9z"/></svg>
+      <span data-bookmark-count></span>
+    </a>
+  </div>
+</nav>
+
+<main>
+  <h1>Suggest a venue</h1>
+  <p class="lede">Know a NYC or Long Island wellness space that should be in Auric? Tell us about it. We add venues that have a <strong>real path to rental</strong> for outside creators — we'll verify before listing.</p>
+
+  <div class="filter-note">
+    <strong>Before you submit</strong>
+    We don't list corporate franchises with locked instructor models (Club Pilates, SoulCycle, OrangeTheory, etc.), permanently-closed spaces, or members-only rooms with no non-member event-hire path. Everything else is fair game.
+  </div>
+
+  <form id="suggest-form" onsubmit="return submitVenue(event)">
+    <div class="field">
+      <label for="venue-name">Venue name<span class="req">*</span></label>
+      <input id="venue-name" name="venue-name" type="text" required placeholder="e.g., Wave Wellness Hamptons">
+    </div>
+
+    <div class="field-row">
+      <div class="field">
+        <label for="neighborhood">Neighborhood / town<span class="req">*</span></label>
+        <input id="neighborhood" name="neighborhood" type="text" required placeholder="e.g., Park Slope, Brooklyn">
+      </div>
+      <div class="field">
+        <label for="venue-type">Type<span class="req">*</span></label>
+        <select id="venue-type" name="venue-type" required>
+          <option value="">Pick one</option>
+          <option value="studio">Boutique studio</option>
+          <option value="hotel">Hotel / retreat</option>
+          <option value="outdoor">Outdoor / park</option>
+          <option value="unique">Unique / cultural</option>
+          <option value="free">Free / civic</option>
+          <option value="other">Other</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="field">
+      <label for="modalities">Modalities it works for
+        <span class="hint">Comma-separated. e.g., yoga, pilates, sound bath, breathwork, dance, hiit, workshop, retreat</span>
+      </label>
+      <input id="modalities" name="modalities" type="text" placeholder="yoga, sound bath, meditation">
+    </div>
+
+    <div class="field-row">
+      <div class="field">
+        <label for="capacity">Approx. capacity</label>
+        <input id="capacity" name="capacity" type="text" placeholder="e.g., 20–50 guests">
+      </div>
+      <div class="field">
+        <label for="rate">Approx. rate
+          <span class="hint">"Inquire" is fine if unpublished</span>
+        </label>
+        <input id="rate" name="rate" type="text" placeholder="e.g., $85/hr, $300–$600, Inquire">
+      </div>
+    </div>
+
+    <div class="field">
+      <label for="website">Website</label>
+      <input id="website" name="website" type="url" placeholder="https://">
+    </div>
+
+    <div class="field-row">
+      <div class="field">
+        <label for="contact-email">Venue contact email</label>
+        <input id="contact-email" name="contact-email" type="email" placeholder="hello@venue.com">
+      </div>
+      <div class="field">
+        <label for="contact-ig">Instagram handle
+          <span class="hint">Without the @</span>
+        </label>
+        <input id="contact-ig" name="contact-ig" type="text" placeholder="venueig">
+      </div>
+    </div>
+
+    <div class="field">
+      <label for="why">Why should it be on Auric?<span class="req">*</span>
+        <span class="hint">Two sentences. What makes it a fit for wellness creators? Have you booked it yourself, or do you know someone who has?</span>
+      </label>
+      <textarea id="why" name="why" required placeholder="What makes this venue notable, who it's right for, and why creators would want to book it."></textarea>
+    </div>
+
+    <div class="field">
+      <label for="relationship">Your relationship to this venue<span class="req">*</span></label>
+      <select id="relationship" name="relationship" required>
+        <option value="">Pick one</option>
+        <option value="creator">I'm a creator who has booked here</option>
+        <option value="creator-interested">I'm a creator who wants to book here</option>
+        <option value="venue">I represent the venue</option>
+        <option value="community">I'm a community member / attendee</option>
+        <option value="other">Other</option>
+      </select>
+    </div>
+
+    <div class="field-row">
+      <div class="field">
+        <label for="your-name">Your name<span class="req">*</span></label>
+        <input id="your-name" name="your-name" type="text" required placeholder="First Last">
+      </div>
+      <div class="field">
+        <label for="your-email">Your email<span class="req">*</span>
+          <span class="hint">So we can follow up if needed</span>
+        </label>
+        <input id="your-email" name="your-email" type="email" required placeholder="you@email.com">
+      </div>
+    </div>
+
+    <div id="form-error" class="error-text"></div>
+
+    <div class="submit-row">
+      <button type="submit" class="btn-primary">Send suggestion →</button>
+      <p class="submit-note">Opens your email app with the suggestion ready to send. We review every submission and follow up within 5 business days.</p>
+    </div>
+  </form>
+
+  <div id="success" class="success">
+    <strong>Thanks — opened in your email app.</strong>
+    Hit send to finish submitting. We'll review and email you back within 5 business days if we add the venue or need more info.
+  </div>
+</main>
+
+<footer>
+  <a href="suggest.html">Suggest a venue</a>
+  <a href="permit-guide.html">Permit Guide</a>
+  <a href="cert-guide.html">Cert Guide</a>
+  <a href="terms.html">Terms</a>
+  <a href="privacy.html">Privacy</a>
+  <a href="accessibility.html">Accessibility</a>
+  <span style="color:var(--bark)">© 2026 Auric Movement LLC · auricmovement@outlook.com</span>
+</footer>
+
+<script>
+async function submitVenue(e) {
+  e.preventDefault();
+  const errEl = document.getElementById('form-error');
+  errEl.textContent = '';
+
+  const get = id => document.getElementById(id).value.trim();
+  const fields = {
+    venue_name: get('venue-name'),
+    neighborhood: get('neighborhood'),
+    venue_type: get('venue-type'),
+    modalities: get('modalities'),
+    capacity: get('capacity'),
+    rate: get('rate'),
+    website: get('website'),
+    contact_email: get('contact-email'),
+    contact_instagram: get('contact-ig').replace(/^@/, ''),
+    why_it_belongs: get('why'),
+    submitter_name: get('your-name'),
+    submitter_email: get('your-email'),
+    relationship: get('relationship'),
+  };
+
+  if (!fields.venue_name || !fields.neighborhood || !fields.venue_type ||
+      !fields.why_it_belongs || !fields.relationship ||
+      !fields.submitter_name || !fields.submitter_email) {
+    errEl.textContent = 'Please fill in all required fields (marked with a red asterisk).';
+    return false;
+  }
+
+  // Cheap dedupe hint for the moderation queue
+  fields.fingerprint = (fields.venue_name + '|' + fields.neighborhood).toLowerCase().replace(/\s+/g, '-');
+
+  const submitBtn = document.querySelector('.btn-primary');
+  if (submitBtn) { submitBtn.disabled = true; submitBtn.textContent = 'Sending...'; }
+
+  // ---- Path A: Supabase, if configured -------------------------------------
+  if (typeof window.AURIC_SUPABASE_READY === 'function' && window.AURIC_SUPABASE_READY()) {
+    try {
+      const cfg = window.AURIC_SUPABASE;
+      const resp = await fetch(cfg.url + '/rest/v1/venue_suggestions', {
+        method: 'POST',
+        headers: {
+          'apikey': cfg.anonKey,
+          'Authorization': 'Bearer ' + cfg.anonKey,
+          'Content-Type': 'application/json',
+          'Prefer': 'return=minimal',
+        },
+        body: JSON.stringify(fields),
+      });
+      if (!resp.ok) {
+        const text = await resp.text();
+        throw new Error('HTTP ' + resp.status + ': ' + text);
+      }
+      // Show success state
+      document.getElementById('suggest-form').style.display = 'none';
+      const successEl = document.getElementById('success');
+      successEl.innerHTML = '<strong>Thanks — your suggestion is in.</strong>' +
+        " We'll review and email you back within 5 business days if we add the venue or need more info.";
+      successEl.style.display = 'block';
+      return false;
+    } catch (err) {
+      console.warn('Supabase submission failed, falling back to mailto:', err);
+      // fall through to mailto:
+    }
+  }
+
+  // ---- Path B: mailto fallback (no Supabase or Supabase failed) ------------
+  const subject = `Venue suggestion: ${fields.venue_name}`;
+  const body =
+    `New venue suggestion via app.auricmovement.com/suggest.html\n\n` +
+    `=== VENUE ===\n` +
+    `Name: ${fields.venue_name}\n` +
+    `Neighborhood / town: ${fields.neighborhood}\n` +
+    `Type: ${fields.venue_type}\n` +
+    (fields.modalities ? `Modalities: ${fields.modalities}\n` : '') +
+    (fields.capacity ? `Capacity: ${fields.capacity}\n` : '') +
+    (fields.rate ? `Rate: ${fields.rate}\n` : '') +
+    (fields.website ? `Website: ${fields.website}\n` : '') +
+    (fields.contact_email ? `Venue contact email: ${fields.contact_email}\n` : '') +
+    (fields.contact_instagram ? `Instagram: @${fields.contact_instagram}\n` : '') +
+    `\n=== WHY IT BELONGS ===\n${fields.why_it_belongs}\n\n` +
+    `=== SUBMITTER ===\n` +
+    `Name: ${fields.submitter_name}\n` +
+    `Email: ${fields.submitter_email}\n` +
+    `Relationship to venue: ${fields.relationship}\n`;
+
+  window.location.href = `mailto:auricmovement@outlook.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+
+  document.getElementById('suggest-form').style.display = 'none';
+  document.getElementById('success').style.display = 'block';
+  return false;
+}
+</script>
+
+</body>
+</html>

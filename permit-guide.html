@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>NYC Permit Guide — Auric OS</title>
+  <meta name="description" content="What permits NYC wellness creators actually need: Parks, Hudson River Park, DOHMH, noise, insurance, and the community board process. A working guide, not a legal document.">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --ink: #2C2418; --earth: #7A6A52; --stone: #EDE9E0;
+      --cream: #FAF8F4; --bark: #B5A48A;
+      --gold: #C9A84C; --gold-l: #FBF5E6; --gold-d: #7A5C14;
+      --sage: #7B9E87; --sage-l: #EDF3EF; --sage-d: #2A5A36;
+      --sky: #6B9AB8; --sky-l: #EAF2F8; --sky-d: #2A5A78;
+      --rose: #C47D7D; --rose-l: #FAEAEA;
+    }
+    body { font-family: 'DM Sans', sans-serif; background: var(--cream); color: var(--ink); line-height: 1.7; }
+    nav {
+      background: rgba(250,248,244,0.95); backdrop-filter: blur(8px);
+      border-bottom: 0.5px solid var(--stone); padding: 0 24px;
+      height: 52px; display: flex; align-items: center; justify-content: space-between;
+      position: sticky; top: 0; z-index: 100;
+    }
+    .logo { font-family: 'Cormorant Garamond', serif; font-size: 20px; font-weight: 600; color: var(--ink); text-decoration: none; }
+    .logo span { color: var(--gold); }
+    .nav-links { display: flex; gap: 20px; align-items: center; }
+    .nav-links a { font-size: 13px; color: var(--earth); text-decoration: none; }
+    .nav-links a:hover { color: var(--ink); }
+    .nav-heart { display: inline-flex; align-items: center; gap: 4px; color: var(--earth); text-decoration: none; padding: 4px 6px; border-radius: 6px; }
+    .nav-heart:hover { color: #C47D7D; }
+    .nav-heart svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 1.7; }
+    .nav-heart [data-bookmark-count] { font-size: 10px; font-weight: 500; line-height: 1; }
+    .nav-heart [data-bookmark-count]:not(:empty) { background: #C47D7D; color: white; padding: 2px 6px; border-radius: 10px; }
+    main { max-width: 760px; margin: 0 auto; padding: 56px 24px 80px; }
+    h1 { font-family: 'Cormorant Garamond', serif; font-size: 46px; font-weight: 500; margin-bottom: 8px; line-height: 1.1; }
+    .lede { font-size: 16px; color: var(--earth); margin-bottom: 32px; line-height: 1.7; max-width: 620px; }
+    h2 { font-family: 'Cormorant Garamond', serif; font-size: 28px; font-weight: 500; margin-top: 44px; margin-bottom: 12px; color: var(--ink); }
+    h3 { font-family: 'Cormorant Garamond', serif; font-size: 20px; font-weight: 500; margin-top: 26px; margin-bottom: 8px; color: var(--ink); }
+    p { font-size: 15px; color: var(--ink); margin-bottom: 14px; }
+    ul, ol { padding-left: 22px; margin-bottom: 14px; }
+    li { font-size: 15px; margin-bottom: 6px; }
+    strong { font-weight: 500; }
+    a { color: var(--gold-d); }
+    .callout {
+      background: var(--sage-l); border-left: 3px solid var(--sage); border-radius: 0 8px 8px 0;
+      padding: 14px 18px; font-size: 14px; color: var(--sage-d); margin: 18px 0; line-height: 1.65;
+    }
+    .callout strong { display: block; margin-bottom: 4px; }
+    .callout.warn { background: #FAEAEA; border-color: var(--rose); color: #7A3A3A; }
+    .callout.tip { background: var(--gold-l); border-color: var(--gold); color: var(--gold-d); }
+    table { width: 100%; border-collapse: collapse; margin: 18px 0 24px; font-size: 13px; }
+    th { background: var(--stone); text-align: left; padding: 10px 12px; font-weight: 500; color: var(--ink); font-size: 12px; text-transform: uppercase; letter-spacing: .04em; }
+    td { padding: 10px 12px; border-bottom: 0.5px solid var(--stone); color: var(--ink); vertical-align: top; line-height: 1.5; }
+    td a { color: var(--gold-d); }
+    .toc {
+      background: white; border: 0.5px solid var(--stone); border-radius: 10px;
+      padding: 18px 22px; margin-bottom: 36px;
+    }
+    .toc-title { font-size: 11px; font-weight: 500; color: var(--earth); text-transform: uppercase; letter-spacing: .08em; margin-bottom: 10px; }
+    .toc ol { padding-left: 18px; margin: 0; }
+    .toc li { font-size: 13px; margin-bottom: 4px; }
+    .toc a { color: var(--ink); text-decoration: none; }
+    .toc a:hover { color: var(--gold-d); }
+    .disclaimer {
+      background: var(--cream); border: 0.5px dashed var(--bark); border-radius: 8px;
+      padding: 12px 16px; font-size: 12px; color: var(--earth); line-height: 1.6;
+      margin-top: 48px;
+    }
+    footer { border-top: 0.5px solid var(--stone); padding: 32px 24px; max-width: 720px; margin: 0 auto; display: flex; flex-wrap: wrap; gap: 18px; font-size: 12px; color: var(--earth); justify-content: center; align-items: center; }
+    footer a { color: var(--earth); text-decoration: none; }
+    footer a:hover { color: var(--ink); }
+    @media (max-width: 600px) {
+      nav { padding: 0 8px; }
+      .nav-links { gap: 9px; }
+      .nav-links a { font-size: 11.5px; }
+      .nav-heart { padding: 2px 2px; gap: 2px; }
+      .nav-heart svg { width: 13px; height: 13px; }
+      .nav-heart [data-bookmark-count]:not(:empty) { padding: 1px 4px; font-size: 9.5px; }
+      main { padding: 36px 16px 56px; }
+      h1 { font-size: 34px; }
+      h2 { font-size: 24px; }
+      table { font-size: 12px; }
+      th, td { padding: 8px 8px; }
+      footer { padding: 24px 16px; gap: 14px; }
+    }
+  </style>
+</head>
+<body>
+<script src="gate.js"></script>
+<script defer src="bookmarks.js"></script>
+
+<nav>
+  <a href="index.html" class="logo">auric<span>.</span>os</a>
+  <div class="nav-links">
+    <a href="index.html">Home</a>
+    <a href="listings.html">Venues</a>
+    <a href="assistant.html">Concierge</a>
+    <a href="templates.html">Templates</a>
+    <a href="budget.html">Budget</a>
+    <a href="saved.html" class="nav-heart" aria-label="Saved venues">
+      <svg viewBox="0 0 24 24"><path d="M12 21s-7.5-4.5-9.5-9C1 8 3.5 5 7 5c1.7 0 3.3.9 4.2 2.2.3.4.9.4 1.2 0C13.3 5.9 14.9 5 16.6 5 20.1 5 22.6 8 21 12c-2 4.5-9 9-9 9z"/></svg>
+      <span data-bookmark-count></span>
+    </a>
+  </div>
+</nav>
+
+<main>
+  <h1>NYC Permit Guide</h1>
+  <p class="lede">What you actually need to host a wellness event in New York City — by venue type, by agency, by event size. Skip the rabbit holes and apply correctly the first time.</p>
+
+  <div class="toc">
+    <div class="toc-title">Contents</div>
+    <ol>
+      <li><a href="#when">When do you need a permit?</a></li>
+      <li><a href="#parks">NYC Parks Department</a></li>
+      <li><a href="#brooklyn-bridge">Brooklyn Bridge Park</a></li>
+      <li><a href="#hudson">Hudson River Park</a></li>
+      <li><a href="#battery">Battery Park City</a></li>
+      <li><a href="#governors">Governors Island</a></li>
+      <li><a href="#open-streets">Open Streets & Plaza events</a></li>
+      <li><a href="#noise">Noise / amplified sound</a></li>
+      <li><a href="#dohmh">DOHMH (Health Department)</a></li>
+      <li><a href="#insurance">Liability insurance / COI</a></li>
+      <li><a href="#community-board">Community boards</a></li>
+      <li><a href="#civic">Free indoor civic spaces (no permit)</a></li>
+      <li><a href="#faq">FAQ</a></li>
+    </ol>
+  </div>
+
+  <h2 id="when">1. When do you need a permit?</h2>
+  <p>Three triggers, any one of which usually means yes:</p>
+  <ul>
+    <li><strong>Where</strong> — anything on NYC Parks property, on a public plaza, on a sidewalk, or at a city-managed waterfront site usually triggers a permit.</li>
+    <li><strong>How many</strong> — most agencies treat 20 people as the dividing line for "informal gathering" vs. "event." Above 20 you almost always need a permit; below 20 some sites let you skip.</li>
+    <li><strong>Amplified sound, sales, or vending</strong> — any one of these escalates the permit regardless of headcount or venue.</li>
+  </ul>
+  <div class="callout">
+    <strong>Rule of thumb</strong>
+    If you're collecting money for entry, using a speaker, or have more than 20 people on public land — pull a permit. If none of those apply and you're in a private studio, library, or church hall, you usually don't need one (those venues handle their own paperwork).
+  </div>
+
+  <h2 id="parks">2. NYC Parks Department</h2>
+  <p>The big one. Covers Central Park, Prospect Park, Riverside, Madison Square Park, Tompkins Square, Inwood Hill, McCarren, Astoria Park, Bronx parks, and most lawns/fields/plazas across the five boroughs.</p>
+
+  <h3>What you need</h3>
+  <ul>
+    <li><strong>Application fee:</strong> $25 (non-refundable). Paid online when you submit.</li>
+    <li><strong>Lead time:</strong> 21 days minimum. Larger events (200+ people, sound systems, vendors) want 45+ days.</li>
+    <li><strong>Insurance:</strong> Required for groups of 20+ in most cases. $1M general liability is the floor; Parks may ask for higher and name themselves as additional insured.</li>
+    <li><strong>Site fee:</strong> Varies by location and size. Many small wellness gatherings end up at $0–$50 total beyond the application fee.</li>
+  </ul>
+
+  <h3>How to apply</h3>
+  <ol>
+    <li>Go to <a href="https://www.nycgovparks.org/permits/special-events" target="_blank" rel="noopener">nycgovparks.org/permits/special-events</a>.</li>
+    <li>Create an account and start a new permit application. Pick the park and site.</li>
+    <li>Pay the $25 application fee.</li>
+    <li>Wait for the borough permit office to respond. They'll either approve, request a site fee, or come back with conditions.</li>
+    <li>Upload your COI before the event date.</li>
+  </ol>
+
+  <h3>Borough permit offices</h3>
+  <table>
+    <thead><tr><th>Borough</th><th>Office</th><th>Phone</th></tr></thead>
+    <tbody>
+      <tr><td>Manhattan</td><td>Arsenal, 830 5th Ave</td><td>(212) 408-0226</td></tr>
+      <tr><td>Brooklyn</td><td>Litchfield Villa, Prospect Park</td><td>(718) 965-8951</td></tr>
+      <tr><td>Queens</td><td>The Overlook, Forest Park</td><td>(718) 393-7272</td></tr>
+      <tr><td>Bronx</td><td>Pelham Bay Park headquarters</td><td>(718) 430-1830</td></tr>
+      <tr><td>Staten Island</td><td>Greenbelt Recreation Center</td><td>(212) 360-1359</td></tr>
+    </tbody>
+  </table>
+
+  <div class="callout tip">
+    <strong>Wellness-friendly Parks sites that approve easily</strong>
+    Rumsey Playfield (Central Park) · Brooklyn Bridge Park Pier 1 lawn · Prospect Park Boathouse lawn · Battery Park City esplanade · McCarren Park · Tompkins Square. All of these have routine yoga/meditation precedent and approve small wellness gatherings quickly. <em>(Inwood Hill Park is closed for reconstruction through 2028.)</em>
+  </div>
+
+  <h2 id="brooklyn-bridge">3. Brooklyn Bridge Park</h2>
+  <p>BBP runs its own permit process separate from NYC Parks. Faster turnaround for small wellness gatherings — often 1 week.</p>
+  <ul>
+    <li><strong>Apply:</strong> <a href="https://brooklynbridgepark.org/events/" target="_blank" rel="noopener">brooklynbridgepark.org/events</a></li>
+    <li><strong>Free</strong> for groups under 20 (informal gathering exemption).</li>
+    <li><strong>Insurance recommended</strong> for movement events; required for 50+.</li>
+    <li><strong>Best wellness sites:</strong> Pier 1 lawn (skyline backdrop), Pier 6 lawns, Granite Prospect.</li>
+  </ul>
+
+  <h2 id="hudson">4. Hudson River Park</h2>
+  <p>Manages the parks and piers along the West Side waterfront from Battery to 59th St.</p>
+  <ul>
+    <li><strong>Apply:</strong> <a href="https://hudsonriverpark.org/visit/events/plan-your-event/" target="_blank" rel="noopener">hudsonriverpark.org/visit/events/plan-your-event</a></li>
+    <li><strong>Permit required</strong> for groups of 100+ or any commercial event.</li>
+    <li><strong>Already friendly to wellness</strong> — Hudson River Park runs its own Sunset Yoga, Pilates in the Park, and Tai Chi programs, so creator-led events with the right framing are welcome.</li>
+    <li>Best sites: Pier 26 cantilevered tide deck (15,000 sqft over the water), Pier 25 lawn, Pier 45.</li>
+  </ul>
+
+  <h2 id="battery">5. Battery Park City Authority</h2>
+  <p>BPCA manages the parks and esplanade in Battery Park City — distinct from both NYC Parks and the Battery Conservancy. Often the fastest agency to approve small wellness gatherings.</p>
+  <ul>
+    <li><strong>Apply:</strong> Email <a href="mailto:events@bpca.ny.gov">events@bpca.ny.gov</a></li>
+    <li><strong>Free permits</strong> for small groups (under 30 typically).</li>
+    <li><strong>Best sites:</strong> Waterfront esplanade, Wagner Park, Rockefeller Park, South Cove.</li>
+  </ul>
+
+  <h2 id="governors">6. Governors Island</h2>
+  <p>Two-agency split:</p>
+  <ul>
+    <li><strong>Trust for Governors Island</strong> manages most of the island. Apply for site rentals at <a href="https://www.govisland.com/permits/site-rentals-for-private-events" target="_blank" rel="noopener">govisland.com/permits/site-rentals-for-private-events</a>. Nonprofit rates available.</li>
+    <li><strong>National Park Service</strong> manages the monuments (Fort Jay, Castle Williams). Contact <a href="mailto:masi_special_park_use@nps.gov">masi_special_park_use@nps.gov</a> or call (646) 476-0882.</li>
+    <li><strong>Note on logistics:</strong> Ferry-only access. Plan your event around ferry schedules. Indoor backup is limited.</li>
+  </ul>
+
+  <h2 id="open-streets">7. Open Streets & Plaza events</h2>
+  <p>If you want to host on a closed-to-traffic street or a public plaza managed by a BID (Business Improvement District), the permitting path is different:</p>
+  <ul>
+    <li><strong>Open Streets</strong> — Coordinate with the local Open Streets program operator (usually a community organization or BID). DOT permit only for amplified sound or large structures.</li>
+    <li><strong>BID-managed plazas</strong> — Each plaza has its own operator. Times Square, Bryant Park, Madison Square Park, Union Square, DUMBO are all run by BIDs/conservancies, not NYC Parks. Contact the relevant BID directly.</li>
+  </ul>
+
+  <h2 id="noise">8. Noise / amplified sound</h2>
+  <p>If you'll use a speaker, sound system, or anything beyond a single instructor's voice in an outdoor setting, you need a separate <strong>Sound Device permit</strong> from the NYPD.</p>
+  <ul>
+    <li><strong>Apply at your local precinct</strong> in person, 5+ business days before the event.</li>
+    <li><strong>Fee:</strong> $45 per permit.</li>
+    <li><strong>Time restrictions:</strong> Amplified sound generally not permitted before 9am or after 10pm, with some local variations.</li>
+    <li>Bluetooth speakers under 70 dB are sometimes overlooked by NYPD if you keep it low and don't generate complaints, but technically you still need the permit.</li>
+  </ul>
+  <div class="callout warn">
+    <strong>One complaint can shut you down</strong>
+    A single 311 noise complaint will get NYPD dispatched to your event. If you don't have a permit, expect to wrap up immediately. Pull the Sound Device permit if you're amplifying anything outdoors.
+  </div>
+
+  <h2 id="dohmh">9. DOHMH (Health Department)</h2>
+  <p>The Department of Health and Mental Hygiene is mostly a concern for food vendors and licensed clinical facilities — not movement instructors.</p>
+  <ul>
+    <li><strong>You generally don't need a DOHMH permit</strong> to teach yoga, Pilates, breathwork, sound healing, or meditation outdoors or in non-medical venues.</li>
+    <li><strong>You DO need one</strong> if you're serving food (Temporary Food Service Establishment permit), running a licensed fitness facility, or performing anything that crosses into clinical practice.</li>
+    <li><strong>Food at events:</strong> Pre-packaged from a licensed vendor avoids the permit. Cooking on-site, sampling, or selling food without packaging triggers a TFSE.</li>
+  </ul>
+
+  <h2 id="insurance">10. Liability insurance / COI</h2>
+  <p>Certificate of Insurance. Most venues and Parks permits require one.</p>
+  <ul>
+    <li><strong>Standard floor:</strong> $1M general liability per occurrence, $2M aggregate.</li>
+    <li><strong>Premium venues (1 Hotel, Equinox, The Well, Frick, Whitney, etc.):</strong> $2M or higher, with the venue named as additional insured.</li>
+    <li><strong>Where to get it:</strong> Hiscox, NEXT Insurance, Thimble, and beWellnessInsurance offer day-rate event policies starting around $50–$150 for a single-day wellness event. Annual policies for active instructors run $250–$700.</li>
+    <li><strong>What it should cover:</strong> General liability + participant injury. Add "professional liability" (E&O) if you're giving advice or modifications.</li>
+    <li><strong>How to deliver:</strong> Your insurer sends a COI as a PDF naming the venue. Upload to the Parks portal or email to the venue.</li>
+  </ul>
+  <div class="callout tip">
+    <strong>Day-rate trick</strong>
+    For a single event, Thimble lets you buy a policy by the hour or by the day in about 5 minutes — useful if you're not booking enough to justify an annual plan. Just confirm the policy covers your specific modality (sound healing, breathwork, etc. — not all general policies do).
+  </div>
+
+  <h2 id="community-board">11. Community boards</h2>
+  <p>Each NYC neighborhood has a community board (CB1 through CB18 per borough, ~59 total citywide). For most wellness events you'll never interact with a CB. But:</p>
+  <ul>
+    <li><strong>If you're using a park or street that requires community impact review</strong> — large events (500+), recurring events on a single site, or events with structures/vendors — the CB may need to weigh in.</li>
+    <li><strong>If you want a venue's support for a recurring program</strong> — pitching to the local CB can unlock community-friendly venue introductions and good will.</li>
+    <li>Find your CB at <a href="https://www.nyc.gov/site/cau/community-boards/community-boards.page" target="_blank" rel="noopener">nyc.gov/cau/community-boards</a>.</li>
+  </ul>
+
+  <h2 id="civic">12. Free indoor civic spaces (no permit)</h2>
+  <p>If you want to skip permits entirely, these venues handle their own approvals via internal applications:</p>
+  <ul>
+    <li><strong>NYPL branches</strong> — Every branch has community room rentals. Free for community-aligned programming. Apply 2–3 weeks ahead at <a href="https://www.nypl.org/spacerental" target="_blank" rel="noopener">nypl.org/spacerental</a>. Schomburg Center, Schwarzman Building, Stavros Niarchos, Mulberry Street, and Mid-Manhattan all welcome wellness events.</li>
+    <li><strong>Brooklyn Public Library</strong> — Central Library at Grand Army Plaza + branches. Free. <a href="https://www.bklynlibrary.org/rentals" target="_blank" rel="noopener">bklynlibrary.org/rentals</a></li>
+    <li><strong>Church halls</strong> — Most NYC churches rent their parish halls for community programs. Email the office directly; usually $0–$120/hr. St. Paul's Park Slope, Judson Memorial Washington Sq, Middle Collegiate, and Trinity Lutheran are all welcoming to wellness.</li>
+    <li><strong>NYC Parks comfort station buildings</strong> — Restored Beaux-Arts buildings in parks (Tompkins Square, Seward Park). Free with a Parks permit.</li>
+    <li><strong>Community centers</strong> — NYC Parks Recreation Centers, Brooklyn Community Foundation spaces, and senior centers often have community room programs.</li>
+  </ul>
+
+  <h2 id="faq">13. FAQ</h2>
+  <h3>How early should I apply?</h3>
+  <p>Minimum 21 days for NYC Parks, 7–14 days for BBP/BPCA, 14 days for NYPL rooms, 45+ days for events with sound systems or 100+ people. Earlier is always better — the lead time isn't a queue, it's a buffer in case you need to revise.</p>
+
+  <h3>What happens if I don't get a permit?</h3>
+  <p>Best case: nothing — small quiet gatherings get ignored. Realistic case: a Parks officer or 311 complaint shuts you down mid-event, no refunds to your attendees, and your reputation takes a hit. Worst case: a fine or a future ban from the site. The application fee is the cheapest insurance you'll buy.</p>
+
+  <h3>Can I host a paid event on Parks property?</h3>
+  <p>Yes, but you need to disclose it on the application. The site fee may scale with revenue. Many Parks sites are friendly to ticketed wellness programming — sunrise yoga series, for example — as long as it's properly permitted.</p>
+
+  <h3>Do I need a permit if I'm just a teacher with 5 students?</h3>
+  <p>Technically yes if you're on Parks property and being paid, even if it's small. In practice, no one will bother you if you're quiet, taking up no infrastructure, and not impacting other park users. Use judgment.</p>
+
+  <h3>What about Central Park's Conservatory Garden or other "no permit" zones?</h3>
+  <p>Some sites are listed as not available for permitting because they're protected/restricted. You can usually still meet there with a small group, but you can't host an "event." Conservatory Garden, Ramble, Strawberry Fields, and the Reservoir loop are all in this bucket.</p>
+
+  <h3>Can the Concierge help me figure out which permit I need?</h3>
+  <p>Yes. Open <a href="assistant.html">Auric Concierge</a> and describe your event — type, headcount, neighborhood, indoor vs. outdoor. It'll point you to the right agency and process.</p>
+
+  <div class="disclaimer">
+    This guide is for general orientation, not legal advice. Permit rules change, fees update, and individual sites have their own quirks. Verify current requirements with the specific agency before applying. If your event involves significant numbers, alcohol, or amplified sound, consider working with an experienced event permit consultant — there are several in NYC who specialize in cultural and wellness programming. Last reviewed: May 2026.
+  </div>
+</main>
+
+<footer>
+  <a href="suggest.html">Suggest a venue</a>
+  <a href="permit-guide.html">Permit Guide</a>
+  <a href="cert-guide.html">Cert Guide</a>
+  <a href="terms.html">Terms</a>
+  <a href="privacy.html">Privacy</a>
+  <a href="accessibility.html">Accessibility</a>
+  <span style="color:var(--bark)">© 2026 Auric Movement LLC · auricmovement@outlook.com</span>
+</footer>
+
+</body>
+</html>

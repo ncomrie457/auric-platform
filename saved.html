@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Saved Venues — Auric OS</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --ink: #2C2418; --earth: #7A6A52; --stone: #EDE9E0;
+      --cream: #FAF8F4; --bark: #B5A48A;
+      --gold: #C9A84C; --gold-l: #FBF5E6; --gold-d: #7A5C14;
+      --sage: #7B9E87; --sage-l: #EDF3EF; --sage-d: #2A5A36;
+      --sky: #6B9AB8; --sky-l: #EAF2F8; --sky-d: #2A5A78;
+      --rose: #C47D7D; --rose-l: #FAEAEA; --rose-d: #7A3A3A;
+      --amber: #C9943A; --amber-l: #FDF0DC; --amber-d: #7A4A10;
+      --plum: #8A6FAA; --plum-l: #F2EEF8; --plum-d: #4A2A7A;
+    }
+    body { font-family: 'DM Sans', sans-serif; background: var(--cream); color: var(--ink); }
+    nav {
+      background: rgba(250,248,244,0.95); backdrop-filter: blur(8px);
+      border-bottom: 0.5px solid var(--stone); padding: 0 24px;
+      height: 52px; display: flex; align-items: center; justify-content: space-between;
+      position: sticky; top: 0; z-index: 100;
+    }
+    .logo { font-family: 'Cormorant Garamond', serif; font-size: 20px; font-weight: 600; color: var(--ink); text-decoration: none; }
+    .logo span { color: var(--gold); }
+    .nav-links { display: flex; gap: 20px; align-items: center; }
+    .nav-links a { font-size: 13px; color: var(--earth); text-decoration: none; }
+    .nav-links a:hover { color: var(--ink); }
+    .nav-links a.active { color: var(--ink); font-weight: 500; }
+    .page-header { max-width: 960px; margin: 0 auto; padding: 40px 24px 24px; }
+    .page-header h1 { font-family: 'Cormorant Garamond', serif; font-size: 40px; font-weight: 500; margin-bottom: 6px; }
+    .page-header p { font-size: 14px; color: var(--earth); line-height: 1.6; margin-bottom: 0; max-width: 580px; }
+    .listings-grid {
+      max-width: 960px; margin: 0 auto; padding: 20px 24px 64px;
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(420px, 1fr));
+      gap: 14px;
+    }
+    .empty-state {
+      max-width: 520px; margin: 80px auto; padding: 0 24px; text-align: center;
+    }
+    .empty-icon {
+      width: 64px; height: 64px; border-radius: 50%; background: var(--rose-l);
+      display: inline-flex; align-items: center; justify-content: center;
+      margin-bottom: 20px;
+    }
+    .empty-icon svg { width: 28px; height: 28px; stroke: var(--rose); fill: none; stroke-width: 1.5; }
+    .empty-state h2 {
+      font-family: 'Cormorant Garamond', serif; font-size: 28px; font-weight: 500;
+      margin-bottom: 10px; color: var(--ink);
+    }
+    .empty-state p { font-size: 14px; color: var(--earth); line-height: 1.65; margin-bottom: 24px; }
+    .empty-state a {
+      display: inline-block; background: var(--ink); color: white;
+      padding: 11px 22px; border-radius: 8px; font-size: 13px; font-weight: 500;
+      text-decoration: none; transition: opacity .15s;
+    }
+    .empty-state a:hover { opacity: .88; }
+    .venue-card {
+      background: white; border: 0.5px solid var(--stone); border-radius: 14px;
+      overflow: hidden; transition: border-color .15s;
+    }
+    .venue-card:hover { border-color: var(--bark); }
+    .venue-card.free { border-color: #B5D4BB; }
+    .card-top { padding: 16px 18px 14px; border-bottom: 0.5px solid var(--stone); }
+    .card-title-row { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; margin-bottom: 4px; }
+    .venue-name { font-family: 'Cormorant Garamond', serif; font-size: 19px; font-weight: 600; color: var(--ink); line-height: 1.2; }
+    .venue-sub { font-size: 11px; color: var(--earth); margin-bottom: 10px; }
+    .card-right { display: flex; flex-direction: column; align-items: flex-end; gap: 8px; flex-shrink: 0; }
+    .bookmark-btn {
+      background: white; border: 0.5px solid var(--stone); border-radius: 50%;
+      width: 32px; height: 32px; display: flex; align-items: center; justify-content: center;
+      cursor: pointer; transition: all .15s; padding: 0; font-family: inherit;
+    }
+    .bookmark-btn:hover { background: var(--cream); transform: scale(1.05); border-color: var(--bark); }
+    .bookmark-btn svg { width: 16px; height: 16px; stroke: var(--earth); fill: none; stroke-width: 1.6; transition: all .15s; }
+    .bookmark-btn.saved svg { fill: #C47D7D; stroke: #C47D7D; }
+    .bookmark-btn.saved { border-color: #E8C5C5; background: #FAEAEA; }
+    .score-badge {
+      display: flex; flex-direction: column; align-items: center;
+      border-radius: 8px; padding: 6px 10px; min-width: 48px; text-align: center; flex-shrink: 0;
+    }
+    .score-n { font-family: 'Cormorant Garamond', serif; font-size: 22px; font-weight: 500; line-height: 1; }
+    .score-l { font-size: 9px; text-transform: uppercase; letter-spacing: .05em; margin-top: 1px; }
+    .price-row { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; flex-wrap: wrap; }
+    .price-main { font-size: 15px; font-weight: 500; color: var(--ink); }
+    .price-note { font-size: 11px; color: var(--earth); }
+    .price-free { font-size: 15px; font-weight: 500; color: #1A5A1A; }
+    .tags { display: flex; gap: 5px; flex-wrap: wrap; margin-bottom: 0; }
+    .tag { font-size: 10px; font-weight: 500; padding: 3px 8px; border-radius: 20px; }
+    .tag-green { background: var(--sage-l); color: var(--sage-d); }
+    .tag-gold { background: var(--gold-l); color: var(--gold-d); }
+    .tag-sky { background: var(--sky-l); color: var(--sky-d); }
+    .tag-stone { background: var(--stone); color: var(--earth); }
+    .tag-free { background: #E8F5E8; color: #1A5A1A; border: 1px solid #B5D4B5; }
+    .tag-rose { background: var(--rose-l); color: var(--rose-d); }
+    .tag-amber { background: var(--amber-l); color: var(--amber-d); }
+    .tag-plum { background: var(--plum-l); color: var(--plum-d); }
+    .card-actions { padding: 12px 18px; display: flex; gap: 7px; flex-wrap: wrap; }
+    .btn-book {
+      background: var(--sage); color: white; border: none;
+      border-radius: 8px; padding: 9px 14px; font-size: 12px; font-weight: 500;
+      cursor: pointer; font-family: 'DM Sans', sans-serif; text-decoration: none;
+      display: inline-flex; align-items: center; gap: 5px; transition: opacity .15s;
+    }
+    .btn-book:hover { opacity: .88; }
+    .btn-outreach {
+      background: var(--ink); color: white; border: none;
+      border-radius: 8px; padding: 9px 14px; font-size: 12px; font-weight: 500;
+      cursor: pointer; font-family: 'DM Sans', sans-serif; transition: opacity .15s;
+    }
+    .btn-outreach:hover { opacity: .88; }
+    .btn-outline {
+      background: transparent; color: var(--earth); border: 0.5px solid var(--stone);
+      border-radius: 8px; padding: 9px 14px; font-size: 12px; font-weight: 500;
+      cursor: pointer; font-family: 'DM Sans', sans-serif; transition: background .15s;
+    }
+    .btn-outline:hover { background: var(--cream); }
+    .free-banner {
+      background: #E8F5E8; border-bottom: 0.5px solid #B5D4B5;
+      padding: 7px 18px; font-size: 11px; color: #1A5A1A; font-weight: 500;
+      display: flex; align-items: center; gap: 6px;
+    }
+    .card-section { padding: 12px 18px; border-bottom: 0.5px solid var(--stone); }
+    .section-title { font-size: 10px; font-weight: 500; color: var(--earth); text-transform: uppercase; letter-spacing: .06em; margin-bottom: 8px; }
+    .contact-links { display: flex; gap: 14px; flex-wrap: wrap; font-size: 12px; }
+    .contact-links a { color: var(--earth); text-decoration: none; display: inline-flex; align-items: center; gap: 5px; }
+    .contact-links a:hover { color: var(--ink); }
+    .contact-links svg { width: 13px; height: 13px; flex-shrink: 0; }
+    @media (max-width: 640px) { .listings-grid { grid-template-columns: 1fr; } }
+            @media (max-width: 600px) {
+      nav { padding: 0 8px; }
+      .nav-links { gap: 9px; }
+      .nav-links a { font-size: 11.5px; }
+      .nav-heart { padding: 2px 2px; gap: 2px; }
+      .nav-heart svg { width: 13px; height: 13px; }
+      .nav-heart [data-bookmark-count]:not(:empty) { padding: 1px 4px; font-size: 9.5px; }
+.page-header { padding: 32px 16px 20px; }
+      .listings-grid { padding: 16px 16px 48px; }
+    }
+    footer { border-top: 0.5px solid var(--stone); padding: 32px 24px; max-width: 720px; margin: 0 auto; display: flex; flex-wrap: wrap; gap: 18px; font-size: 12px; color: var(--earth); justify-content: center; align-items: center; }
+    footer a { color: var(--earth); text-decoration: none; }
+    footer a:hover { color: var(--ink); }
+      .nav-heart { display: inline-flex; align-items: center; gap: 4px; color: var(--earth); text-decoration: none; padding: 4px 6px; border-radius: 6px; }
+    .nav-heart:hover { color: #C47D7D; }
+    .nav-heart.active { color: #C47D7D; }
+    .nav-heart svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 1.7; }
+    .nav-heart.active svg { fill: currentColor; }
+    .nav-heart [data-bookmark-count] { font-size: 10px; font-weight: 500; line-height: 1; }
+    .nav-heart [data-bookmark-count]:not(:empty) { background: #C47D7D; color: white; padding: 2px 6px; border-radius: 10px; }
+  </style>
+</head>
+<body>
+<script src="gate.js"></script>
+
+<nav>
+  <a href="index.html" class="logo">auric<span>.</span>os</a>
+  <div class="nav-links">
+    <a href="index.html">Home</a>
+    <a href="listings.html">Venues</a>
+    <a href="assistant.html">Concierge</a>
+    <a href="templates.html">Templates</a>
+    <a href="budget.html">Budget</a>
+      <a href="saved.html" class="nav-heart active" aria-label="Saved venues">
+        <svg viewBox="0 0 24 24"><path d="M12 21s-7.5-4.5-9.5-9C1 8 3.5 5 7 5c1.7 0 3.3.9 4.2 2.2.3.4.9.4 1.2 0C13.3 5.9 14.9 5 16.6 5 20.1 5 22.6 8 21 12c-2 4.5-9 9-9 9z"/></svg>
+        <span data-bookmark-count></span>
+      </a>
+  </div>
+</nav>
+
+<div class="page-header">
+  <h1>Saved Venues</h1>
+  <p id="saved-count-line">Your bookmarks live in your browser — they'll stay here as long as you use the same device.</p>
+</div>
+
+<div id="empty" class="empty-state" style="display:none">
+  <div class="empty-icon">
+    <svg viewBox="0 0 24 24"><path d="M12 21s-7.5-4.5-9.5-9C1 8 3.5 5 7 5c1.7 0 3.3.9 4.2 2.2.3.4.9.4 1.2 0C13.3 5.9 14.9 5 16.6 5 20.1 5 22.6 8 21 12c-2 4.5-9 9-9 9z"/></svg>
+  </div>
+  <h2>No saved venues yet</h2>
+  <p>Tap the heart on any venue card to save it. Your bookmarks will appear here for quick access when you're planning an event.</p>
+  <a href="listings.html">Browse all venues →</a>
+  <p style="font-size:13px;color:var(--bark);margin-top:18px;margin-bottom:0">Or <a href="suggest.html" style="color:var(--gold-d);background:none;padding:0;font-size:13px;display:inline">suggest a venue</a> you don't see listed.</p>
+</div>
+
+<div class="listings-grid" id="grid"></div>
+
+<footer style="border-top:0.5px solid var(--stone);padding:32px 24px;max-width:720px;margin:0 auto;display:flex;flex-wrap:wrap;gap:18px;font-size:12px;color:var(--earth);justify-content:center;align-items:center">
+  <a href="permit-guide.html" style="color:var(--earth);text-decoration:none">Permit Guide</a>
+  <a href="cert-guide.html" style="color:var(--earth);text-decoration:none">Cert Guide</a>
+  <a href="terms.html" style="color:var(--earth);text-decoration:none">Terms</a>
+  <a href="privacy.html" style="color:var(--earth);text-decoration:none">Privacy</a>
+  <a href="accessibility.html" style="color:var(--earth);text-decoration:none">Accessibility</a>
+  <span style="color:var(--bark)">© 2026 Auric Movement LLC · auricmovement@outlook.com</span>
+</footer>
+
+<script src="venues.js"></script>
+<script src="bookmarks.js"></script>
+<script>
+const venues = window.AURIC_VENUES;
+
+function renderGrid() {
+  const grid = document.getElementById('grid');
+  const empty = document.getElementById('empty');
+  const savedNames = AuricBookmarks.list();
+  const filtered = venues.filter(v => savedNames.includes(v.name));
+
+  if (filtered.length === 0) {
+    grid.style.display = 'none';
+    empty.style.display = '';
+    document.getElementById('saved-count-line').textContent = "Your bookmarks live in your browser — they'll stay here as long as you use the same device.";
+    return;
+  }
+
+  grid.style.display = '';
+  empty.style.display = 'none';
+  document.getElementById('saved-count-line').textContent = `${filtered.length} ${filtered.length === 1 ? 'venue' : 'venues'} saved · stored in your browser`;
+
+  grid.innerHTML = '';
+  filtered.forEach(v => {
+    const card = document.createElement('div');
+    card.className = 'venue-card' + (v.free ? ' free' : '');
+    card.innerHTML = `
+      ${v.free ? `<div class="free-banner">Free space · ${v.priceNote || ''}</div>` : ''}
+      <div class="card-top">
+        <div class="card-title-row">
+          <div>
+            <div class="venue-name">${v.name}</div>
+            <div class="venue-sub">${v.sub}</div>
+          </div>
+          <div class="card-right">
+            <button class="bookmark-btn saved" data-venue="${v.name.replace(/"/g,'&quot;')}" onclick="toggleBookmark(this, '${v.name.replace(/'/g,"\\'")}')" aria-label="Remove from saved">
+              <svg viewBox="0 0 24 24"><path d="M12 21s-7.5-4.5-9.5-9C1 8 3.5 5 7 5c1.7 0 3.3.9 4.2 2.2.3.4.9.4 1.2 0C13.3 5.9 14.9 5 16.6 5 20.1 5 22.6 8 21 12c-2 4.5-9 9-9 9z"/></svg>
+            </button>
+            <div class="score-badge" style="background:${v.scoreColor}">
+              <div class="score-n" style="color:${v.scoreText}">${v.score}</div>
+              <div class="score-l" style="color:${v.scoreText}">fit</div>
+            </div>
+          </div>
+        </div>
+        <div class="price-row">
+          ${v.free ? `<span class="price-free">${v.price}</span>` : `<span class="price-main">${v.price}</span>`}
+          <span class="price-note">${v.free ? '' : (v.priceNote || '')}</span>
+        </div>
+        <div class="tags">${(v.tags || []).map(t => `<span class="tag ${t.c}">${t.t}</span>`).join('')}</div>
+      </div>
+      ${(v.email || v.phone || v.instagram) ? `
+      <div class="card-section">
+        <div class="section-title">Contact</div>
+        <div class="contact-links">
+          ${v.email ? `<a href="mailto:${v.email}"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="4" width="16" height="12" rx="2"/><path d="M2 6l8 5 8-5"/></svg>${v.email}</a>` : ''}
+          ${v.phone ? `<a href="tel:${v.phone.replace(/[^0-9+]/g,'')}"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 4c0-1 1-2 2-2h2l2 4-2 1c1 2 3 4 5 5l1-2 4 2v2c0 1-1 2-2 2C9 16 4 11 4 4z"/></svg>${v.phone}</a>` : ''}
+          ${v.instagram ? `<a href="https://instagram.com/${v.instagram.replace(/^@/,'')}" target="_blank" rel="noopener"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="16" height="16" rx="4"/><circle cx="10" cy="10" r="3.5"/><circle cx="15" cy="5" r="0.8" fill="currentColor"/></svg>@${v.instagram.replace(/^@/,'')}</a>` : ''}
+        </div>
+      </div>` : ''}
+      <div class="card-actions">
+        ${v.bookingUrl ? `<a href="${v.bookingUrl}" target="_blank" class="btn-book">${v.bookingLabel || 'Visit'}</a>` : ''}
+        <button class="btn-outreach" onclick="draftOutreach('${v.name.replace(/'/g,"\\'")}', \`${(v.outreach || '').replace(/`/g,'\\`')}\`)">Draft outreach</button>
+        <button class="btn-outline" onclick="askAssistant('${v.name.replace(/'/g,"\\'")}')">Ask AI</button>
+      </div>
+    `;
+    grid.appendChild(card);
+  });
+}
+
+function draftOutreach(name, text) {
+  const subject = encodeURIComponent('Event space inquiry — ' + name);
+  const body = encodeURIComponent(text + '\n\nWarm regards,\n[Your name]\nAuric Movement');
+  window.open('mailto:?subject=' + subject + '&body=' + body);
+}
+
+function askAssistant(name) {
+  sessionStorage.setItem('assistantPrompt', 'Tell me more about hosting a wellness event at ' + name + '.');
+  window.location.href = 'assistant.html';
+}
+
+// Re-render whenever a bookmark is added or removed
+document.addEventListener('auric:bookmark-changed', renderGrid);
+
+renderGrid();
+</script>
+</body>
+</html>

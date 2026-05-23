@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Venue Reviews — Auric OS</title>
+  <meta name="description" content="Reviews from NYC and Long Island wellness creators about the venues they've booked.">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --ink: #2C2418; --earth: #7A6A52; --stone: #EDE9E0;
+      --cream: #FAF8F4; --bark: #B5A48A;
+      --gold: #C9A84C; --gold-l: #FBF5E6; --gold-d: #7A5C14;
+      --sage: #7B9E87; --sage-l: #EDF3EF; --sage-d: #2A5A36;
+      --sky: #6B9AB8; --sky-l: #EAF2F8; --sky-d: #2A5A78;
+      --rose: #C47D7D; --rose-l: #FAEAEA;
+    }
+    body { font-family: 'DM Sans', sans-serif; background: var(--cream); color: var(--ink); }
+    nav {
+      background: rgba(250,248,244,0.95); backdrop-filter: blur(8px);
+      border-bottom: 0.5px solid var(--stone); padding: 0 24px;
+      height: 52px; display: flex; align-items: center; justify-content: space-between;
+      position: sticky; top: 0; z-index: 100;
+    }
+    .logo { font-family: 'Cormorant Garamond', serif; font-size: 20px; font-weight: 600; color: var(--ink); text-decoration: none; }
+    .logo span { color: var(--gold); }
+    .nav-links { display: flex; gap: 20px; align-items: center; }
+    .nav-links a { font-size: 13px; color: var(--earth); text-decoration: none; }
+    .nav-links a:hover { color: var(--ink); }
+    .nav-heart { display: inline-flex; align-items: center; gap: 4px; color: var(--earth); text-decoration: none; padding: 4px 6px; border-radius: 6px; }
+    .nav-heart:hover { color: #C47D7D; }
+    .nav-heart svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 1.7; }
+    .nav-heart [data-bookmark-count] { font-size: 10px; font-weight: 500; line-height: 1; }
+    .nav-heart [data-bookmark-count]:not(:empty) { background: #C47D7D; color: white; padding: 2px 6px; border-radius: 10px; }
+
+    .page-header { max-width: 760px; margin: 0 auto; padding: 40px 24px 24px; }
+    .page-header h1 { font-family: 'Cormorant Garamond', serif; font-size: 40px; font-weight: 500; margin-bottom: 6px; }
+    .page-header p { font-size: 14px; color: var(--earth); line-height: 1.6; max-width: 560px; }
+    .filters { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 20px; }
+    .filter-btn {
+      background: white; border: 0.5px solid var(--stone); border-radius: 20px;
+      padding: 6px 16px; font-size: 12px; color: var(--earth); cursor: pointer;
+      font-family: 'DM Sans', sans-serif; transition: all .15s;
+    }
+    .filter-btn.active { background: var(--ink); color: white; border-color: var(--ink); }
+    .filter-btn:hover:not(.active) { background: var(--stone); }
+
+    .reviews-list { max-width: 760px; margin: 0 auto; padding: 12px 24px 64px; display: flex; flex-direction: column; gap: 14px; }
+    .review-card {
+      background: white; border: 0.5px solid var(--stone); border-radius: 12px;
+      padding: 18px 22px;
+    }
+    .review-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; margin-bottom: 8px; flex-wrap: wrap; }
+    .review-meta { font-size: 13px; color: var(--earth); }
+    .review-meta strong { color: var(--ink); font-weight: 500; }
+    .review-meta .handle { color: var(--bark); }
+    .review-date { font-size: 11px; color: var(--bark); }
+    .review-stars { color: var(--gold); font-size: 14px; letter-spacing: 1px; margin-bottom: 6px; }
+    .review-venue {
+      font-family: 'Cormorant Garamond', serif; font-size: 18px; font-weight: 500;
+      color: var(--ink); margin-bottom: 4px; display: inline-block; text-decoration: none;
+    }
+    .review-venue:hover { color: var(--gold-d); }
+    .review-text { font-size: 14px; color: var(--ink); line-height: 1.65; margin-top: 8px; }
+    .review-tags { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 10px; }
+    .review-tag {
+      font-size: 10px; font-weight: 500; padding: 3px 8px; border-radius: 12px;
+      background: var(--stone); color: var(--earth);
+    }
+    .review-tag.verified { background: var(--sage-l); color: var(--sage-d); }
+
+    .empty-state { max-width: 520px; margin: 80px auto; padding: 0 24px; text-align: center; }
+    .empty-icon {
+      width: 64px; height: 64px; border-radius: 50%; background: var(--gold-l);
+      display: inline-flex; align-items: center; justify-content: center; margin-bottom: 20px;
+    }
+    .empty-icon svg { width: 32px; height: 32px; fill: var(--gold); }
+    .empty-state h2 { font-family: 'Cormorant Garamond', serif; font-size: 28px; font-weight: 500; margin-bottom: 10px; color: var(--ink); }
+    .empty-state p { font-size: 14px; color: var(--earth); line-height: 1.65; margin-bottom: 24px; }
+    .empty-state a {
+      display: inline-block; background: var(--ink); color: white;
+      padding: 11px 22px; border-radius: 8px; font-size: 13px; font-weight: 500;
+      text-decoration: none; transition: opacity .15s; margin: 0 6px;
+    }
+    .empty-state a.secondary {
+      background: transparent; color: var(--earth); border: 0.5px solid var(--stone);
+    }
+    .empty-state a:hover { opacity: .88; }
+
+    footer {
+      border-top: 0.5px solid var(--stone); padding: 32px 24px; max-width: 720px; margin: 0 auto;
+      display: flex; flex-wrap: wrap; gap: 18px; font-size: 12px; color: var(--earth);
+      justify-content: center; align-items: center;
+    }
+    footer a { color: var(--earth); text-decoration: none; }
+    footer a:hover { color: var(--ink); }
+
+    @media (max-width: 600px) {
+      nav { padding: 0 8px; }
+      .nav-links { gap: 9px; }
+      .nav-links a { font-size: 11.5px; }
+      .nav-heart { padding: 2px 2px; gap: 2px; }
+      .nav-heart svg { width: 13px; height: 13px; }
+      .nav-heart [data-bookmark-count]:not(:empty) { padding: 1px 4px; font-size: 9.5px; }
+      .page-header { padding: 32px 16px 16px; }
+      .reviews-list { padding: 12px 16px 48px; }
+      .empty-state { margin: 48px auto; }
+      footer { padding: 24px 16px; gap: 14px; }
+    }
+  </style>
+</head>
+<body>
+<script src="gate.js"></script>
+<script defer src="bookmarks.js"></script>
+<script src="supabase-config.js"></script>
+<script src="reviews.js"></script>
+
+<nav>
+  <a href="index.html" class="logo">auric<span>.</span>os</a>
+  <div class="nav-links">
+    <a href="index.html">Home</a>
+    <a href="listings.html">Venues</a>
+    <a href="assistant.html">Concierge</a>
+    <a href="templates.html">Templates</a>
+    <a href="budget.html">Budget</a>
+    <a href="saved.html" class="nav-heart" aria-label="Saved venues">
+      <svg viewBox="0 0 24 24"><path d="M12 21s-7.5-4.5-9.5-9C1 8 3.5 5 7 5c1.7 0 3.3.9 4.2 2.2.3.4.9.4 1.2 0C13.3 5.9 14.9 5 16.6 5 20.1 5 22.6 8 21 12c-2 4.5-9 9-9 9z"/></svg>
+      <span data-bookmark-count></span>
+    </a>
+  </div>
+</nav>
+
+<div class="page-header">
+  <h1>Reviews</h1>
+  <p id="review-count-line">Loading reviews…</p>
+  <div class="filters" id="filters" style="display:none">
+    <button class="filter-btn active" onclick="setFilter('all', this)">All ratings</button>
+    <button class="filter-btn" onclick="setFilter('5', this)">★ 5</button>
+    <button class="filter-btn" onclick="setFilter('4', this)">★ 4+</button>
+    <button class="filter-btn" onclick="setFilter('verified', this)">Booked via Auric</button>
+  </div>
+</div>
+
+<div class="reviews-list" id="list"></div>
+
+<div class="empty-state" id="empty" style="display:none">
+  <div class="empty-icon">
+    <svg viewBox="0 0 24 24"><path d="M12 2l3 7 7 .5-5.5 5 1.5 7L12 17.5 5.5 21.5l1.5-7L1.5 9.5 8.5 9z"/></svg>
+  </div>
+  <h2>No reviews yet</h2>
+  <p>Be the first creator to share an experience. Reviews help everyone book smarter, and venues take notice when people speak up.</p>
+  <a href="review-submit.html">Leave a review →</a>
+  <a href="listings.html" class="secondary">Browse venues</a>
+</div>
+
+<footer>
+  <a href="suggest.html">Suggest a venue</a>
+  <a href="permit-guide.html">Permit Guide</a>
+  <a href="cert-guide.html">Cert Guide</a>
+  <a href="terms.html">Terms</a>
+  <a href="privacy.html">Privacy</a>
+  <a href="accessibility.html">Accessibility</a>
+  <span style="color:var(--bark)">© 2026 Auric Movement LLC · auricmovement@outlook.com</span>
+</footer>
+
+<script>
+let activeFilter = 'all';
+
+function setFilter(f, btn) {
+  activeFilter = f;
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  render();
+}
+
+function relativeTime(iso) {
+  if (!iso) return '';
+  const then = new Date(iso).getTime();
+  const now = Date.now();
+  const diff = Math.max(0, now - then);
+  const day = 24 * 60 * 60 * 1000;
+  if (diff < day) return 'today';
+  const days = Math.floor(diff / day);
+  if (days < 7) return `${days} day${days === 1 ? '' : 's'} ago`;
+  if (days < 30) return `${Math.floor(days / 7)} week${Math.floor(days / 7) === 1 ? '' : 's'} ago`;
+  if (days < 365) return `${Math.floor(days / 30)} month${Math.floor(days / 30) === 1 ? '' : 's'} ago`;
+  return `${Math.floor(days / 365)} year${Math.floor(days / 365) === 1 ? '' : 's'} ago`;
+}
+
+function starString(n) { return '★'.repeat(n) + '☆'.repeat(5 - n); }
+
+function render() {
+  const all = (window.AuricReviews && window.AuricReviews.all && window.AuricReviews.all()) || [];
+  const filtered = all.filter(r => {
+    if (activeFilter === 'all') return true;
+    if (activeFilter === '5') return r.rating === 5;
+    if (activeFilter === '4') return r.rating >= 4;
+    if (activeFilter === 'verified') return !!r.booked_via_auric;
+    return true;
+  });
+
+  const list = document.getElementById('list');
+  const empty = document.getElementById('empty');
+  const countLine = document.getElementById('review-count-line');
+  const filtersEl = document.getElementById('filters');
+
+  if (all.length === 0) {
+    list.style.display = 'none';
+    empty.style.display = '';
+    filtersEl.style.display = 'none';
+    countLine.textContent = 'No reviews yet — be the first.';
+    return;
+  }
+
+  list.style.display = '';
+  empty.style.display = 'none';
+  filtersEl.style.display = '';
+
+  const visible = filtered.length;
+  const total = all.length;
+  countLine.textContent = visible === total
+    ? `${total} review${total === 1 ? '' : 's'} from creators across NYC + LI.`
+    : `Showing ${visible} of ${total} reviews.`;
+
+  list.innerHTML = '';
+  filtered.forEach(r => {
+    const card = document.createElement('div');
+    card.className = 'review-card';
+    const handle = r.reviewer_handle ? ` · <span class="handle">@${r.reviewer_handle}</span>` : '';
+    const eventTag = r.event_type ? `<span class="review-tag">${escapeHtml(r.event_type)}</span>` : '';
+    const sizeTag = r.event_size ? `<span class="review-tag">${r.event_size} ppl</span>` : '';
+    const verifiedTag = r.booked_via_auric ? `<span class="review-tag verified">Booked via Auric</span>` : '';
+    card.innerHTML = `
+      <div class="review-head">
+        <div>
+          <a class="review-venue" href="listings.html#${encodeURIComponent(r.venue_name)}">${escapeHtml(r.venue_name)}</a>
+          <div class="review-meta"><strong>${escapeHtml(r.reviewer_name || 'Anonymous')}</strong>${handle}</div>
+        </div>
+        <div class="review-date">${relativeTime(r.created_at)}</div>
+      </div>
+      <div class="review-stars" aria-label="${r.rating} out of 5 stars">${starString(r.rating)}</div>
+      <div class="review-text">${escapeHtml(r.review_text)}</div>
+      <div class="review-tags">${eventTag}${sizeTag}${verifiedTag}</div>
+    `;
+    list.appendChild(card);
+  });
+}
+
+function escapeHtml(s) {
+  if (s == null) return '';
+  return String(s).replace(/[&<>"']/g, c =>
+    ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+}
+
+// Wait for reviews data, then render
+if (typeof window.AuricReviews === 'object' && typeof window.AuricReviews.ready === 'function') {
+  window.AuricReviews.ready().then(render);
+} else {
+  render();
+}
+</script>
+
+</body>
+</html>

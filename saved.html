@@ -78,6 +78,13 @@
     .bookmark-btn svg { width: 16px; height: 16px; stroke: var(--earth); fill: none; stroke-width: 1.6; transition: all .15s; }
     .bookmark-btn.saved svg { fill: #C47D7D; stroke: #C47D7D; }
     .bookmark-btn.saved { border-color: #E8C5C5; background: #FAEAEA; }
+    .rating-pill {
+      display: inline-flex; align-items: center; gap: 4px;
+      background: var(--gold-l); border: 0.5px solid #E8D080; border-radius: 14px;
+      padding: 3px 10px; font-size: 11px; font-weight: 500; color: var(--gold-d);
+      margin-top: 6px;
+    }
+    .rating-pill svg { width: 11px; height: 11px; fill: var(--gold); stroke: none; }
     .score-badge {
       display: flex; flex-direction: column; align-items: center;
       border-radius: 8px; padding: 6px 10px; min-width: 48px; text-align: center; flex-shrink: 0;
@@ -196,8 +203,10 @@
   <span style="color:var(--bark)">© 2026 Auric Movement LLC · auricmovement@outlook.com</span>
 </footer>
 
+<script src="supabase-config.js"></script>
 <script src="venues.js"></script>
 <script src="bookmarks.js"></script>
+<script src="reviews.js"></script>
 <script>
 const venues = window.AURIC_VENUES;
 
@@ -229,6 +238,7 @@ function renderGrid() {
           <div>
             <div class="venue-name">${v.name}</div>
             <div class="venue-sub">${v.sub}</div>
+            ${ratingPillHtml(v.name)}
           </div>
           <div class="card-right">
             <button class="bookmark-btn saved" data-venue="${v.name.replace(/"/g,'&quot;')}" onclick="toggleBookmark(this, '${v.name.replace(/'/g,"\\'")}')" aria-label="Remove from saved">
@@ -259,6 +269,7 @@ function renderGrid() {
         ${v.bookingUrl ? `<a href="${v.bookingUrl}" target="_blank" class="btn-book">${v.bookingLabel || 'Visit'}</a>` : ''}
         <button class="btn-outreach" onclick="draftOutreach('${v.name.replace(/'/g,"\\'")}', \`${(v.outreach || '').replace(/`/g,'\\`')}\`)">Draft outreach</button>
         <button class="btn-outline" onclick="askAssistant('${v.name.replace(/'/g,"\\'")}')">Ask AI</button>
+        <a class="btn-outline" href="review-submit.html?venue=${encodeURIComponent(v.name)}" style="text-decoration:none">Leave a review</a>
       </div>
     `;
     grid.appendChild(card);
@@ -276,8 +287,25 @@ function askAssistant(name) {
   window.location.href = 'assistant.html';
 }
 
+// Conditional rating pill — only renders when AuricReviews has data for this venue
+function ratingPillHtml(venueName) {
+  if (typeof window.AuricReviews !== 'object') return '';
+  const stats = window.AuricReviews.byVenue(venueName);
+  if (!stats || stats.count < 1) return '';
+  const stars = stats.avg.toFixed(1);
+  return `<div class="rating-pill">
+    <svg viewBox="0 0 24 24"><path d="M12 2l3 7 7 .5-5.5 5 1.5 7L12 17.5 5.5 21.5l1.5-7L1.5 9.5 8.5 9z"/></svg>
+    ${stars} · ${stats.count} review${stats.count === 1 ? '' : 's'}
+  </div>`;
+}
+
 // Re-render whenever a bookmark is added or removed
 document.addEventListener('auric:bookmark-changed', renderGrid);
+
+// Re-render once reviews load (so pills appear)
+if (typeof window.AuricReviews === 'object' && typeof window.AuricReviews.ready === 'function') {
+  window.AuricReviews.ready().then(() => renderGrid());
+}
 
 renderGrid();
 </script>

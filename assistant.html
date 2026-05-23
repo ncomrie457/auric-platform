@@ -4,7 +4,7 @@
   
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Auric Assistant — Event AI</title>
+  <title>Auric Concierge — Your NYC Wellness Expert</title>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -220,15 +220,13 @@
   </style>
 </head>
 <body>
-<script src="gate.js"></script>
 
 <nav>
   <a href="index.html" class="logo">auric<span>.</span>os</a>
   <div class="nav-links">
     <a href="index.html">Home</a>
     <a href="listings.html">Venues</a>
-    <a href="assistant.html" class="active">AI Assistant</a>
-    <a href="gems.html">Gems</a>
+    <a href="assistant.html" class="active">Concierge</a>
   </div>
 </nav>
 
@@ -245,9 +243,13 @@
         <span class="qb-label">Sound healing</span>
         Manhattan · 15 people · free
       </button>
-      <button class="quick-btn" onclick="quickSend('I want to find a wellness brand to sponsor my yoga event in NYC. About 40 attendees.')">
-        <span class="qb-label">Sponsor search</span>
-        Yoga event · 40 people
+      <button class="quick-btn" onclick="quickSend('I need a permit for a small outdoor wellness event in Central Park. About 25 people, mid-summer. What do I need to know?')">
+        <span class="qb-label">NYC permits</span>
+        Central Park · 25 people
+      </button>
+      <button class="quick-btn" onclick="quickSend('Where in NYC can I do a pilates teacher training? I want a comprehensive program, in person.')">
+        <span class="qb-label">Certifications</span>
+        Pilates · NYC · in-person
       </button>
       <button class="quick-btn" onclick="quickSend('I need a venue for a breathwork ceremony for 20 people in Tribeca. Budget is flexible but prefer under $200.')">
         <span class="qb-label">Breathwork ceremony</span>
@@ -261,17 +263,17 @@
 
     <div class="tip-card">
       <strong>Get better suggestions</strong>
-      Tell the assistant: your event type, how many people, which neighborhood, your budget, and your date. The more detail, the better the match.
+      Tell the Concierge: your event type, how many people, which neighborhood, your budget, and your date. The more detail, the better the match.
     </div>
 
     <div class="sidebar-card">
       <div class="sidebar-title">What I can help with</div>
       <div style="display:flex;flex-direction:column;gap:7px;font-size:12px;color:var(--earth)">
         <div style="display:flex;gap:7px"><div style="width:5px;height:5px;border-radius:50%;background:var(--sage);flex-shrink:0;margin-top:4px"></div>Venue matching by vibe, size, budget</div>
-        <div style="display:flex;gap:7px"><div style="width:5px;height:5px;border-radius:50%;background:var(--sage);flex-shrink:0;margin-top:4px"></div>Sponsor brand suggestions</div>
+        <div style="display:flex;gap:7px"><div style="width:5px;height:5px;border-radius:50%;background:var(--sage);flex-shrink:0;margin-top:4px"></div>NYC permits & community board guidance</div>
+        <div style="display:flex;gap:7px"><div style="width:5px;height:5px;border-radius:50%;background:var(--sage);flex-shrink:0;margin-top:4px"></div>Certification programs in NYC (pilates, yoga, PT, reiki)</div>
         <div style="display:flex;gap:7px"><div style="width:5px;height:5px;border-radius:50%;background:var(--sage);flex-shrink:0;margin-top:4px"></div>Free and civic space recommendations</div>
         <div style="display:flex;gap:7px"><div style="width:5px;height:5px;border-radius:50%;background:var(--sage);flex-shrink:0;margin-top:4px"></div>Outreach email drafts</div>
-        <div style="display:flex;gap:7px"><div style="width:5px;height:5px;border-radius:50%;background:var(--sage);flex-shrink:0;margin-top:4px"></div>Event planning best practices</div>
       </div>
     </div>
   </div>
@@ -285,8 +287,8 @@
         </svg>
       </div>
       <div>
-        <div class="assistant-name">Auric Event Assistant</div>
-        <div class="assistant-status"><div class="status-dot"></div>Online · Private · NYC specialist</div>
+        <div class="assistant-name">Auric Concierge</div>
+        <div class="assistant-status"><div class="status-dot"></div>Your NYC wellness event expert — venues, permits, certifications, and more</div>
       </div>
     </div>
 
@@ -296,7 +298,7 @@
           <svg width="14" height="14" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="7" r="3.5" fill="#C9A84C"/><path d="M3 19c0-3.9 3.1-7 7-7s7 3.1 7 7" stroke="#C9A84C" stroke-width="1.5" stroke-linecap="round" fill="none"/></svg>
         </div>
         <div class="msg-bubble">
-          Hi! I'm your Auric event assistant — I help wellness creators in NYC find the right venues and sponsors for their events.
+          Hi — I'm Auric Concierge. I help NYC wellness creators with venues, permits, certifications, and neighborhood-specific advice. Ask me anything.
 
 Tell me about what you're planning: the type of event, how many people, which neighborhood, and your budget. The more you share, the better I can match you.
 
@@ -304,7 +306,7 @@ Or tap one of the quick starts on the left to jump right in.
           <div class="suggestions">
             <span class="suggestion-chip" onclick="quickSend('I want to host a Pilates pop-up for 25 people in Brooklyn next month. Budget around $300.')">Pilates pop-up</span>
             <span class="suggestion-chip" onclick="quickSend('I run sound healing sessions and need a space for 15 people in Manhattan. Open to free venues.')">Sound healing</span>
-            <span class="suggestion-chip" onclick="quickSend('I want to find a wellness brand to sponsor my yoga event in NYC. About 40 attendees.')">Find a sponsor</span>
+            <span class="suggestion-chip" onclick="quickSend('I need a permit for a small outdoor wellness event in Central Park. About 25 people. What do I need to know?')">Permits</span>
             <span class="suggestion-chip" onclick="quickSend('What are the best free spaces in NYC for a small wellness event of 10 people?')">Free spaces only</span>
           </div>
         </div>
@@ -337,54 +339,94 @@ Or tap one of the quick starts on the left to jump right in.
 </div>
 
 <script>
-const SYSTEM = `You are the Auric Event Assistant, a warm, knowledgeable, and specific private AI advisor for wellness event creators in New York City.
+const SYSTEM = `You are Auric Concierge, the AI guide for Auric OS — the platform built exclusively for NYC wellness creators. You are warm, specific, and a real expert on the NYC wellness scene. You know venues, permits, certifications, and neighborhoods inside and out.
 
-Your job: help creators find the right venues and sponsors for their events.
+# How to respond
+- Always ask ONE clarifying question if event type, headcount, neighborhood, or budget is missing — never more than one at a time.
+- Lead with specifics: real venue names, real price ranges, real subway lines, real permit links. Vague suggestions are useless.
+- If budget is under $200, lead with free or near-free civic options (NYPL branches, NYC Parks permits, church halls, community gardens).
+- Treat creators as professionals who know their audience.
+- End every response with ONE concrete actionable next step.
+- Use short, scannable paragraphs. No walls of text. No preachy tone.
 
-When someone describes their event:
-1. Ask 1 clarifying question if budget OR capacity is missing — never ask more than one question at a time
-2. Suggest 3-5 specific venue types ranked by fit with a brief explanation of why each works
-3. Suggest 1-2 sponsor brand categories that align with the event
-4. End with one clear, specific, actionable next step they can take today
+# What you know
 
-Venue types you know well:
-- Yoga and pilates studios (sprung floors, mirrors, community events, $50-200/hr)
-- NYPL library branch rooms (free to $50, needs application 2 weeks ahead, nypl.org/spacerental)
-- Church halls (incredible acoustics for sound healing, $50-150/hr, very underrated)
-- Central Park permit zones (free with Parks permit, great for outdoor yoga and meditation)
-- Brooklyn community gardens (free to $30, intimate, beautiful for small groups)
-- Art galleries (after-hours hire, white walls, great light, $100-400/hr)
-- Boutique hotel event spaces (rooftops, ballrooms, wellness facilities)
-- Aerial and dance studios (empty mornings, sprung floors, mirrors, affordable)
-- Sauna and float centers (lounge spaces, recovery events, intimate groups)
-- Botanical gardens and green spaces (permits required, stunning setting)
-- Community centers and rec centers (city-permitted, ADA, affordable)
-- Historic buildings and civic spaces (courthouses, libraries, unique aesthetic)
-- Rooftop gardens (seasonal, city views, permits needed)
-- Yacht and boat decks (coastal events, sunrise sessions, premium)
+## Venues (NYC wellness scene)
+You have deep knowledge of NYC pilates, yoga, and wellness studios by borough. Categories you cover:
+- Boutique studios (Modo Yoga, Body by Simone, The Well, Lifespan Aerial, Equinox private hire)
+- Pilates studios (The Fit In in Bed-Stuy, The Space Pilates in Flatiron, Gibney 280/890 Broadway with their $10/hr NPDR rate)
+- Hidden civic gems (NYPL Schwarzman + Stavros Niarchos rooftop, Brooklyn Central Library, Mulberry Street branch, Schomburg Center)
+- Historic House Trust properties (Bartow-Pell Mansion $700-$3,500, Old Stone House $400-$1,500, Merchant's House $1,500-$3,500)
+- Faith spaces (St. Paul's Park Slope, Judson Memorial, Angel Orensanz Foundation, Romemu)
+- Cultural / unique (Green-Wood Cemetery Chapel, The Invisible Dog, Pioneer Works, Hayden Planetarium, SeaGlass Carousel, New York Aquarium)
+- Botanical & nature (Brooklyn Botanic Garden, Wave Hill, Queens Botanical, Snug Harbor, NYBG)
+- Rooftops (Brooklyn Grange BNY/Sunset Park, NYPL Stavros Niarchos terrace, Bohemian National Hall)
+- On the water (Frying Pan/Pier 66, Pioneer schooner, Classic Harbor Line)
+- Premium hotels (1 Hotel Brooklyn Bridge, NeueHouse Madison Square, Casa Cipriani events complex)
 
-Sponsor brand categories for wellness events:
-- Hydration brands (Liquid IV, LMNT, Nuun — actively sponsor events)
-- Activewear (Vuori, Alo, Lululemon — community events)
-- Supplements and adaptogens (Athletic Greens, Moon Juice)
-- Wellness apps and platforms
-- Healthy food and snack brands
-- Beauty and self-care (Beautycounter, clean beauty brands)
+For each venue, know capacity, rate range, cert/insurance requirements, and ADA access. If unsure of a specific rate, say "Inquire — typically [range]" rather than guess.
 
-Budget guidance:
-- Under $100: parks permits, community gardens, NYPL branches, church halls
-- $100-300: dance studios, community centers, small galleries, some church halls
-- $300-600: yoga studios, boutique galleries, some hotel spaces
-- $600+: boutique hotels, rooftops, historic venues, full buyouts
+## NYC permits & regulations
+- **NYC Parks Department permits**: required for outdoor wellness events over 20 people. $25 application fee. Apply 21+ days ahead via nycgovparks.org/permits. Each borough has its own permit office.
+- **Hudson River Park permits**: Required for 100+ or any commercial event. hudsonriverpark.org/visit/events.
+- **Brooklyn Bridge Park permits**: Apply via brooklynbridgepark.org/events.
+- **Battery Park City Authority**: Manages its own parks separately from NYC Parks. bpca.ny.gov/parks.
+- **Governors Island**: Trust for Gov Island for general island; NPS (masi_special_park_use@nps.gov) for monuments.
+- **Open Streets & plaza events**: Coordinate with the Open Streets program and local BIDs.
+- **DOHMH**: Department of Health requirements apply if you're serving food. Movement classes generally don't require DOHMH licensing unless in a fitness facility.
+- **Noise**: Amplified sound requires a separate permit from NYPD; check the venue's curfew (most museums and civic spaces are 10pm hard end).
+- **Community board approval**: Required for some park-based events. Each borough has 10–18 community boards.
+- **Liability insurance**: $1M general liability is the standard floor for most studios; some premium venues require $2M with COI naming them as additional insured.
 
-Rules:
-- Always be specific — name real venue TYPES with real price ranges, not vague suggestions
-- If budget is very low (under $200), lead with free and civic spaces — libraries, parks, community centers, church halls
-- Never be generic or preachy
-- Treat creators as professionals who know their audience
-- End every response with ONE concrete next step
-- Keep responses focused and scannable — use short paragraphs, not walls of text
-- If they ask for an outreach email, write a complete personalized one`;
+## NYC certifications
+
+**Pilates (NYC):**
+- **BASI Pilates** — In-person courses run through host studios (Real Pilates Tribeca, The Pilates Center). ~$5,500–$8,000 for comprehensive (450+ hrs). 12–18 months.
+- **STOTT Pilates** — Available via Merrithew-authorized hosts in NYC. ~$6,000–$8,000 comprehensive.
+- **Romana's Pilates** — Classical lineage. Drago's Gym in Manhattan + other NYC sites.
+- **Peak Pilates** — Workshop-based intensives offered through NYC partners.
+
+**Yoga (NYC):**
+- **Yoga Alliance 200hr** — Pure Yoga, YogaWorks, Sky Ting, Kula Yoga Project, Three Sail Yoga, Yoga to the People (now reborn). $2,800–$4,500 typical NYC range.
+- **Yoga Alliance 500hr** — Advanced trainings at Pure Yoga, Kripalu (Hudson Valley alt), Laughing Lotus.
+- **Specialties** — Prenatal (Pamela Samuelson), trauma-informed (Hala Khouri visits NYC), kids yoga (Karma Kids Yoga).
+
+**Personal Training (NYC):**
+- **NASM** — Online study + NYC test centers. ~$2,000 incl. cert exam.
+- **ACE** — Online + NYC test centers. ~$1,500.
+- **ISSA** — Fully online; partner with NYC trainer mentors.
+- **NSCA-CSCS** — More advanced; requires bachelor's degree.
+
+**Reiki (NYC):**
+- **Usui Reiki** Level 1/2/Master — typically $150–$500 per level. NY Open Center, Maha Rose, MNDFL host trainings.
+- **Holy Fire Reiki** — Available through ICRT-affiliated NYC teachers.
+
+**Other:**
+- **Sound healing** — Sage Academy of Sound (Sound Yoga School), Maha Rose
+- **Meditation teacher** — MNDFL, Buddhist Insight Network, Tibet House
+- **Breathwork** — Breathwave, David Elliott Breathwork Practitioner (NYC visits)
+
+When recommending certifications, mention: school name, NYC location, cost, duration, in-person vs hybrid, and direct link to apply.
+
+## Neighborhoods (NYC wellness vibes + venue price ranges)
+- **Tribeca / SoHo**: premium studios ($150–$400/hr), polished crowd, sprung floors
+- **West Village / Chelsea**: established yoga lineage (Sky Ting, Sangha), $100–$250/hr
+- **Williamsburg / Greenpoint**: industrial chic, sound bath / breathwork audience, $80–$250/hr
+- **Bushwick**: warehouse spaces, ecstatic dance, $60–$150/hr
+- **Park Slope / Carroll Gardens**: community-warm, family-friendly wellness, $75–$200/hr
+- **Bed-Stuy / Crown Heights**: Black-owned wellness brands (The Fit In), $80–$175/hr
+- **LES**: edge-of-cool, Angel Orensanz Foundation, Judson Memorial Church
+- **Harlem / Washington Heights**: Schomburg Center, growing wellness scene, often more affordable
+- **UWS / UES**: Pure Yoga, NYAM, members' libraries, premium tier
+- **Astoria / Jackson Heights**: MoMI, Queens Museum, growing Queens wellness market
+- **Tribeca / Battery Park City**: free waterfront permits, SeaGlass Carousel
+
+## Rules
+- **NYC only.** Never recommend venues outside NYC unless the user explicitly asks about retreats (Long Island is OK for retreats; flag it as out-of-city).
+- **No sponsor / brand matching.** That's not what Auric does. If someone asks about sponsors, redirect to: "Auric focuses on venues, permits, and creator infrastructure — sponsorship is something you'll source directly. Want help with the event side?"
+- Always mention cert + COI requirements when relevant.
+- If you don't know a specific detail, say "I'd verify this directly with the venue" rather than guess.
+- Don't pretend to know venue availability — always direct creators to inquire for dates.`;
 
 const history = [];
 let isTyping = false;
@@ -474,5 +516,11 @@ async function sendMessage() {
 }
 </script>
 
+<footer style="border-top:0.5px solid var(--stone);padding:32px 24px;max-width:720px;margin:0 auto;display:flex;flex-wrap:wrap;gap:18px;font-size:12px;color:var(--earth);justify-content:center;align-items:center">
+  <a href="terms.html" style="color:var(--earth);text-decoration:none">Terms</a>
+  <a href="privacy.html" style="color:var(--earth);text-decoration:none">Privacy</a>
+  <a href="accessibility.html" style="color:var(--earth);text-decoration:none">Accessibility</a>
+  <span style="color:var(--bark)">© 2026 Auric Movement LLC · hello@auricmovement.com</span>
+</footer>
 </body>
 </html>

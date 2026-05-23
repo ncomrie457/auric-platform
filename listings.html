@@ -121,6 +121,14 @@
     .legend-item { display: flex; align-items: center; gap: 5px; }
     .legend-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
     @media (max-width: 640px) { .listings-grid { grid-template-columns: 1fr; } }
+    @media (max-width: 520px) {
+      nav { padding: 0 12px; }
+      .nav-links { gap: 12px; }
+      .nav-links a { font-size: 12px; }
+      .page-header { padding: 32px 16px 20px; }
+      .listings-grid { padding: 16px 16px 48px; }
+      .req-legend { padding: 0 16px 16px; }
+    }
   </style>
 </head>
 <body>
@@ -181,7 +189,7 @@ const venues = [
     score: 92, scoreColor: "#EDF3EF", scoreText: "#2A5A36",
     price: "$150–$200/hr",
     priceNote: "2hr minimum · deposit required",
-    bookingUrl: "https://modoyoga.com/tribeca",
+    bookingUrl: "https://modoyoga.com/",
     bookingLabel: "Book on Modo Yoga",
     bars: [
       {label:"Audience fit",pct:95,color:"#7B9E87"},
@@ -210,7 +218,7 @@ const venues = [
     score: 88, scoreColor: "#E8F5E8", scoreText: "#1A5A1A",
     price: "Free",
     priceNote: "Community events · application required",
-    bookingUrl: "https://bklynlibrary.org/roomreservations",
+    bookingUrl: "https://www.bklynlibrary.org/rentals",
     bookingLabel: "Apply to book",
     bars: [
       {label:"Audience fit",pct:85,color:"#7B9E87"},
@@ -239,7 +247,7 @@ const venues = [
     score: 86, scoreColor: "#EDF3EF", scoreText: "#2A5A36",
     price: "$125–$175/hr",
     priceNote: "3hr minimum on weekends",
-    bookingUrl: "https://bodybysimone.com/studio-rental",
+    bookingUrl: "https://www.bodybysimone.com/",
     bookingLabel: "Studio rental info",
     bars: [
       {label:"Audience fit",pct:88,color:"#7B9E87"},
@@ -297,7 +305,7 @@ const venues = [
     score: 87, scoreColor: "#EDF3EF", scoreText: "#2A5A36",
     price: "$200–$350/hr",
     priceNote: "Premium pricing · full buyout available",
-    bookingUrl: "https://thewellnyc.com/private-events",
+    bookingUrl: "https://www.the-well.com/",
     bookingLabel: "Private events page",
     bars: [
       {label:"Audience fit",pct:90,color:"#7B9E87"},
@@ -355,7 +363,7 @@ const venues = [
     score: 89, scoreColor: "#EDF3EF", scoreText: "#2A5A36",
     price: "$500–$2,000+",
     priceNote: "Varies by space and date · F&B minimums apply",
-    bookingUrl: "https://www.1hotels.com/brooklyn-bridge/meetings-events",
+    bookingUrl: "https://www.1hotels.com/brooklyn-bridge",
     bookingLabel: "Events inquiry",
     bars: [
       {label:"Audience fit",pct:90,color:"#7B9E87"},
@@ -378,42 +386,13 @@ const venues = [
     modalities:["yoga","pilates","meditation","breathwork","sound_bath","retreat","workshop"]
   },
   {
-    name: "Lifespan Aerial Arts",
-    sub: "Aerial Dance Studio · Williamsburg · Up to 35 guests",
-    type: "studio", free: false,
-    score: 80, scoreColor: "#EDF3EF", scoreText: "#2A5A36",
-    price: "$80–$120/hr",
-    priceNote: "Affordable morning slots available",
-    bookingUrl: "https://lifespanaerialarts.com/studio-rental",
-    bookingLabel: "Studio rental",
-    bars: [
-      {label:"Audience fit",pct:80,color:"#7B9E87"},
-      {label:"Aesthetic",pct:85,color:"#7B9E87"},
-      {label:"Value",pct:90,color:"#7B9E87"},
-      {label:"Accessibility",pct:60,color:"#C47D7D"}
-    ],
-    tags:[{t:"Sprung floors",c:"tag-green"},{t:"Morning slots",c:"tag-gold"},{t:"L train · Bedford",c:"tag-sky"}],
-    requirements:[
-      {dot:"req-required",text:"Liability insurance required — $1M minimum. COI required before booking confirmation."},
-      {dot:"req-recommended",text:"Fitness or movement certification recommended for movement-based events."},
-      {dot:"req-none",text:"No certification required for meditation, breathwork, or non-movement wellness events."}
-    ],
-    access:[
-      {color:"#C9A84C",text:"L at Bedford Ave · 8 min walk"},
-      {color:"#7B9E87",text:"Free street parking mornings"},
-      {color:"#C47D7D",text:"Stairs only · no elevator"}
-    ],
-    outreach:"Hi Lifespan team, I run wellness movement events in NYC and I'm interested in renting your studio for a morning session of about 20–30 people. I have liability insurance and movement certification. Would you have weekday morning availability?",
-    modalities:["yoga","pilates","dance","aerial","workshop"]
-  },
-  {
     name: "Brooklyn Botanic Garden",
     sub: "Botanical Garden · Crown Heights · Up to 200 guests",
     type: "outdoor", free: false,
     score: 86, scoreColor: "#EDF3EF", scoreText: "#2A5A36",
     price: "$300–$1,500",
     priceNote: "Varies by garden space and season",
-    bookingUrl: "https://bbg.org/visit/private-events",
+    bookingUrl: "https://www.bbg.org/visit/private_and_corporate_events",
     bookingLabel: "Private events",
     bars: [
       {label:"Audience fit",pct:88,color:"#7B9E87"},
@@ -500,7 +479,7 @@ const venues = [
     score: 81, scoreColor: "#EDF3EF", scoreText: "#2A5A36",
     price: "$200–$400/hr",
     priceNote: "Member pricing available · varies by location",
-    bookingUrl: "https://equinox.com/corporate-wellness",
+    bookingUrl: "https://equinox.com/",
     bookingLabel: "Corporate & events",
     bars: [
       {label:"Audience fit",pct:82,color:"#7B9E87"},
@@ -732,7 +711,7 @@ const venues = [
     score: 86, scoreColor: "#EDF3EF", scoreText: "#2A5A36",
     price: "$8,500–$10,000",
     priceNote: "3-hr block · +$1,000/hr overage · Manhattan skyline view",
-    bookingUrl: "https://www.brooklyngrangefarm.com/private-dinners",
+    bookingUrl: "https://www.brooklyngrangefarm.com/",
     bookingLabel: "Private events",
     bars: [
       {label:"Audience fit",pct:90,color:"#7B9E87"},
@@ -848,7 +827,7 @@ const venues = [
     score: 78, scoreColor: "#F2EEF8", scoreText: "#4A2A7A",
     price: "From $10,000",
     priceNote: "Site rental + F&B from ~$200/pp + bar ~$55/pp",
-    bookingUrl: "https://nyaquarium.com/host-an-event",
+    bookingUrl: "https://nyaquarium.com/",
     bookingLabel: "Host an event",
     bars: [
       {label:"Audience fit",pct:72,color:"#C9A84C"},
@@ -1573,7 +1552,7 @@ const venues = [
     score: 80, scoreColor: "#EDF3EF", scoreText: "#2A5A36",
     price: "Inquire",
     priceNote: "Private + semi-private model · workshops listed as core offering",
-    bookingUrl: "https://ontrackwellness212.com/",
+    bookingUrl: "http://ontrackwellness212.com/",
     bookingLabel: "On Track Wellness",
     bars: [
       {label:"Audience fit",pct:82,color:"#7B9E87"},
@@ -1979,7 +1958,7 @@ const venues = [
     score: 84, scoreColor: "#EDF3EF", scoreText: "#2A5A36",
     price: "Free–$50",
     priceNote: "Free for members · $50 non-members · rose + herb gardens",
-    bookingUrl: "https://queensbotanical.org/rentals",
+    bookingUrl: "https://queensbotanical.org/",
     bookingLabel: "Rentals",
     bars: [
       {label:"Audience fit",pct:84,color:"#7B9E87"},
@@ -2037,7 +2016,7 @@ const venues = [
     score: 87, scoreColor: "#F2EEF8", scoreText: "#4A2A7A",
     price: "~$500",
     priceNote: "Morning slots before evening events · 50-ft ceilings",
-    bookingUrl: "https://orensanz.org/rentals",
+    bookingUrl: "https://www.orensanz.org/",
     bookingLabel: "Orensanz Foundation",
     bars: [
       {label:"Audience fit",pct:88,color:"#7B9E87"},
@@ -2095,7 +2074,7 @@ const venues = [
     score: 84, scoreColor: "#F2EEF8", scoreText: "#4A2A7A",
     price: "~$150/hr",
     priceNote: "Smaller screening rooms · pre-show window · spatial audio",
-    bookingUrl: "https://nitehawkcinema.com/rentals",
+    bookingUrl: "https://nitehawkcinema.com/",
     bookingLabel: "Nitehawk rentals",
     bars: [
       {label:"Audience fit",pct:86,color:"#7B9E87"},
@@ -2371,7 +2350,7 @@ renderGrid();
   <a href="terms.html" style="color:var(--earth);text-decoration:none">Terms</a>
   <a href="privacy.html" style="color:var(--earth);text-decoration:none">Privacy</a>
   <a href="accessibility.html" style="color:var(--earth);text-decoration:none">Accessibility</a>
-  <span style="color:var(--bark)">© 2026 Auric Movement LLC · hello@auricmovement.com</span>
+  <span style="color:var(--bark)">© 2026 Auric Movement LLC · auricmovement@outlook.com</span>
 </footer>
 </body>
 </html>

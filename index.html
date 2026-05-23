@@ -485,11 +485,14 @@
     }
 
     /* RESPONSIVE */
-    @media (max-width: 600px) {
-      nav { padding: 0 12px; }
-      .nav-links { gap: 12px; }
-      .nav-links a { font-size: 12px; }
-      .nav-cta { display: none; }
+            @media (max-width: 600px) {
+      nav { padding: 0 8px; }
+      .nav-links { gap: 9px; }
+      .nav-links a { font-size: 11.5px; }
+      .nav-heart { padding: 2px 2px; gap: 2px; }
+      .nav-heart svg { width: 13px; height: 13px; }
+      .nav-heart [data-bookmark-count]:not(:empty) { padding: 1px 4px; font-size: 9.5px; }
+.nav-cta { display: none; }
       .cta-input { font-size: 16px; }
       .hero { padding: 64px 16px 56px; }
       .stats { grid-template-columns: 1fr; }
@@ -498,6 +501,13 @@
       .cta-section { padding: 48px 24px; margin: 0 16px 64px; }
       footer { padding: 24px 16px; flex-direction: column; text-align: center; }
     }
+      .nav-heart { display: inline-flex; align-items: center; gap: 4px; color: var(--earth); text-decoration: none; padding: 4px 6px; border-radius: 6px; }
+    .nav-heart:hover { color: #C47D7D; }
+    .nav-heart.active { color: #C47D7D; }
+    .nav-heart svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 1.7; }
+    .nav-heart.active svg { fill: currentColor; }
+    .nav-heart [data-bookmark-count] { font-size: 10px; font-weight: 500; line-height: 1; }
+    .nav-heart [data-bookmark-count]:not(:empty) { background: #C47D7D; color: white; padding: 2px 6px; border-radius: 10px; }
   </style>
 </head>
 <body>
@@ -510,6 +520,10 @@
       <a href="assistant.html">Concierge</a>
       <a href="templates.html">Templates</a>
       <a href="budget.html">Budget</a>
+      <a href="saved.html" class="nav-heart" aria-label="Saved venues">
+        <svg viewBox="0 0 24 24"><path d="M12 21s-7.5-4.5-9.5-9C1 8 3.5 5 7 5c1.7 0 3.3.9 4.2 2.2.3.4.9.4 1.2 0C13.3 5.9 14.9 5 16.6 5 20.1 5 22.6 8 21 12c-2 4.5-9 9-9 9z"/></svg>
+        <span data-bookmark-count></span>
+      </a>
     </div>
     <a href="#join" class="nav-cta">Join free</a>
   </nav>
@@ -532,7 +546,7 @@
   <!-- STATS -->
   <div class="stats">
     <div class="stat-item">
-      <div class="stat-n">71<span>+</span></div>
+      <div class="stat-n">68<span>+</span></div>
       <div class="stat-label">NYC venues curated</div>
     </div>
     <div class="stat-item">
@@ -703,7 +717,7 @@
         <div style="background:white;border:0.5px solid var(--stone);border-radius:12px;padding:22px;transition:border-color .15s;cursor:pointer" onmouseover="this.style.borderColor='var(--bark)'" onmouseout="this.style.borderColor='var(--stone)'">
           <div style="width:36px;height:36px;background:var(--sage-l);border-radius:8px;display:flex;align-items:center;justify-content:center;margin-bottom:12px;font-size:18px">🏢</div>
           <div style="font-size:14px;font-weight:500;color:var(--ink);margin-bottom:5px">NYC Venues</div>
-          <div style="font-size:12px;color:var(--earth);line-height:1.6">71+ verified spaces with clear pricing, cert requirements, and direct booking links. Filter for community gems, free civic spaces, modality, and more.</div>
+          <div style="font-size:12px;color:var(--earth);line-height:1.6">68+ verified spaces with clear pricing, cert requirements, and direct booking links. Filter for community gems, free civic spaces, modality, and more.</div>
         </div>
       </a>
 
@@ -720,6 +734,22 @@
           <div style="width:36px;height:36px;background:var(--amber-l, #FDF0DC);border-radius:8px;display:flex;align-items:center;justify-content:center;margin-bottom:12px;font-size:18px">🧮</div>
           <div style="font-size:14px;font-weight:500;color:var(--ink);margin-bottom:5px">Budget Calculator</div>
           <div style="font-size:12px;color:var(--earth);line-height:1.6">Enter your costs and get your breakeven price, suggested ticket tiers, and projected profit instantly.</div>
+        </div>
+      </a>
+
+      <a href="permit-guide.html" style="text-decoration:none">
+        <div style="background:white;border:0.5px solid var(--stone);border-radius:12px;padding:22px;transition:border-color .15s;cursor:pointer" onmouseover="this.style.borderColor='var(--bark)'" onmouseout="this.style.borderColor='var(--stone)'">
+          <div style="width:36px;height:36px;background:var(--sky-l);border-radius:8px;display:flex;align-items:center;justify-content:center;margin-bottom:12px;font-size:18px">🗺️</div>
+          <div style="font-size:14px;font-weight:500;color:var(--ink);margin-bottom:5px">NYC Permit Guide</div>
+          <div style="font-size:12px;color:var(--earth);line-height:1.6">What you actually need: Parks, Hudson River, BBP, BPCA, DOHMH, noise, and insurance — by agency, by event size.</div>
+        </div>
+      </a>
+
+      <a href="cert-guide.html" style="text-decoration:none">
+        <div style="background:white;border:0.5px solid var(--stone);border-radius:12px;padding:22px;transition:border-color .15s;cursor:pointer" onmouseover="this.style.borderColor='var(--bark)'" onmouseout="this.style.borderColor='var(--stone)'">
+          <div style="width:36px;height:36px;background:var(--plum-l, #F2EEF8);border-radius:8px;display:flex;align-items:center;justify-content:center;margin-bottom:12px;font-size:18px">🎓</div>
+          <div style="font-size:14px;font-weight:500;color:var(--ink);margin-bottom:5px">NYC Certification Guide</div>
+          <div style="font-size:12px;color:var(--earth);line-height:1.6">Pilates (BASI/STOTT/Romana's), Yoga Alliance 200/500, NASM/ACE, Reiki, sound, breathwork. Schools, costs, formats.</div>
         </div>
       </a>
 
@@ -775,6 +805,9 @@
       <a href="assistant.html" style="color:var(--earth);text-decoration:none">Concierge</a>
       <a href="templates.html" style="color:var(--earth);text-decoration:none">Templates</a>
       <a href="budget.html" style="color:var(--earth);text-decoration:none">Budget</a>
+      <a href="suggest.html" style="color:var(--earth);text-decoration:none">Suggest a venue</a>
+      <a href="permit-guide.html" style="color:var(--earth);text-decoration:none">Permit Guide</a>
+      <a href="cert-guide.html" style="color:var(--earth);text-decoration:none">Cert Guide</a>
       <a href="terms.html" style="color:var(--earth);text-decoration:none">Terms</a>
       <a href="privacy.html" style="color:var(--earth);text-decoration:none">Privacy</a>
       <a href="accessibility.html" style="color:var(--earth);text-decoration:none">Accessibility</a>

@@ -1,1 +1,1 @@
-# auric-platform
+# auric-platform .

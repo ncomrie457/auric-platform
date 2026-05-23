@@ -124,15 +124,13 @@
   </style>
 </head>
 <body>
-<script src="gate.js"></script>
 
 <nav>
   <a href="index.html" class="logo">auric<span>.</span>os</a>
   <div class="nav-links">
     <a href="index.html">Home</a>
     <a href="listings.html" class="active">Venues</a>
-    <a href="assistant.html">AI Assistant</a>
-    <a href="gems.html">Gems</a>
+    <a href="assistant.html">Concierge</a>
   </div>
 </nav>
 
@@ -1797,6 +1795,470 @@ const venues = [
     ],
     outreach:"Hi Hot Yoga Carle Place team, I'd love to inquire about renting one of your practice rooms for a workshop intensive of 20–30 people. Your teacher-rotation culture suggests this would be an easy fit. Could you share rates and available off-peak windows?",
     modalities:["yoga","pilates","hiit","workshop"]
+  },
+  {
+    name: "Prospect Park Boathouse Lawn",
+    sub: "Outdoor Permit Zone · Prospect Park, Brooklyn · Up to 20 guests",
+    type: "outdoor", free: true, community: true,
+    score: 86, scoreColor: "#E8F5E8", scoreText: "#1A5A1A",
+    price: "Free permit",
+    priceNote: "5-7 day approval · sunrise yoga gem",
+    bookingUrl: "https://nycgovparks.org/permits",
+    bookingLabel: "Apply for permit",
+    bars: [
+      {label:"Audience fit",pct:88,color:"#7B9E87"},
+      {label:"Aesthetic",pct:96,color:"#7B9E87"},
+      {label:"Value",pct:100,color:"#7B9E87"},
+      {label:"Accessibility",pct:80,color:"#6B9AB8"}
+    ],
+    tags:[{t:"Free permit",c:"tag-free"},{t:"Community gem",c:"tag-plum"},{t:"Q · Prospect Park",c:"tag-sky"}],
+    requirements:[
+      {dot:"req-none",text:"No instructor certification required for sunrise yoga or meditation."},
+      {dot:"req-recommended",text:"Liability insurance recommended for groups over 20."},
+      {dot:"req-none",text:"NYC Parks permit applications approved in 5-7 days for groups under 20."}
+    ],
+    access:[
+      {color:"#7B9E87",text:"Q at Prospect Park · 10 min walk"},
+      {color:"#C9A84C",text:"Street parking · alternate side"},
+      {color:"#7B9E87",text:"Paved paths to boathouse"}
+    ],
+    outreach:"Hi NYC Parks Events Team, I'd like to apply for a permit to host a sunrise yoga session at the Prospect Park Boathouse lawn for approximately 15-20 people. Please let me know the application process and any requirements.",
+    modalities:["yoga","meditation","breathwork","tai_chi","workshop"]
+  },
+  {
+    name: "New York Society Library Reading Room",
+    sub: "Private Membership Library · UES · Up to 20 guests",
+    type: "unique", free: false, community: true,
+    score: 86, scoreColor: "#F2EEF8", scoreText: "#4A2A7A",
+    price: "$75/hr",
+    priceNote: "Dark wood paneling · 2 week notice required",
+    bookingUrl: "mailto:events@nysoclib.org",
+    bookingLabel: "Email events team",
+    bars: [
+      {label:"Audience fit",pct:84,color:"#7B9E87"},
+      {label:"Aesthetic",pct:96,color:"#7B9E87"},
+      {label:"Value",pct:92,color:"#7B9E87"},
+      {label:"Accessibility",pct:80,color:"#6B9AB8"}
+    ],
+    tags:[{t:"Community gem",c:"tag-plum"},{t:"Hidden Manhattan",c:"tag-gold"},{t:"6 · 77th St",c:"tag-sky"}],
+    requirements:[
+      {dot:"req-none",text:"No certification required for meditation, breathwork, or quiet wellness programming."},
+      {dot:"req-recommended",text:"Liability insurance recommended."},
+      {dot:"req-recommended",text:"Wellness events aligned with community wellbeing get approved regularly."}
+    ],
+    access:[
+      {color:"#7B9E87",text:"6 at 77th St · 5 min walk"},
+      {color:"#C47D7D",text:"Paid garages nearby"},
+      {color:"#C9A84C",text:"Confirm ADA on inquiry"}
+    ],
+    outreach:"Hi New York Society Library events team, I'd love to inquire about renting your reading room for an intimate meditation and breathwork session for about 15 people. Your space's silence and architecture would be a perfect setting. Could you share rates and available dates?",
+    modalities:["meditation","breathwork","sound_bath","workshop"]
+  },
+  {
+    name: "NYPL Schwarzman Building",
+    sub: "Beaux-Arts Library · Midtown · Up to 40 guests",
+    type: "free", free: true, community: true,
+    score: 88, scoreColor: "#E8F5E8", scoreText: "#1A5A1A",
+    price: "Free",
+    priceNote: "Apply 3 weeks ahead · DeWitt Wallace Periodical Room",
+    bookingUrl: "https://nypl.org/spacerental",
+    bookingLabel: "Apply for space",
+    bars: [
+      {label:"Audience fit",pct:84,color:"#7B9E87"},
+      {label:"Aesthetic",pct:98,color:"#7B9E87"},
+      {label:"Value",pct:100,color:"#7B9E87"},
+      {label:"Accessibility",pct:95,color:"#6B9AB8"}
+    ],
+    tags:[{t:"Free",c:"tag-free"},{t:"Community gem",c:"tag-plum"},{t:"7 · 5th Ave",c:"tag-sky"}],
+    requirements:[
+      {dot:"req-none",text:"No instructor certification required for community wellness programming."},
+      {dot:"req-none",text:"No liability insurance required for standard community events."},
+      {dot:"req-recommended",text:"3 weeks lead time for community event applications."}
+    ],
+    access:[
+      {color:"#7B9E87",text:"7 at 5th Ave · 1 min walk · B/D/F/M at Bryant Park"},
+      {color:"#C9A84C",text:"Paid garages nearby"},
+      {color:"#7B9E87",text:"Fully ADA accessible"}
+    ],
+    outreach:"Hi NYPL events team, I'd love to apply for a community event space at the Schwarzman Building for a wellness workshop for approximately 30 people. We focus on contemplative programming aligned with public benefit. Could you share which spaces are available?",
+    modalities:["meditation","breathwork","workshop","sound_bath"]
+  },
+  {
+    name: "Brooklyn Bridge Park — Pier 1 Lawn",
+    sub: "Outdoor Permit Zone · DUMBO, Brooklyn · Up to 20 guests",
+    type: "outdoor", free: true, community: true,
+    score: 87, scoreColor: "#E8F5E8", scoreText: "#1A5A1A",
+    price: "Free permit",
+    priceNote: "1 week notice · Manhattan skyline backdrop",
+    bookingUrl: "https://brooklynbridgepark.org/events",
+    bookingLabel: "Permit application",
+    bars: [
+      {label:"Audience fit",pct:90,color:"#7B9E87"},
+      {label:"Aesthetic",pct:98,color:"#7B9E87"},
+      {label:"Value",pct:100,color:"#7B9E87"},
+      {label:"Accessibility",pct:88,color:"#6B9AB8"}
+    ],
+    tags:[{t:"Free permit",c:"tag-free"},{t:"Community gem",c:"tag-plum"},{t:"A/C at High St",c:"tag-sky"}],
+    requirements:[
+      {dot:"req-none",text:"No instructor certification required for outdoor wellness events under 20."},
+      {dot:"req-recommended",text:"Liability insurance recommended for groups over 20."},
+      {dot:"req-none",text:"BBP permits are free and fast for small gatherings."}
+    ],
+    access:[
+      {color:"#7B9E87",text:"A/C at High St · 10 min walk · F at York St"},
+      {color:"#C9A84C",text:"Paid lots nearby · limited street parking"},
+      {color:"#7B9E87",text:"Paved pathways · fully accessible"}
+    ],
+    outreach:"Hi Brooklyn Bridge Park events team, I'd like to apply for a permit to host a sunset meditation at Pier 1 for approximately 18 people. Could you share the permit process and any requirements?",
+    modalities:["yoga","meditation","breathwork","sound_bath","tai_chi"]
+  },
+  {
+    name: "Scandinave Spa NYC — Private Lounge",
+    sub: "Recovery Spa · Midtown · Up to 15 guests",
+    type: "studio", free: false, community: true,
+    score: 80, scoreColor: "#F2EEF8", scoreText: "#4A2A7A",
+    price: "~$200/hr",
+    priceNote: "Available outside spa hours · brand-aligned events only",
+    bookingUrl: "mailto:spa@scandinave.com",
+    bookingLabel: "Email spa",
+    bars: [
+      {label:"Audience fit",pct:84,color:"#7B9E87"},
+      {label:"Aesthetic",pct:90,color:"#7B9E87"},
+      {label:"Value",pct:62,color:"#C9A84C"},
+      {label:"Accessibility",pct:85,color:"#6B9AB8"}
+    ],
+    tags:[{t:"Community gem",c:"tag-plum"},{t:"Recovery + Breathwork",c:"tag-gold"},{t:"Midtown · multiple lines",c:"tag-sky"}],
+    requirements:[
+      {dot:"req-required",text:"Liability insurance required — spa-grade standards."},
+      {dot:"req-recommended",text:"Instructor certification recommended for movement-based events."},
+      {dot:"req-recommended",text:"Brand alignment matters — Scandinave is selective about visiting practitioners."}
+    ],
+    access:[
+      {color:"#7B9E87",text:"Multiple subway lines · Midtown"},
+      {color:"#C47D7D",text:"Paid garage only"},
+      {color:"#7B9E87",text:"Fully ADA accessible"}
+    ],
+    outreach:"Hi Scandinave team, I'd love to explore renting your private lounge for a small recovery + breathwork session of 12-15 people. My programming aligns with sauna and cold plunge culture. Could you share rates and visiting-practitioner process?",
+    modalities:["breathwork","meditation","sound_bath","workshop"]
+  },
+  {
+    name: "Pioneer Schooner — South Street Seaport",
+    sub: "Historic Sailing Schooner · Pier 16 · Up to 25 guests",
+    type: "outdoor", free: false, community: true,
+    score: 84, scoreColor: "#F2EEF8", scoreText: "#4A2A7A",
+    price: "~$400 / 2 hrs",
+    priceNote: "Seasonal May–Oct · sunrise sessions ideal",
+    bookingUrl: "https://southstreetseaportmuseum.org",
+    bookingLabel: "South Street Seaport Museum",
+    bars: [
+      {label:"Audience fit",pct:84,color:"#7B9E87"},
+      {label:"Aesthetic",pct:96,color:"#7B9E87"},
+      {label:"Value",pct:80,color:"#7B9E87"},
+      {label:"Accessibility",pct:60,color:"#C47D7D"}
+    ],
+    tags:[{t:"Community gem",c:"tag-plum"},{t:"19th c. schooner",c:"tag-gold"},{t:"Seasonal · J/Z · Fulton",c:"tag-sky"}],
+    requirements:[
+      {dot:"req-required",text:"Liability insurance required for water-based programming."},
+      {dot:"req-recommended",text:"Confirm weather contingency — open deck venue."},
+      {dot:"req-none",text:"Pioneer welcomes private charter programming May-October."}
+    ],
+    access:[
+      {color:"#7B9E87",text:"J/Z at Fulton St · 5 min walk"},
+      {color:"#C47D7D",text:"No on-site parking"},
+      {color:"#C47D7D",text:"Step up to board · uneven deck"}
+    ],
+    outreach:"Hi Pioneer / South Street Seaport Museum team, I'd love to inquire about chartering the Pioneer for a sunrise yoga session of about 15 people. Could you share rates and available morning windows during the season?",
+    modalities:["yoga","meditation","breathwork","sound_bath","workshop"]
+  },
+  {
+    name: "Queens Botanical Garden Event Lawn",
+    sub: "Botanical Garden · Flushing, Queens · Up to 30 guests",
+    type: "outdoor", free: false, community: true,
+    score: 84, scoreColor: "#EDF3EF", scoreText: "#2A5A36",
+    price: "Free–$50",
+    priceNote: "Free for members · $50 non-members · rose + herb gardens",
+    bookingUrl: "https://queensbotanical.org/rentals",
+    bookingLabel: "Rentals",
+    bars: [
+      {label:"Audience fit",pct:84,color:"#7B9E87"},
+      {label:"Aesthetic",pct:94,color:"#7B9E87"},
+      {label:"Value",pct:96,color:"#7B9E87"},
+      {label:"Accessibility",pct:88,color:"#6B9AB8"}
+    ],
+    tags:[{t:"Free–$50",c:"tag-free"},{t:"Community gem",c:"tag-plum"},{t:"7 · Flushing",c:"tag-sky"}],
+    requirements:[
+      {dot:"req-recommended",text:"Liability insurance recommended for group programming."},
+      {dot:"req-none",text:"No instructor certification required for outdoor wellness."},
+      {dot:"req-none",text:"Off-the-radar vs Brooklyn Botanic · much easier to book."}
+    ],
+    access:[
+      {color:"#7B9E87",text:"7 at Flushing-Main St · 15 min walk or short bus"},
+      {color:"#7B9E87",text:"Free parking on-site"},
+      {color:"#7B9E87",text:"Fully accessible paths"}
+    ],
+    outreach:"Hi Queens Botanical Garden team, I'd love to inquire about renting the event lawn for a small outdoor wellness session of around 25 people. Could you share rates and available dates?",
+    modalities:["yoga","tai_chi","meditation","breathwork","workshop"]
+  },
+  {
+    name: "Schomburg Center",
+    sub: "Research + Community Center · Harlem · Up to 60 guests",
+    type: "free", free: true, community: true,
+    score: 85, scoreColor: "#E8F5E8", scoreText: "#1A5A1A",
+    price: "Free",
+    priceNote: "Community events program · NYPL-affiliated",
+    bookingUrl: "https://nypl.org/locations/schomburg",
+    bookingLabel: "Schomburg Center",
+    bars: [
+      {label:"Audience fit",pct:86,color:"#7B9E87"},
+      {label:"Aesthetic",pct:88,color:"#7B9E87"},
+      {label:"Value",pct:100,color:"#7B9E87"},
+      {label:"Accessibility",pct:92,color:"#6B9AB8"}
+    ],
+    tags:[{t:"Free",c:"tag-free"},{t:"Community gem",c:"tag-plum"},{t:"2/3 · 135th St",c:"tag-sky"}],
+    requirements:[
+      {dot:"req-none",text:"No instructor certification required for community wellness programming."},
+      {dot:"req-none",text:"No liability insurance required for standard community events."},
+      {dot:"req-recommended",text:"Schomburg is welcoming and Harlem brings a distinct creator community."}
+    ],
+    access:[
+      {color:"#7B9E87",text:"2/3 at 135th St · 1 min walk"},
+      {color:"#C9A84C",text:"Street parking · metered"},
+      {color:"#7B9E87",text:"Fully ADA accessible"}
+    ],
+    outreach:"Hi Schomburg Center community events team, I'd love to apply to host a wellness workshop or community program at your space. We focus on inclusive wellness programming and would love to serve the Harlem community. Could you share the application process?",
+    modalities:["meditation","breathwork","workshop","yoga","sound_bath","dance"]
+  },
+  {
+    name: "Angel Orensanz Foundation",
+    sub: "160-Year-Old Synagogue + Arts Space · LES · Up to 80 guests",
+    type: "unique", free: false, community: true,
+    score: 87, scoreColor: "#F2EEF8", scoreText: "#4A2A7A",
+    price: "~$500",
+    priceNote: "Morning slots before evening events · 50-ft ceilings",
+    bookingUrl: "https://orensanz.org/rentals",
+    bookingLabel: "Orensanz Foundation",
+    bars: [
+      {label:"Audience fit",pct:88,color:"#7B9E87"},
+      {label:"Aesthetic",pct:100,color:"#7B9E87"},
+      {label:"Value",pct:88,color:"#7B9E87"},
+      {label:"Accessibility",pct:65,color:"#C47D7D"}
+    ],
+    tags:[{t:"Community gem",c:"tag-gold"},{t:"Cathedral acoustics",c:"tag-plum"},{t:"F/J/M/Z · Delancey",c:"tag-sky"}],
+    requirements:[
+      {dot:"req-required",text:"Liability insurance required — historic building, $1M minimum."},
+      {dot:"req-recommended",text:"Cert recommended for movement; sound and ceremony reviewed case-by-case."},
+      {dot:"req-recommended",text:"Morning slots before evening events are the affordable window."}
+    ],
+    access:[
+      {color:"#7B9E87",text:"F/J/M/Z at Delancey-Essex · 4 min walk"},
+      {color:"#C47D7D",text:"Street parking · metered"},
+      {color:"#C47D7D",text:"Stairs at entry · limited ADA · confirm specifics"}
+    ],
+    outreach:"Hi Angel Orensanz Foundation team, I'd love to inquire about renting your main hall for a sound healing ceremony of around 40 people. Your acoustics and architecture would be transformative. Could you share morning availability and rates?",
+    modalities:["sound_bath","meditation","breathwork","workshop","ceremony"]
+  },
+  {
+    name: "NYC Parks Comfort Stations",
+    sub: "Restored Beaux-Arts Buildings · Multiple Parks · Up to 20 guests",
+    type: "free", free: true, community: true,
+    score: 82, scoreColor: "#E8F5E8", scoreText: "#1A5A1A",
+    price: "Free with permit",
+    priceNote: "Tompkins Square + Seward Park · original tile + arches",
+    bookingUrl: "https://nycgovparks.org/permits",
+    bookingLabel: "Search comfort stations",
+    bars: [
+      {label:"Audience fit",pct:80,color:"#7B9E87"},
+      {label:"Aesthetic",pct:90,color:"#7B9E87"},
+      {label:"Value",pct:100,color:"#7B9E87"},
+      {label:"Accessibility",pct:78,color:"#C9A84C"}
+    ],
+    tags:[{t:"Free permit",c:"tag-free"},{t:"Community gem",c:"tag-plum"},{t:"Multiple parks",c:"tag-sky"}],
+    requirements:[
+      {dot:"req-none",text:"No certification required for intimate community events."},
+      {dot:"req-recommended",text:"Liability insurance recommended for groups."},
+      {dot:"req-none",text:"NYC Parks permit application required · search 'comfort stations'."}
+    ],
+    access:[
+      {color:"#C9A84C",text:"Varies by park location"},
+      {color:"#C9A84C",text:"Street parking varies"},
+      {color:"#C9A84C",text:"Confirm ADA per location"}
+    ],
+    outreach:"Hi NYC Parks events team, I'd like to apply for a permit to use a comfort station building (Tompkins Square or Seward Park) for an intimate wellness session of around 15 people. Could you share the application process and availability?",
+    modalities:["meditation","breathwork","sound_bath","workshop"]
+  },
+  {
+    name: "Nitehawk Cinema Williamsburg",
+    sub: "Cinema · Williamsburg · Up to 25 guests",
+    type: "unique", free: false, community: true,
+    score: 84, scoreColor: "#F2EEF8", scoreText: "#4A2A7A",
+    price: "~$150/hr",
+    priceNote: "Smaller screening rooms · pre-show window · spatial audio",
+    bookingUrl: "https://nitehawkcinema.com/rentals",
+    bookingLabel: "Nitehawk rentals",
+    bars: [
+      {label:"Audience fit",pct:86,color:"#7B9E87"},
+      {label:"Aesthetic",pct:90,color:"#7B9E87"},
+      {label:"Value",pct:84,color:"#7B9E87"},
+      {label:"Accessibility",pct:82,color:"#6B9AB8"}
+    ],
+    tags:[{t:"Community gem",c:"tag-plum"},{t:"Spatial audio · darkness",c:"tag-gold"},{t:"L · Bedford Ave",c:"tag-sky"}],
+    requirements:[
+      {dot:"req-recommended",text:"Liability insurance recommended for group programming."},
+      {dot:"req-none",text:"No certification required for guided meditation or sound experiences."},
+      {dot:"req-none",text:"Surround sound system makes this ideal for sound journeys."}
+    ],
+    access:[
+      {color:"#7B9E87",text:"L at Bedford Ave · 8 min walk"},
+      {color:"#C9A84C",text:"Street parking · alternate side"},
+      {color:"#7B9E87",text:"Reclining seats · ADA accessible"}
+    ],
+    outreach:"Hi Nitehawk Williamsburg team, I'd love to inquire about renting one of your smaller screening rooms for a guided sound journey + meditation experience for around 20 people. Your spatial audio and lighting would be ideal. Could you share rates and morning/afternoon availability?",
+    modalities:["sound_bath","meditation","breathwork","workshop"]
+  },
+  {
+    name: "Battery Park City Parks",
+    sub: "Waterfront Esplanade · Lower Manhattan · Up to 30 guests",
+    type: "outdoor", free: true, community: true,
+    score: 85, scoreColor: "#E8F5E8", scoreText: "#1A5A1A",
+    price: "Free permit",
+    priceNote: "Harbor + Statue of Liberty views · fast turnaround",
+    bookingUrl: "mailto:events@bpca.ny.gov",
+    bookingLabel: "BPCA permits",
+    bars: [
+      {label:"Audience fit",pct:88,color:"#7B9E87"},
+      {label:"Aesthetic",pct:94,color:"#7B9E87"},
+      {label:"Value",pct:100,color:"#7B9E87"},
+      {label:"Accessibility",pct:92,color:"#6B9AB8"}
+    ],
+    tags:[{t:"Free permit",c:"tag-free"},{t:"Community gem",c:"tag-plum"},{t:"R/W/1/4/5 · multiple",c:"tag-sky"}],
+    requirements:[
+      {dot:"req-none",text:"No instructor certification required for outdoor wellness events."},
+      {dot:"req-recommended",text:"Liability insurance recommended for groups over 20."},
+      {dot:"req-none",text:"BPCA manages these parks separately from NYC Parks — much faster turnaround."}
+    ],
+    access:[
+      {color:"#7B9E87",text:"R/W at Whitehall · 1 at South Ferry · 4/5 at Bowling Green"},
+      {color:"#C9A84C",text:"Paid garages nearby"},
+      {color:"#7B9E87",text:"Fully ADA accessible esplanade"}
+    ],
+    outreach:"Hi BPCA events team, I'd like to apply for a permit to host an outdoor yoga session along the BPC esplanade for around 25 people. Could you share the permit process and available dates?",
+    modalities:["yoga","tai_chi","meditation","breathwork","sound_bath"]
+  },
+  {
+    name: "Museum of the Moving Image Courtyard",
+    sub: "Museum Courtyard · Astoria, Queens · Up to 35 guests",
+    type: "unique", free: false, community: true,
+    score: 83, scoreColor: "#F2EEF8", scoreText: "#4A2A7A",
+    price: "~$100/hr",
+    priceNote: "Industrial-chic aesthetic · easy booking",
+    bookingUrl: "mailto:rentals@movingimage.us",
+    bookingLabel: "MoMI rentals",
+    bars: [
+      {label:"Audience fit",pct:84,color:"#7B9E87"},
+      {label:"Aesthetic",pct:90,color:"#7B9E87"},
+      {label:"Value",pct:90,color:"#7B9E87"},
+      {label:"Accessibility",pct:88,color:"#6B9AB8"}
+    ],
+    tags:[{t:"Community gem",c:"tag-plum"},{t:"Industrial-chic",c:"tag-gold"},{t:"R/M · Steinway",c:"tag-sky"}],
+    requirements:[
+      {dot:"req-required",text:"Liability insurance required for movement programming."},
+      {dot:"req-recommended",text:"Instructor certification recommended for movement events."},
+      {dot:"req-none",text:"MoMI is openly bookable and Queens location brings different audience energy."}
+    ],
+    access:[
+      {color:"#7B9E87",text:"R/M at Steinway St · 6 min walk"},
+      {color:"#C9A84C",text:"Street parking available"},
+      {color:"#7B9E87",text:"Fully ADA accessible"}
+    ],
+    outreach:"Hi MoMI rentals team, I'd love to inquire about renting your courtyard for a movement and flow practice for around 25 people. Could you share rates and available dates?",
+    modalities:["yoga","tai_chi","dance","meditation","workshop"]
+  },
+  {
+    name: "Inwood Hill Park Caves",
+    sub: "Natural Caves · Inwood, Manhattan · Up to 20 guests",
+    type: "outdoor", free: true, community: true,
+    score: 80, scoreColor: "#E8F5E8", scoreText: "#1A5A1A",
+    price: "Free",
+    priceNote: "No permit needed under 20 · ancient Lenape site",
+    bookingUrl: "https://nycgovparks.org/parks/inwood-hill-park",
+    bookingLabel: "Inwood Hill Park",
+    bars: [
+      {label:"Audience fit",pct:78,color:"#C9A84C"},
+      {label:"Aesthetic",pct:96,color:"#7B9E87"},
+      {label:"Value",pct:100,color:"#7B9E87"},
+      {label:"Accessibility",pct:50,color:"#C47D7D"}
+    ],
+    tags:[{t:"Free",c:"tag-free"},{t:"Community gem",c:"tag-plum"},{t:"A/1 · Inwood",c:"tag-sky"}],
+    requirements:[
+      {dot:"req-none",text:"No permit needed for groups under 20 people."},
+      {dot:"req-recommended",text:"Liability insurance recommended."},
+      {dot:"req-recommended",text:"Arrive early on weekends · trail access only · weather-dependent."}
+    ],
+    access:[
+      {color:"#7B9E87",text:"A or 1 to Inwood · 10-15 min walk on trail"},
+      {color:"#C9A84C",text:"Street parking · weekends compete with park users"},
+      {color:"#C47D7D",text:"Uneven trail · not ADA accessible"}
+    ],
+    outreach:"Hi — this is more of an FYI than an inquiry. I'm planning a small ceremony / meditation circle (under 20 people) at the Inwood Hill Park cave area, which doesn't require a permit. Just wanted to confirm any considerations from the Parks team.",
+    modalities:["meditation","sound_bath","breathwork","ceremony","workshop"]
+  },
+  {
+    name: "Red Hook Grain Terminal Rooftop",
+    sub: "Industrial Rooftop · Red Hook, Brooklyn · Up to 30 guests",
+    type: "outdoor", free: false, community: true,
+    score: 86, scoreColor: "#F2EEF8", scoreText: "#4A2A7A",
+    price: "~$300 / 3 hrs",
+    priceNote: "Morning slots · harbor + Statue of Liberty views",
+    bookingUrl: "https://redhookwaterfront.org",
+    bookingLabel: "Red Hook Waterfront",
+    bars: [
+      {label:"Audience fit",pct:86,color:"#7B9E87"},
+      {label:"Aesthetic",pct:96,color:"#7B9E87"},
+      {label:"Value",pct:88,color:"#7B9E87"},
+      {label:"Accessibility",pct:60,color:"#C47D7D"}
+    ],
+    tags:[{t:"Community gem",c:"tag-gold"},{t:"Industrial waterfront",c:"tag-plum"},{t:"F + bus · ~25 min",c:"tag-sky"}],
+    requirements:[
+      {dot:"req-required",text:"Liability insurance required for rooftop programming."},
+      {dot:"req-recommended",text:"Book 3+ weeks ahead · morning slots are the sweet spot."},
+      {dot:"req-recommended",text:"Confirm rooftop access and weather contingency."}
+    ],
+    access:[
+      {color:"#C9A84C",text:"F at Smith-9th + B61 bus · ~25 min · or NYC Ferry"},
+      {color:"#7B9E87",text:"Street parking · plentiful"},
+      {color:"#C47D7D",text:"Industrial building · stairs to rooftop"}
+    ],
+    outreach:"Hi Red Hook Waterfront team, I'd love to inquire about renting the grain terminal rooftop for a sunrise yoga session of about 20 people. Could you share rates and available morning dates over the next month?",
+    modalities:["yoga","meditation","breathwork","sound_bath","workshop"]
+  },
+  {
+    name: "Brooklyn Community Foundation Spaces",
+    sub: "Community Foundation Venues · DUMBO + others, Brooklyn · Up to 40 guests",
+    type: "free", free: true, community: true,
+    score: 80, scoreColor: "#E8F5E8", scoreText: "#1A5A1A",
+    price: "Free",
+    priceNote: "Apply via community grants program · DUMBO + multiple",
+    bookingUrl: "mailto:info@bcf.org",
+    bookingLabel: "Email BCF",
+    bars: [
+      {label:"Audience fit",pct:82,color:"#7B9E87"},
+      {label:"Aesthetic",pct:84,color:"#7B9E87"},
+      {label:"Value",pct:100,color:"#7B9E87"},
+      {label:"Accessibility",pct:85,color:"#6B9AB8"}
+    ],
+    tags:[{t:"Free",c:"tag-free"},{t:"Community gem",c:"tag-plum"},{t:"Multiple Brooklyn sites",c:"tag-sky"}],
+    requirements:[
+      {dot:"req-recommended",text:"Liability insurance recommended for group programming."},
+      {dot:"req-none",text:"No instructor cert required for community wellness events."},
+      {dot:"req-recommended",text:"BCF specifically looks for wellness and movement programming to fill calendar."}
+    ],
+    access:[
+      {color:"#C9A84C",text:"Site-dependent · DUMBO accessible via F at York St"},
+      {color:"#7B9E87",text:"Free street parking at most sites"},
+      {color:"#C9A84C",text:"Confirm ADA per site"}
+    ],
+    outreach:"Hi Brooklyn Community Foundation team, I'd love to apply to host a wellness event at one of your spaces — particularly the DUMBO location if available. We focus on community-aligned wellness programming. Could you share the application process?",
+    modalities:["yoga","meditation","breathwork","sound_bath","workshop","dance"]
   }
 ];
 
@@ -1902,5 +2364,12 @@ function askAssistant(name) {
 
 renderGrid();
 </script>
+
+<footer style="border-top:0.5px solid var(--stone);padding:32px 24px;max-width:720px;margin:0 auto;display:flex;flex-wrap:wrap;gap:18px;font-size:12px;color:var(--earth);justify-content:center;align-items:center">
+  <a href="terms.html" style="color:var(--earth);text-decoration:none">Terms</a>
+  <a href="privacy.html" style="color:var(--earth);text-decoration:none">Privacy</a>
+  <a href="accessibility.html" style="color:var(--earth);text-decoration:none">Accessibility</a>
+  <span style="color:var(--bark)">© 2026 Auric Movement LLC · hello@auricmovement.com</span>
+</footer>
 </body>
 </html>

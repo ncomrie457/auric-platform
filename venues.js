@@ -2092,5 +2092,35 @@ window.AURIC_VENUES = [
     ],
     outreach:"Hi Brooklyn Community Foundation team, I'd love to apply to host a wellness event at one of your spaces — particularly the DUMBO location if available. We focus on community-aligned wellness programming. Could you share the application process?",
     modalities:["yoga","meditation","breathwork","sound_bath","workshop","dance"]
+  },
+  {
+    name: "Core Pilates NYC",
+    sub: "Full-Apparatus Pilates Studio · Flatiron · Up to 12 mat / 6 reformer",
+    type: "studio", free: false,
+    instagram: "corepilatesnyc",
+    score: 88, scoreColor: "#EDF3EF", scoreText: "#2A5A36",
+    price: "$35–$50/hr",
+    priceNote: "Published rates · 1 client \$35, duets \$40, trios \$45, 4+ \$50",
+    bookingUrl: "https://corepilatesnyc.com/rentals-for-pros/",
+    bookingLabel: "Rentals for pros",
+    bars: [
+      {label:"Audience fit",pct:92,color:"#7B9E87"},
+      {label:"Aesthetic",pct:88,color:"#7B9E87"},
+      {label:"Value",pct:96,color:"#7B9E87"},
+      {label:"Accessibility",pct:85,color:"#6B9AB8"}
+    ],
+    tags:[{t:"Published rental rates",c:"tag-gold"},{t:"Full Peak Pilates apparatus",c:"tag-plum"},{t:"N/R · 23rd St · 4 min",c:"tag-sky"}],
+    requirements:[
+      {dot:"req-required",text:"Pilates certification required — open to graduates of Core's teacher training programs and other fully certified Pilates professionals (BASI, STOTT, Romana's, Peak, Balanced Body, etc.)."},
+      {dot:"req-required",text:"Valid liability insurance required — copy of COI must be on file before keycard access is issued."},
+      {dot:"req-none",text:"24/7 keycard access to an attended building once approved · ideal for off-hours sessions."}
+    ],
+    access:[
+      {color:"#7B9E87",text:"N/R at 23rd St · 4 min walk · or 4/5/6/L at Union Square · 7 min"},
+      {color:"#C47D7D",text:"Paid garages only · no on-site parking in Flatiron"},
+      {color:"#7B9E87",text:"4th-floor studio · attended building with elevator"}
+    ],
+    outreach:"Hi Core Pilates NYC team, I'm a certified Pilates instructor interested in renting your studio for a small Reformer workshop or private session series for 4–8 clients. I have current liability insurance and can send a COI on request. Could you share availability and the keycard access process?",
+    modalities:["pilates","barre"]
   }
 ];

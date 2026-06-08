@@ -157,7 +157,12 @@
     .nav-heart.active svg { fill: currentColor; }
     .nav-heart [data-bookmark-count] { font-size: 10px; font-weight: 500; line-height: 1; }
     .nav-heart [data-bookmark-count]:not(:empty) { background: #C47D7D; color: white; padding: 2px 6px; border-radius: 10px; }
-  
+
+    .nav-auth { font-size: 12px; color: var(--earth); text-decoration: none; border: 0.5px solid var(--stone); border-radius: 20px; padding: 4px 10px; background: white; white-space: nowrap; }
+    .nav-auth:hover { color: var(--ink); border-color: var(--earth); }
+    .nav-auth.signed-in { color: var(--sage-d); background: var(--sage-l); border-color: #B5D4BB; }
+    @media (max-width: 460px) { .nav-auth { display: none; } }
+
     .skip-link {
       position: absolute; top: -40px; left: 8px;
       background: var(--ink); color: white; padding: 8px 14px;
@@ -182,6 +187,7 @@
         <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M12 21s-7.5-4.5-9.5-9C1 8 3.5 5 7 5c1.7 0 3.3.9 4.2 2.2.3.4.9.4 1.2 0C13.3 5.9 14.9 5 16.6 5 20.1 5 22.6 8 21 12c-2 4.5-9 9-9 9z"/></svg>
         <span data-bookmark-count></span>
       </a>
+      <a href="auth.html" class="nav-auth" data-auth-link>Sign in</a>
   </div>
 </nav>
 
@@ -190,6 +196,15 @@
 <div class="page-header">
   <h1>Saved Venues</h1>
   <p id="saved-count-line">Your bookmarks live in your browser — they'll stay here as long as you use the same device.</p>
+  <div id="sync-banner" style="display:none;background:var(--gold-l);border-left:3px solid var(--gold);border-radius:0 8px 8px 0;padding:10px 14px;font-size:12.5px;color:var(--gold-d);line-height:1.55;margin-top:10px;max-width:680px">
+    <strong style="font-weight:500">Want these on every device?</strong>
+    <a href="auth.html" style="color:var(--gold-d);text-decoration:underline;font-weight:500">Sign in</a>
+    to sync your saved venues across phone, laptop, and tablet. No password — just a magic link to your email.
+  </div>
+  <div id="synced-banner" style="display:none;background:var(--sage-l);border-left:3px solid var(--sage);border-radius:0 8px 8px 0;padding:10px 14px;font-size:12.5px;color:var(--sage-d);line-height:1.55;margin-top:10px;max-width:680px">
+    <strong style="font-weight:500">Synced</strong> — your saved venues now follow you across devices.
+    <a href="auth.html" style="color:var(--sage-d);text-decoration:underline">Manage account</a>
+  </div>
 </div>
 
 <div id="empty" class="empty-state" style="display:none">
@@ -217,6 +232,7 @@
 </footer>
 
 <script src="supabase-config.js"></script>
+<script src="auth.js"></script>
 <script src="venues.js"></script>
 <script src="bookmarks.js"></script>
 <script src="reviews.js"></script>
@@ -228,17 +244,26 @@ function renderGrid() {
   const empty = document.getElementById('empty');
   const savedNames = AuricBookmarks.list();
   const filtered = venues.filter(v => savedNames.includes(v.name));
+  const signedIn = !!(window.AuricAuth && window.AuricAuth.isSignedIn && window.AuricAuth.isSignedIn());
+  const cloud = !!(AuricBookmarks.isCloudMode && AuricBookmarks.isCloudMode());
+
+  // Sync banners — show "sign in to sync" when signed out, "synced" when signed in
+  document.getElementById('sync-banner').style.display = signedIn ? 'none' : '';
+  document.getElementById('synced-banner').style.display = (signedIn && cloud) ? '' : 'none';
 
   if (filtered.length === 0) {
     grid.style.display = 'none';
     empty.style.display = '';
-    document.getElementById('saved-count-line').textContent = "Your bookmarks live in your browser — they'll stay here as long as you use the same device.";
+    document.getElementById('saved-count-line').textContent = signedIn
+      ? "Your bookmarks are synced to your account across every device you sign in on."
+      : "Your bookmarks live in your browser — sign in to sync them across devices.";
     return;
   }
 
   grid.style.display = '';
   empty.style.display = 'none';
-  document.getElementById('saved-count-line').textContent = `${filtered.length} ${filtered.length === 1 ? 'venue' : 'venues'} saved · stored in your browser`;
+  const where = signedIn ? 'synced to your account' : 'stored in your browser';
+  document.getElementById('saved-count-line').textContent = `${filtered.length} ${filtered.length === 1 ? 'venue' : 'venues'} saved · ${where}`;
 
   grid.innerHTML = '';
   filtered.forEach(v => {
@@ -315,10 +340,31 @@ function ratingPillHtml(venueName) {
 // Re-render whenever a bookmark is added or removed
 document.addEventListener('auric:bookmark-changed', renderGrid);
 
+// Re-render after cloud sync completes (sign-in merge can change the saved list)
+document.addEventListener('auric:bookmark-synced', renderGrid);
+
 // Re-render once reviews load (so pills appear)
 if (typeof window.AuricReviews === 'object' && typeof window.AuricReviews.ready === 'function') {
   window.AuricReviews.ready().then(() => renderGrid());
 }
+
+// Auth link: "Sign in" → "Synced" when signed in.
+function updateAuthLink() {
+  var el = document.querySelector('[data-auth-link]');
+  if (!el || !window.AuricAuth) return;
+  var s = window.AuricAuth.getSession();
+  if (s && s.user && s.user.email) {
+    el.textContent = 'Synced';
+    el.title = 'Signed in as ' + s.user.email;
+    el.classList.add('signed-in');
+  } else {
+    el.textContent = 'Sign in';
+    el.title = 'Sign in to sync your saved venues across devices';
+    el.classList.remove('signed-in');
+  }
+}
+updateAuthLink();
+if (window.AuricAuth && window.AuricAuth.onChange) window.AuricAuth.onChange(function () { updateAuthLink(); renderGrid(); });
 
 renderGrid();
 </script>

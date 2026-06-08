@@ -92,14 +92,14 @@ main { padding: 40px 16px 56px; }
 
 <main id="main-content">
   <h1>Privacy Policy</h1>
-  <p class="effective">Effective Date: May 2026 · Last updated: May 2026</p>
+  <p class="effective">Effective Date: May 2026 · Last updated: June 2026</p>
 
   <p>Auric Movement LLC ("we," "us," or "our") operates Auric OS (the "Platform") at app.auricmovement.com. We are committed to protecting your personal information in accordance with the New York SHIELD Act, the federal CAN-SPAM Act, the California Consumer Privacy Act (CCPA), and other applicable laws.</p>
 
   <h2>1. Information We Collect</h2>
   <p>The Platform collects information in three categories:</p>
   <ul>
-    <li><strong>Information you give us directly</strong> — (a) your email address when you tap "Join free" on the homepage (which opens your email client so you can send us a note manually); (b) the contents of any message you send to Auric Concierge (passed through to our AI provider for the response, not stored on our servers); (c) the fields you fill in when you submit a venue through <em>Suggest a Venue</em>: venue name and details, your name, your email, and your relationship to the venue.</li>
+    <li><strong>Information you give us directly</strong> — (a) your email address when you tap "Join free" on the homepage (which opens your email client so you can send us a note manually); (b) the contents of any message you send to Auric Concierge (passed through to our AI provider for the response, not stored on our servers); (c) the fields you fill in when you submit a venue through <em>Suggest a Venue</em>: venue name and details, your name, your email, and your relationship to the venue; (d) your email address when you choose to sign in for cross-device sync of your saved venues (we send you a one-time "magic link" — no password is ever collected).</li>
     <li><strong>Information our hosting partners may log</strong> — the Platform is hosted on GitHub Pages and uses Cloudflare to proxy the Auric Concierge AI assistant. Like every web host, those services keep their own infrastructure logs that can include your IP address, browser type, and request paths. We do not have access to those logs, do not aggregate or analyze them, and do not connect them to your submissions. If we add our own analytics in the future (Plausible, Google Analytics, or similar), this policy will be updated to describe exactly what we collect.</li>
     <li><strong>Information from payment processors</strong> — the Platform does not currently process payments. If we introduce paid features in the future, we will receive transaction confirmations from a third-party payment processor, but never your full card number, CVV, or banking credentials.</li>
   </ul>
@@ -117,13 +117,15 @@ main { padding: 40px 16px 56px; }
   <p>Messages you send to Auric Concierge are processed via a Cloudflare Worker proxy and sent to Anthropic (the AI provider) for response generation. Anthropic's data handling is governed by their <a href="https://www.anthropic.com/legal/privacy" target="_blank" rel="noopener">privacy policy</a>. We do not store the contents of your Concierge conversations on our own servers — they exist only in your browser tab while the chat is open and disappear when you close it.</p>
 
   <h2>4. How Your Data Is Stored</h2>
-  <p>The Platform itself is a static website hosted on GitHub Pages. We do not maintain a database of user accounts. Specifically:</p>
+  <p>The Platform itself is a static website hosted on GitHub Pages. Sign-in is optional. Specifically:</p>
   <ul>
     <li><strong>Emails from the "Join free" form</strong> arrive in our inbox at auricmovement@outlook.com (the form opens your email client; you click send manually).</li>
     <li><strong>Venue suggestions submitted through <em>Suggest a Venue</em></strong> are stored in <strong>Supabase</strong>, a secure cloud database service hosted in the United States. Stored fields are exactly what you saw on the form: venue info, your name, your email, your relationship to the venue. We read these submissions to decide whether to add the venue to the directory. We do not share them.</li>
-    <li><strong>Bookmarks (saved venues)</strong> live only in your browser's <code>localStorage</code>. We never see them.</li>
+    <li><strong>Sign-in (magic link).</strong> When you choose to sign in, your email address is stored by Supabase Auth as a user record. Authentication is handled by sending a one-time link to your inbox; we never collect, store, or see a password. A session token (a signed JWT issued by Supabase) is stored in your browser's <code>localStorage</code> so you stay signed in across visits. Signing out clears the token from your browser.</li>
+    <li><strong>Saved venues (bookmarks).</strong> If you are <em>not signed in</em>, your bookmarks live only in your browser's <code>localStorage</code> and we never see them. If you are <em>signed in</em>, your list of saved venue names is also stored in Supabase, linked to your user record, so it can sync across the devices you sign in on. The stored data is just the venue names — nothing else about your browsing or behavior. Supabase Row Level Security ensures that no other user can read your saved-venue list.</li>
     <li><strong>Future Phase 2 features</strong> — creator profiles, venue reviews, and success stories — will also use Supabase. The schema is set up but the user-facing forms aren't live yet. When they launch, this policy will be updated.</li>
   </ul>
+  <p>Sign-in and sync are provided "as is." We do not guarantee any specific level of durability — bookmarks could be lost from third-party outages, account termination, software bugs, or your own browser clearing storage. See our <a href="terms.html#section-5">Terms § 5</a> for the full no-liability statement. If a specific list of venues matters to you, save a copy outside the Platform.</p>
 
   <h2>5. Payment Processing (Forthcoming)</h2>
   <p>The Platform does not currently collect payments. If we introduce paid features in the future, payments will be processed by a reputable third-party processor and this section will be updated with the processor's name, link to their privacy policy, and details of what financial data they handle. We will not collect, store, or have access to your full payment card details.</p>
@@ -136,18 +138,19 @@ main { padding: 40px 16px 56px; }
   <ul>
     <li><strong>Anthropic</strong> — receives your Auric Concierge messages to generate AI responses.</li>
     <li><strong>Cloudflare</strong> — proxies the AI requests securely (holds the API key server-side so it never reaches your browser).</li>
-    <li><strong>Supabase</strong> — stores your venue suggestion submissions.</li>
+    <li><strong>Supabase</strong> — stores your venue suggestion submissions, and (if you sign in) your account email and saved-venue list. Supabase is also the email sender for the magic-link sign-in emails.</li>
     <li><strong>GitHub Pages</strong> — hosts the static website you're reading right now.</li>
   </ul>
   <p>If we add a payment processor for future paid features, it will be named here.</p>
 
   <h2>8. Cookies & Local Storage</h2>
-  <p>The Platform uses your browser's <code>localStorage</code> for two things only:</p>
+  <p>The Platform uses your browser's <code>localStorage</code> for three things only:</p>
   <ul>
-    <li><strong>Saved venues</strong> — the venues you've tapped the heart icon on, plus the count badge in the nav.</li>
-    <li><strong>Beta access flag</strong> — a flag that remembers you've entered the beta password so you don't see the password screen on every page.</li>
+    <li><strong>Saved venues</strong> — the venues you've tapped the heart icon on, plus the count badge in the nav. If you are signed in, this list is also kept in sync with our database; if you are signed out, it lives only here.</li>
+    <li><strong>Sign-in session token</strong> — if you choose to sign in, a signed Supabase JWT is kept in <code>localStorage</code> so you stay signed in across visits. Signing out clears it. This is the only piece of stored data that is tied to your identity.</li>
+    <li><strong>Beta access flag</strong> (legacy) — a flag from the closed-beta era; harmless if present.</li>
   </ul>
-  <p>We do not use third-party tracking cookies. We do not use cookies for advertising or analytics. You can clear localStorage at any time through your browser settings (this will sign you out of beta access and forget your saved venues).</p>
+  <p>We do not use third-party tracking cookies. We do not use cookies for advertising or analytics. You can clear localStorage at any time through your browser settings — doing so will sign you out and forget your locally-cached saved-venue list (signed-in users will get the cloud copy back on next sign-in).</p>
 
   <h2>9. Email Communications</h2>
   <p>The Platform does not currently operate a marketing mailing list, transactional email system, or account-based email flow. We only email you directly if (a) you've emailed us first via the "Join free" form, the suggest-a-venue submission, or any other route, AND (b) you need a reply (for example, a follow-up about your venue suggestion). When we do, those emails come from a person at auricmovement@outlook.com — not an automated system. If we add a real mailing list in the future, opt-in will be explicit and unsubscribe will be one click per CAN-SPAM.</p>

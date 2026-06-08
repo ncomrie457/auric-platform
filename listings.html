@@ -160,7 +160,12 @@
     .nav-heart.active svg { fill: currentColor; }
     .nav-heart [data-bookmark-count] { font-size: 10px; font-weight: 500; line-height: 1; }
     .nav-heart [data-bookmark-count]:not(:empty) { background: #C47D7D; color: white; padding: 2px 6px; border-radius: 10px; }
-  
+
+    .nav-auth { font-size: 12px; color: var(--earth); text-decoration: none; border: 0.5px solid var(--stone); border-radius: 20px; padding: 4px 10px; background: white; white-space: nowrap; }
+    .nav-auth:hover { color: var(--ink); border-color: var(--earth); }
+    .nav-auth.signed-in { color: var(--sage-d); background: var(--sage-l); border-color: #B5D4BB; }
+    @media (max-width: 460px) { .nav-auth { display: none; } }
+
     .skip-link {
       position: absolute; top: -40px; left: 8px;
       background: var(--ink); color: white; padding: 8px 14px;
@@ -186,6 +191,7 @@
         <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M12 21s-7.5-4.5-9.5-9C1 8 3.5 5 7 5c1.7 0 3.3.9 4.2 2.2.3.4.9.4 1.2 0C13.3 5.9 14.9 5 16.6 5 20.1 5 22.6 8 21 12c-2 4.5-9 9-9 9z"/></svg>
         <span data-bookmark-count></span>
       </a>
+      <a href="auth.html" class="nav-auth" data-auth-link>Sign in</a>
   </div>
 </nav>
 
@@ -235,6 +241,7 @@
 <div class="listings-grid" id="grid"></div>
 
 <script src="supabase-config.js"></script>
+<script src="auth.js"></script>
 <script src="venues.js"></script>
 <script src="bookmarks.js"></script>
 <script src="reviews.js"></script>
@@ -376,6 +383,24 @@ if (typeof window.AuricReviews === 'object' && typeof window.AuricReviews.ready 
 }
 
 renderGrid();
+
+// Auth link: "Sign in" → "Synced" (with email tooltip) when signed in.
+function updateAuthLink() {
+  var el = document.querySelector('[data-auth-link]');
+  if (!el || !window.AuricAuth) return;
+  var s = window.AuricAuth.getSession();
+  if (s && s.user && s.user.email) {
+    el.textContent = 'Synced';
+    el.title = 'Signed in as ' + s.user.email;
+    el.classList.add('signed-in');
+  } else {
+    el.textContent = 'Sign in';
+    el.title = 'Sign in to sync your saved venues across devices';
+    el.classList.remove('signed-in');
+  }
+}
+updateAuthLink();
+if (window.AuricAuth && window.AuricAuth.onChange) window.AuricAuth.onChange(updateAuthLink);
 </script>
 
 </main>

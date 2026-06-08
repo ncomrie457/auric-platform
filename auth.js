@@ -105,15 +105,16 @@
     }
     try {
       var redirectTo = window.location.origin + '/auth.html';
-      var res = await fetch(url('/auth/v1/otp'), {
+      // GoTrue (Supabase Auth) reads the redirect target from the
+      // ?redirect_to=… query param on /auth/v1/otp, NOT from the body. The
+      // supabase-js SDK does this transparently; we have to do it ourselves.
+      var endpoint = url('/auth/v1/otp') + '?redirect_to=' + encodeURIComponent(redirectTo);
+      var res = await fetch(endpoint, {
         method: 'POST',
         headers: headers(),
         body: JSON.stringify({
           email: email.trim().toLowerCase(),
           create_user: true,
-          options: { emailRedirectTo: redirectTo },
-          // Older Supabase versions look at the top-level key:
-          email_redirect_to: redirectTo,
         }),
       });
       if (res.ok) return { ok: true };

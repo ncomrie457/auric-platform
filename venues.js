@@ -2122,5 +2122,99 @@ window.AURIC_VENUES = [
     ],
     outreach:"Hi Core Pilates NYC team, I'm a certified Pilates instructor interested in renting your studio for a small Reformer workshop or private session series for 4–8 clients. I have current liability insurance and can send a COI on request. Could you share availability and the keycard access process?",
     modalities:["pilates","barre"]
+  },
+  {
+    name: "Othership Williamsburg",
+    sub: "Sauna + Ice Bath + Breathwork · Williamsburg · 25 Kent Ave",
+    type: "unique", free: false,
+    phone: "212.871.4505",
+    instagram: "othership",
+    score: 87, scoreColor: "#F2EEF8", scoreText: "#4A2A7A",
+    price: "Inquire",
+    priceNote: "Private + semi-private sauna and ice bath events available",
+    bookingUrl: "https://www.othership.us/contact",
+    bookingLabel: "Contact for events",
+    bars: [
+      {label:"Audience fit",pct:90,color:"#7B9E87"},
+      {label:"Aesthetic",pct:96,color:"#7B9E87"},
+      {label:"Value",pct:70,color:"#C9A84C"},
+      {label:"Accessibility",pct:88,color:"#6B9AB8"}
+    ],
+    tags:[{t:"Recovery + breathwork native",c:"tag-plum"},{t:"Sauna + cold plunge",c:"tag-green"},{t:"L · Bedford · 5 min",c:"tag-sky"}],
+    requirements:[
+      {dot:"req-required",text:"Liability insurance required — $1M minimum, premium recovery venue standards."},
+      {dot:"req-recommended",text:"Brand alignment matters — Othership curates which visiting facilitators fit their recovery-meets-mindfulness positioning."},
+      {dot:"req-none",text:"Othership's existing programming includes breathwork journeys and guided sauna sessions — strong precedent for visiting practitioners."}
+    ],
+    access:[
+      {color:"#7B9E87",text:"L at Bedford Ave · 5 min walk · steps from Domino Park"},
+      {color:"#C9A84C",text:"Street parking · alternate side rules"},
+      {color:"#7B9E87",text:"Fully ADA accessible · ground floor"}
+    ],
+    outreach:"Hi Othership Williamsburg team, I'd love to inquire about hosting a private breathwork + sauna event for around 20 people. My practice aligns directly with the recovery-meets-mindfulness positioning you've built. Could you share private event rates, available windows, and your visiting-facilitator process?",
+    modalities:["breathwork","meditation","sound_bath","retreat","workshop"]
+  },
+  {
+    name: "Othership Flatiron",
+    sub: "Sauna + Ice Bath + Breathwork · Flatiron · 23 W 20th St",
+    type: "unique", free: false,
+    email: "FLATIRON@othership.us",
+    phone: "212.381.1699",
+    instagram: "othership",
+    score: 87, scoreColor: "#F2EEF8", scoreText: "#4A2A7A",
+    price: "Inquire",
+    priceNote: "Private + semi-private sauna and ice bath events available",
+    bookingUrl: "https://www.othership.us/contact",
+    bookingLabel: "Contact for events",
+    bars: [
+      {label:"Audience fit",pct:90,color:"#7B9E87"},
+      {label:"Aesthetic",pct:96,color:"#7B9E87"},
+      {label:"Value",pct:70,color:"#C9A84C"},
+      {label:"Accessibility",pct:90,color:"#6B9AB8"}
+    ],
+    tags:[{t:"Recovery + breathwork native",c:"tag-plum"},{t:"Sauna + cold plunge",c:"tag-green"},{t:"R/W · 23rd St · 4 min",c:"tag-sky"}],
+    requirements:[
+      {dot:"req-required",text:"Liability insurance required — $1M minimum, premium recovery venue standards."},
+      {dot:"req-recommended",text:"Brand alignment matters — Othership curates which visiting facilitators fit their positioning."},
+      {dot:"req-none",text:"Existing breathwork + guided sauna programming — strong precedent for visiting practitioners."}
+    ],
+    access:[
+      {color:"#7B9E87",text:"R/W at 23rd St · 4 min walk · N/W/6 at 23rd · 6 min"},
+      {color:"#C47D7D",text:"Paid garages only · no on-site parking in Flatiron"},
+      {color:"#7B9E87",text:"Fully ADA accessible"}
+    ],
+    outreach:"Hi Othership Flatiron team, I'd love to inquire about hosting a private breathwork + sauna event for around 20 people. My practice aligns directly with the recovery-meets-mindfulness positioning you've built. Could you share private event rates, available windows, and your visiting-facilitator process?",
+    modalities:["breathwork","meditation","sound_bath","retreat","workshop"]
+  },
+  {
+    name: "Brooklyn Winery",
+    sub: "Urban Winery + Event Venue · Williamsburg · 213 N. 8th St",
+    type: "unique", free: false,
+    phone: "347.763.1506",
+    instagram: "brooklynwinery",
+    score: 84, scoreColor: "#EDF3EF", scoreText: "#2A5A36",
+    price: "Custom packages",
+    priceNote: "8,000 sqft · capacity 175 wedding / up to 800 reception",
+    bookingUrl: "https://www.bkwinery.com/contact-us/",
+    bookingLabel: "Private events",
+    bars: [
+      {label:"Audience fit",pct:84,color:"#7B9E87"},
+      {label:"Aesthetic",pct:92,color:"#7B9E87"},
+      {label:"Value",pct:68,color:"#C9A84C"},
+      {label:"Accessibility",pct:88,color:"#6B9AB8"}
+    ],
+    tags:[{t:"Wellness retreats welcome",c:"tag-gold"},{t:"On-site wine production",c:"tag-plum"},{t:"L · Bedford Ave · 6 min",c:"tag-sky"}],
+    requirements:[
+      {dot:"req-required",text:"Liability insurance required — $1M+ general liability standard for events of this scale."},
+      {dot:"req-recommended",text:"Brooklyn Winery's events program explicitly includes 'spa, wellness retreats' as supported event types."},
+      {dot:"req-recommended",text:"Three package formats: Dinner Menu, Plated Brunch, Private Wine Tasting · all bundle catering + venue."}
+    ],
+    access:[
+      {color:"#7B9E87",text:"L at Bedford Ave · 6 min walk · G at Nassau Ave · 10 min"},
+      {color:"#C9A84C",text:"Street parking · alternate side · paid lots nearby"},
+      {color:"#7B9E87",text:"Fully ADA accessible · ground floor venue"}
+    ],
+    outreach:"Hi Brooklyn Winery events team, I'd love to inquire about hosting a wellness brunch series — yoga + wine tasting + small plates — for around 40–60 people. Your Plated Brunch package and the 'spa + wellness retreats' framing on your site feel like a strong fit. Could you share availability and current package rates?",
+    modalities:["yoga","workshop","retreat","dance"]
   }
 ];

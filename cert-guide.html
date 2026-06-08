@@ -10,7 +10,7 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
       --ink: #2C2418; --earth: #7A6A52; --stone: #EDE9E0;
-      --cream: #FAF8F4; --bark: #B5A48A;
+      --cream: #FAF8F4; --bark: #6E5E45;
       --gold: #C9A84C; --gold-l: #FBF5E6; --gold-d: #7A5C14;
       --sage: #7B9E87; --sage-l: #EDF3EF; --sage-d: #2A5A36;
       --sky: #6B9AB8; --sky-l: #EAF2F8; --sky-d: #2A5A78;
@@ -80,9 +80,19 @@
       th, td { padding: 8px 8px; }
       footer { padding: 24px 16px; gap: 14px; }
     }
+  
+    .skip-link {
+      position: absolute; top: -40px; left: 8px;
+      background: var(--ink); color: white; padding: 8px 14px;
+      border-radius: 0 0 8px 8px; font-size: 13px; font-weight: 500;
+      text-decoration: none; z-index: 1000;
+      transition: top .15s;
+    }
+    .skip-link:focus { top: 0; outline: 2px solid var(--gold); }
   </style>
 </head>
 <body>
+<a href="#main-content" class="skip-link">Skip to main content</a>
 <script defer src="bookmarks.js"></script>
 <script defer src="paywall.js"></script>
 
@@ -95,13 +105,13 @@
     <a href="templates.html">Templates</a>
     <a href="budget.html">Budget</a>
     <a href="saved.html" class="nav-heart" aria-label="Saved venues">
-      <svg viewBox="0 0 24 24"><path d="M12 21s-7.5-4.5-9.5-9C1 8 3.5 5 7 5c1.7 0 3.3.9 4.2 2.2.3.4.9.4 1.2 0C13.3 5.9 14.9 5 16.6 5 20.1 5 22.6 8 21 12c-2 4.5-9 9-9 9z"/></svg>
+      <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M12 21s-7.5-4.5-9.5-9C1 8 3.5 5 7 5c1.7 0 3.3.9 4.2 2.2.3.4.9.4 1.2 0C13.3 5.9 14.9 5 16.6 5 20.1 5 22.6 8 21 12c-2 4.5-9 9-9 9z"/></svg>
       <span data-bookmark-count></span>
     </a>
   </div>
 </nav>
 
-<main>
+<main id="main-content">
   <h1>NYC Certification Guide</h1>
   <p class="lede">Where to actually get certified to teach in NYC — Pilates, Yoga, Personal Training, Reiki, Sound, Breathwork, Meditation. Schools, formats, what you'll pay, what each certification gets you in the door.</p>
 

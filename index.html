@@ -14,7 +14,7 @@
       --earth: #7A6A52;
       --stone: #EDE9E0;
       --cream: #FAF8F4;
-      --bark: #B5A48A;
+      --bark: #6E5E45;
       --gold: #C9A84C;
       --gold-l: #FBF5E6;
       --gold-d: #7A5C14;
@@ -508,25 +508,37 @@
     .nav-heart.active svg { fill: currentColor; }
     .nav-heart [data-bookmark-count] { font-size: 10px; font-weight: 500; line-height: 1; }
     .nav-heart [data-bookmark-count]:not(:empty) { background: #C47D7D; color: white; padding: 2px 6px; border-radius: 10px; }
+  
+    .skip-link {
+      position: absolute; top: -40px; left: 8px;
+      background: var(--ink); color: white; padding: 8px 14px;
+      border-radius: 0 0 8px 8px; font-size: 13px; font-weight: 500;
+      text-decoration: none; z-index: 1000;
+      transition: top .15s;
+    }
+    .skip-link:focus { top: 0; outline: 2px solid var(--gold); }
   </style>
 </head>
 <body>
+<a href="#main-content" class="skip-link">Skip to main content</a>
 
   <nav>
     <a href="index.html" class="logo">auric<span>.</span>os</a>
     <div class="nav-links">
-      <a href="index.html" class="active">Home</a>
+      <a href="index.html" class="active" aria-current="page">Home</a>
       <a href="listings.html">Venues</a>
       <a href="assistant.html">Concierge</a>
       <a href="templates.html">Templates</a>
       <a href="budget.html">Budget</a>
       <a href="saved.html" class="nav-heart" aria-label="Saved venues">
-        <svg viewBox="0 0 24 24"><path d="M12 21s-7.5-4.5-9.5-9C1 8 3.5 5 7 5c1.7 0 3.3.9 4.2 2.2.3.4.9.4 1.2 0C13.3 5.9 14.9 5 16.6 5 20.1 5 22.6 8 21 12c-2 4.5-9 9-9 9z"/></svg>
+        <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M12 21s-7.5-4.5-9.5-9C1 8 3.5 5 7 5c1.7 0 3.3.9 4.2 2.2.3.4.9.4 1.2 0C13.3 5.9 14.9 5 16.6 5 20.1 5 22.6 8 21 12c-2 4.5-9 9-9 9z"/></svg>
         <span data-bookmark-count></span>
       </a>
     </div>
     <a href="#join" class="nav-cta">Join free</a>
   </nav>
+
+<main id="main-content">
 
   <!-- HERO -->
   <div class="hero">
@@ -546,7 +558,7 @@
   <!-- STATS -->
   <div class="stats">
     <div class="stat-item">
-      <div class="stat-n">69<span>+</span></div>
+      <div class="stat-n">72<span>+</span></div>
       <div class="stat-label">NYC venues curated</div>
     </div>
     <div class="stat-item">
@@ -596,42 +608,42 @@
     <div class="features-grid">
       <div class="feature-card">
         <div class="feature-icon" style="background:var(--sage-l)">
-          <svg width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="#7B9E87" stroke-width="1.5" stroke-linecap="round"><path d="M10 4l2 6h6l-5 4 2 6-5-4-5 4 2-6-5-4h6z"/></svg>
+          <svg aria-hidden="true" width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="#7B9E87" stroke-width="1.5" stroke-linecap="round"><path d="M10 4l2 6h6l-5 4 2 6-5-4-5 4 2-6-5-4h6z"/></svg>
         </div>
         <div class="feature-title">Venue reviews <span style="font-size:10px;background:var(--gold-l);color:var(--gold-d);padding:1px 6px;border-radius:10px;font-weight:500;margin-left:4px">Soon</span></div>
         <div class="feature-body">Real feedback from NYC wellness creators who've actually booked the space. "Booked via Auric" badges on verified reviews.</div>
       </div>
       <div class="feature-card">
         <div class="feature-icon" style="background:var(--gold-l)">
-          <svg width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="#C9A84C" stroke-width="1.5" stroke-linecap="round"><path d="M10 2l2.4 5 5.6.8-4 3.9.9 5.5L10 14.5l-4.9 2.7.9-5.5-4-3.9 5.6-.8z"/></svg>
+          <svg aria-hidden="true" width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="#C9A84C" stroke-width="1.5" stroke-linecap="round"><path d="M10 2l2.4 5 5.6.8-4 3.9.9 5.5L10 14.5l-4.9 2.7.9-5.5-4-3.9 5.6-.8z"/></svg>
         </div>
         <div class="feature-title">Community hidden gems</div>
         <div class="feature-body">Creators share unlisted spaces — rooftops, church halls, library rooms, civic buildings — that no platform has catalogued.</div>
       </div>
       <div class="feature-card">
         <div class="feature-icon" style="background:var(--sky-l)">
-          <svg width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="#6B9AB8" stroke-width="1.5" stroke-linecap="round"><circle cx="10" cy="7" r="3"/><path d="M3 18c0-3.9 3.1-7 7-7s7 3.1 7 7"/></svg>
+          <svg aria-hidden="true" width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="#6B9AB8" stroke-width="1.5" stroke-linecap="round"><circle cx="10" cy="7" r="3"/><path d="M3 18c0-3.9 3.1-7 7-7s7 3.1 7 7"/></svg>
         </div>
         <div class="feature-title">Creator profiles <span style="font-size:10px;background:var(--gold-l);color:var(--gold-d);padding:1px 6px;border-radius:10px;font-weight:500;margin-left:4px">Soon</span></div>
         <div class="feature-body">Discover and connect with NYC instructors — pilates, yoga, sound, reiki, breathwork — and the venues they've worked with.</div>
       </div>
       <div class="feature-card">
         <div class="feature-icon" style="background:var(--plum-l, #F2EEF8)">
-          <svg width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="#8A6FAA" stroke-width="1.5" stroke-linecap="round"><rect x="3" y="3" width="14" height="14" rx="2"/><path d="M7 8h6M7 11h6M7 14h4"/></svg>
+          <svg aria-hidden="true" width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="#8A6FAA" stroke-width="1.5" stroke-linecap="round"><rect x="3" y="3" width="14" height="14" rx="2"/><path d="M7 8h6M7 11h6M7 14h4"/></svg>
         </div>
         <div class="feature-title">Cert + insurance, upfront</div>
         <div class="feature-body">Every venue lists exactly what it requires — instructor certifications, COI minimums, ADA access. No more wasted emails to spaces you can't book.</div>
       </div>
       <div class="feature-card">
         <div class="feature-icon" style="background:var(--rose-l)">
-          <svg width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="#C47D7D" stroke-width="1.5" stroke-linecap="round"><path d="M3 6l8 5 8-5M3 6v10h16V6"/></svg>
+          <svg aria-hidden="true" width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="#C47D7D" stroke-width="1.5" stroke-linecap="round"><path d="M3 6l8 5 8-5M3 6v10h16V6"/></svg>
         </div>
         <div class="feature-title">One-click outreach drafts</div>
         <div class="feature-body">Every listing has a pre-written inquiry tailored to that space. Open it in your email app, tweak, and send. No copy-pasting from templates.</div>
       </div>
       <div class="feature-card">
         <div class="feature-icon" style="background:var(--sage-l)">
-          <svg width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="#7B9E87" stroke-width="1.5" stroke-linecap="round"><path d="M3 6l7 5 7-5M3 6v10h14V6"/></svg>
+          <svg aria-hidden="true" width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="#7B9E87" stroke-width="1.5" stroke-linecap="round"><path d="M3 6l7 5 7-5M3 6v10h14V6"/></svg>
         </div>
         <div class="feature-title">Free civic spaces</div>
         <div class="feature-body">Libraries, parks, community centers, historic buildings — free or near-free spaces most creators don't know are bookable. No commission ever.</div>
@@ -669,7 +681,7 @@
     <div class="assistant-preview">
       <div class="assistant-header">
         <div class="assistant-avatar">
-          <svg width="16" height="16" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="7" r="3" fill="#C9A84C"/><path d="M3 18c0-3.9 3.1-7 7-7s7 3.1 7 7" stroke="#C9A84C" stroke-width="1.5" stroke-linecap="round" fill="none"/></svg>
+          <svg aria-hidden="true" width="16" height="16" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="7" r="3" fill="#C9A84C"/><path d="M3 18c0-3.9 3.1-7 7-7s7 3.1 7 7" stroke="#C9A84C" stroke-width="1.5" stroke-linecap="round" fill="none"/></svg>
         </div>
         <div>
           <div class="assistant-name">Auric Concierge</div>
@@ -679,7 +691,7 @@
       <div class="chat-area">
         <div class="msg">
           <div class="msg-avatar" style="background:var(--gold-l);border:1px solid #E8D080">
-            <svg width="12" height="12" viewBox="0 0 20 20" fill="#C9A84C"><circle cx="10" cy="7" r="3"/><path d="M3 18c0-3.9 3.1-7 7-7s7 3.1 7 7" stroke="#C9A84C" stroke-width="1.5" fill="none"/></svg>
+            <svg aria-hidden="true" width="12" height="12" viewBox="0 0 20 20" fill="#C9A84C"><circle cx="10" cy="7" r="3"/><path d="M3 18c0-3.9 3.1-7 7-7s7 3.1 7 7" stroke="#C9A84C" stroke-width="1.5" fill="none"/></svg>
           </div>
           <div class="msg-bubble">Hi — I'm Auric Concierge. Ask me about NYC venues, permits, certifications, or neighborhoods. Or describe your event (type, headcount, neighborhood, budget) and I'll match you to spaces.</div>
         </div>
@@ -689,7 +701,7 @@
         </div>
         <div class="msg">
           <div class="msg-avatar" style="background:var(--gold-l);border:1px solid #E8D080">
-            <svg width="12" height="12" viewBox="0 0 20 20" fill="#C9A84C"><circle cx="10" cy="7" r="3"/><path d="M3 18c0-3.9 3.1-7 7-7s7 3.1 7 7" stroke="#C9A84C" stroke-width="1.5" fill="none"/></svg>
+            <svg aria-hidden="true" width="12" height="12" viewBox="0 0 20 20" fill="#C9A84C"><circle cx="10" cy="7" r="3"/><path d="M3 18c0-3.9 3.1-7 7-7s7 3.1 7 7" stroke="#C9A84C" stroke-width="1.5" fill="none"/></svg>
           </div>
           <div class="msg-bubble">For $300 in Brooklyn, I'd start with: <strong>The Invisible Dog Art Center</strong> in Boerum Hill (polished concrete, $1,000 weekday), <strong>St. Paul's Hall</strong> in Park Slope ($75–$120/hr, beautiful acoustics), or the <strong>Brooklyn Central Library</strong> community room (free, ADA, 2-week lead). Want me to draft outreach emails for all three?</div>
         </div>
@@ -717,7 +729,7 @@
         <div style="background:white;border:0.5px solid var(--stone);border-radius:12px;padding:22px;transition:border-color .15s;cursor:pointer" onmouseover="this.style.borderColor='var(--bark)'" onmouseout="this.style.borderColor='var(--stone)'">
           <div style="width:36px;height:36px;background:var(--sage-l);border-radius:8px;display:flex;align-items:center;justify-content:center;margin-bottom:12px;font-size:18px">🏢</div>
           <div style="font-size:14px;font-weight:500;color:var(--ink);margin-bottom:5px">NYC Venues</div>
-          <div style="font-size:12px;color:var(--earth);line-height:1.6">69+ verified spaces with clear pricing, cert requirements, and direct booking links. Filter for community gems, free civic spaces, modality, and more.</div>
+          <div style="font-size:12px;color:var(--earth);line-height:1.6">72+ verified spaces with clear pricing, cert requirements, and direct booking links. Filter for community gems, free civic spaces, modality, and more.</div>
         </div>
       </a>
 
@@ -791,13 +803,15 @@
     <h2 style="color:white">Join Auric — free</h2>
     <p>For NYC wellness creators. No credit card. No commitment. You get the full venue directory, 3 saved venues, and 5 Concierge queries a month.</p>
     <div class="cta-input-row">
-      <input class="cta-input" type="email" placeholder="your@email.com" id="email-input">
+      <input class="cta-input" type="email" placeholder="your@email.com" id="email-input" aria-label="Your email address">
       <button class="btn-gold" onclick="handleSignup()">Join free</button>
     </div>
     <p class="cta-note" id="signup-note">Free forever for creators · Already a member? <a href="mailto:auricmovement@outlook.com" style="color:var(--gold)">Sign in</a></p>
   </div>
 
-  <!-- FOOTER -->
+  </main>
+
+<!-- FOOTER -->
   <footer>
     <a href="#" class="footer-logo">auric<span>.</span>os</a>
     <div style="display:flex;gap:18px;flex-wrap:wrap;justify-content:center;font-size:12px;color:var(--earth)">
